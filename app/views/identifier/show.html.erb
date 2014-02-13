@@ -1,0 +1,41 @@
+<h3><%= params[:value] %> <small class="text-muted"><%= params[:type] %></small></h3>
+
+<% if @authored.empty? and @received.empty? %>
+<p><strong>Identifier '<%= params[:value] %>' has no feedback yet</strong></p>
+<% end %>
+
+<p>
+  <a href="/write/type/<%= params[:value] %>" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Write feedback</a>
+</p>
+
+<ul>
+<% @mentionedWith.each do |id| %>
+  <li><%= id.first %>, <%= id.second %></li>
+<% end %>
+</ul>
+
+<% unless @received.empty? %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Feedback received (<span class="glyphicon glyphicon-thumbs-up"></span> <%= @receivedPositive %>, <span class="glyphicon glyphicon-question-sign"></span> <%= @receivedNeutral %>, <span class="glyphicon glyphicon-thumbs-down"></span> <%= @receivedNegative %>)</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <%= render partial: "message", collection: @received %>
+    </table>
+  </div>
+</div>
+<% end %>
+
+<% unless @authored.empty? %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Feedback sent (<span class="glyphicon glyphicon-thumbs-up"></span> <%= @authoredPositive %>, <span class="glyphicon glyphicon-question-sign"></span> <%= @authoredNeutral %>, <span class="glyphicon glyphicon-thumbs-down"></span> <%= @authoredNegative %>)</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <%= render partial: "message", collection: @authored %>
+    </table>
+  </div>
+</div>
+<% end %>

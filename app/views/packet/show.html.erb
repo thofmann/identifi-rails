@@ -1,0 +1,78 @@
+<% if @packet.nil? %>
+<h1>Message not found</h1>
+<p>Message with hash '<%= params[:hash] %>' was not found.</p>
+<% else %>
+
+<%
+  signedData = @packet["data"]["signedData"] 
+
+  rating = signedData["rating"]
+  neutralRating = (signedData["minRating"] + signedData["maxRating"]) / 2
+  reviewToneStyle = "panel-warning"
+  if rating > neutralRating
+    reviewToneStyle = "panel-success"
+  elsif rating < neutralRating
+    reviewToneStyle = "panel-danger"
+  end
+%>
+
+<h4><%= Time.at(@packet["data"]["signedData"]["timestamp"]).to_time() %></h4>
+
+<div class="row">
+  <div class="col-xs-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">From</h3>
+      </div>
+      <div class="panel-body">
+        <% signedData["author"].each do |a| %>
+        <ul>
+          <li><%= a.first %>: <a href="/id/<%= a.first %>/<%= a.last %>"><%= a.last %></a></li>
+        </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-6" style="overflow:hidden">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">To</h3>
+      </div>
+      <div class="panel-body">
+        <% signedData["recipient"].each do |r| %>
+        <ul>
+          <li><%= r.first %>: <a href="/id/<%= r.first %>/<%= r.last %>"><%= r.last %></a></li>
+        </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="panel panel-default <%= reviewToneStyle %>">
+  <div class="panel-heading">
+    <h3 class="panel-title">Review</h3>
+  </div>
+  <div class="panel-body">
+    <p><strong>Score:</strong> <%= signedData["rating"] %>
+      <small>(<%= signedData["minRating"] %>...<%= signedData["maxRating"] %>)</small>
+    </p>
+    <p><strong>Comment:</strong> <%= signedData["comment"] %></p>
+  </div>
+</div>
+
+<h4>Message origin verified by</h4>
+<% @packet["data"]["signatures"].each do |sig| %>
+<ul>
+  <li><a href="/id/base58pubkey/<%= sig["pubKey"] %>"><%= sig["pubKey"] %></a></li>
+</ul>
+<% end %>
+
+<h4>Raw data</h4>
+<pre>
+<%= JSON.pretty_generate(@packet["data"]) %>
+</pre>
+
+<% end %>

@@ -1,0 +1,37 @@
+<%
+  signedData = message["data"]["signedData"] 
+
+  rating = signedData["rating"]
+  neutralRating = (signedData["minRating"] + signedData["maxRating"]) / 2
+  reviewToneStyle = "warning"
+  iconStyle = "glyphicon-question-sign"
+  if rating > neutralRating
+    reviewToneStyle = "success"
+    iconStyle = "glyphicon-thumbs-up"
+  elsif rating < neutralRating
+    reviewToneStyle = "danger"
+    iconStyle = "glyphicon-thumbs-down"
+  end
+
+  firstAuthor = signedData["author"].first
+  firstRecipient = signedData["recipient"].first
+%>
+
+<tr class="<%= reviewToneStyle %>">
+  <td>
+    <p>
+      <span class="glyphicon <%= iconStyle %> pull-right"></span>
+      <strong>
+        <a href="/id/<%= firstAuthor.first %>/<%= firstAuthor.last %>">
+          <%= firstAuthor.second %>
+        </a>
+      </strong>
+      &#x25B8;
+      <a href="/id/<%= firstRecipient.first %>/<%= firstRecipient.last %>">
+        <%= firstRecipient.second %>
+      </a>
+    </p>
+    <p><%= signedData["comment"] %></p>
+    <p><a href="/message/<%= message["hash"] %>" class="text-muted"><%= Time.at(signedData["timestamp"]).to_time %></a></p>
+  </td>
+</tr>
