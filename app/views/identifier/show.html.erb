@@ -1,23 +1,30 @@
 <h3><%= params[:value] %> <small class="text-muted"><%= params[:type] %></small></h3>
 
+<% if @mentionedWith.empty? %>
+<div class="alert alert-info">Not connected with other identifiers</div>
+<% else %>
+  <dl class="dl-horizontal">
+  <% @mentionedWith.each do |id| %>
+    <dt><%= id.first %></dt>
+    <dd><%= id.second %></dd>
+  <% end %>
+  </dl>
+<% end %>
+
 <% if @authored.empty? and @received.empty? %>
-<p><strong>Identifier '<%= params[:value] %>' has no feedback yet</strong></p>
+  <div class="alert alert-info">No feedback for '<%= params[:value] %>' yet</div>
 <% end %>
 
 <p>
   <a href="/write/type/<%= params[:value] %>" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Write feedback</a>
+  <a href="/write/type/<%= params[:value] %>" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add connections</a>
+  <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-screenshot"></span> Set as point of view</a>
 </p>
-
-<ul>
-<% @mentionedWith.each do |id| %>
-  <li><%= id.first %>, <%= id.second %></li>
-<% end %>
-</ul>
 
 <% unless @received.empty? %>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Feedback received (<span class="glyphicon glyphicon-thumbs-up"></span> <%= @receivedPositive %>, <span class="glyphicon glyphicon-question-sign"></span> <%= @receivedNeutral %>, <span class="glyphicon glyphicon-thumbs-down"></span> <%= @receivedNegative %>)</h3>
+    <h3 class="panel-title"><span class="glyphicon glyphicon-download"></span> Feedback received (<span class="glyphicon glyphicon-thumbs-up"></span> <%= @receivedPositive %>, <span class="glyphicon glyphicon-question-sign"></span> <%= @receivedNeutral %>, <span class="glyphicon glyphicon-thumbs-down"></span> <%= @receivedNegative %>)</h3>
   </div>
   <div class="panel-body">
     <table class="table">
@@ -30,7 +37,7 @@
 <% unless @authored.empty? %>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Feedback sent (<span class="glyphicon glyphicon-thumbs-up"></span> <%= @authoredPositive %>, <span class="glyphicon glyphicon-question-sign"></span> <%= @authoredNeutral %>, <span class="glyphicon glyphicon-thumbs-down"></span> <%= @authoredNegative %>)</h3>
+    <h3 class="panel-title"><span class="glyphicon glyphicon-upload"></span> Feedback sent (<span class="glyphicon glyphicon-thumbs-up"></span> <%= @authoredPositive %>, <span class="glyphicon glyphicon-question-sign"></span> <%= @authoredNeutral %>, <span class="glyphicon glyphicon-thumbs-down"></span> <%= @authoredNegative %>)</h3>
   </div>
   <div class="panel-body">
     <table class="table">

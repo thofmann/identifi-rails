@@ -22,7 +22,9 @@ class IdentifierController < ApplicationController
       else
       	@authoredNeutral += 1
       end
-      @mentionedWith.insert(signedData["author"])
+      signedData["author"].each do |a|
+        @mentionedWith.push(a) unless a.second == params[:value]        
+      end
     end
 
     @receivedPositive = 0
