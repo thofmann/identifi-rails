@@ -23,7 +23,7 @@ class IdentifierController < ApplicationController
       	@authoredNeutral += 1
       end
       signedData["author"].each do |a|
-        @mentionedWith.push(a) unless a.second == params[:value]        
+        @mentionedWith.push(a) unless a.second == params[:value]
       end
     end
 
@@ -42,7 +42,9 @@ class IdentifierController < ApplicationController
       else
       	@receivedNeutral += 1
       end
-      @mentionedWith.insert(signedData["recipient"])
+      signedData["recipient"].each do |a|
+        @mentionedWith.push(a) unless a.second == params[:value]
+      end
     end
   end
 end
