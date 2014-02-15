@@ -2,7 +2,7 @@
 
 <p>
   <a href="/write/type/<%= params[:value] %>" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Write feedback</a>
-  <a href="/write/type/<%= params[:value] %>" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add connections</a>
+  <a href="/write/type/<%= params[:value] %>" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add identifiers</a>
   <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-screenshot"></span> Set as point of view</a>
 </p>
 
@@ -11,15 +11,15 @@
 <% else %>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title"><span class="glyphicon glyphicon-at"></span> Connected identifiers</h3>
+    <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> Connected identifiers</h3>
   </div>
   <table class="table">
   <% @mentionedWith.each do |id| %>
     <tr>
       <td><%= id.first %></td>
       <td><a href="<%= "/id/#{id.first}/#{id.second}" %>"><%= id.second %></a></td>
-      <td><button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Correct</button>
-      <button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Incorrect</button></td>
+      <td><button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Agree</button>
+      <button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Disagree</button></td>
       <td>
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
@@ -43,7 +43,7 @@
     <h3 class="panel-title"><span class="glyphicon glyphicon-download"></span> Feedback received (<span class="glyphicon glyphicon-thumbs-up"></span> <%= @receivedPositive %>, <span class="glyphicon glyphicon-question-sign"></span> <%= @receivedNeutral %>, <span class="glyphicon glyphicon-thumbs-down"></span> <%= @receivedNegative %>)</h3>
   </div>
   <table class="table">
-    <%= render partial: "message", collection: @received %>
+    <%= render partial: "message_row", collection: @received %>
   </table>
 </div>
 <% end %>
@@ -54,7 +54,7 @@
     <h3 class="panel-title"><span class="glyphicon glyphicon-upload"></span> Feedback sent (<span class="glyphicon glyphicon-thumbs-up"></span> <%= @authoredPositive %>, <span class="glyphicon glyphicon-question-sign"></span> <%= @authoredNeutral %>, <span class="glyphicon glyphicon-thumbs-down"></span> <%= @authoredNegative %>)</h3>
   </div>
   <table class="table">
-    <%= render partial: "message", collection: @authored %>
+    <%= render partial: "message_row", collection: @authored %>
   </table>
 </div>
 <% end %>

@@ -15,3 +15,10 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap
+
+$(document).ready(function() {
+  $("#nav-search").submit(function(event) {
+  	event.preventDefault();
+    window.location.assign("/id/" + $("#nav-search-field").val());
+  });
+});
