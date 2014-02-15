@@ -1,60 +1,35 @@
 <h3><%= params[:value] %> <small class="text-muted"><%= params[:type] %></small></h3>
 
+<!--
 <p>
-  <a href="/write/type/<%= params[:value] %>" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Write feedback</a>
   <a href="/write/type/<%= params[:value] %>" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add identifiers</a>
   <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-screenshot"></span> Set as point of view</a>
-</p>
+</p> -->
 
-<% if @mentionedWith.empty? %>
-<div class="alert alert-info">Not connected with other identifiers</div>
-<% else %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> Connected identifiers</h3>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#received" data-toggle="tab">Received feedback</a></li>
+  <li><a href="#sent" data-toggle="tab">Sent feedback</a></li>
+  <li><a href="#about" data-toggle="tab">Connections</a></li>
+  <li><a href="#chart" data-toggle="tab">Chart</a></li>
+  <li><a href="#graph" data-toggle="tab">Graph</a></li>
+</ul>
+<br>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="received">
+    <%= render "received" %>
   </div>
-  <table class="table">
-  <% @mentionedWith.each do |id| %>
-    <tr>
-      <td><%= id.first %></td>
-      <td><a href="<%= "/id/#{id.first}/#{id.second}" %>"><%= id.second %></a></td>
-      <td><button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Agree</button>
-      <button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Disagree</button></td>
-      <td>
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-            <span class="glyphicon glyphicon-ok"></span> n
-          </div>
-        </div>
-      </td>
-    </tr>
-  <% end %>
-  </table>
-</div>
-<% end %>
-
-<% if @authored.empty? and @received.empty? %>
-  <div class="alert alert-info">No feedback for '<%= params[:value] %>' yet</div>
-<% end %>
-
-<% unless @received.empty? %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><span class="glyphicon glyphicon-download"></span> Feedback received (<span class="glyphicon glyphicon-thumbs-up"></span> <%= @receivedPositive %>, <span class="glyphicon glyphicon-question-sign"></span> <%= @receivedNeutral %>, <span class="glyphicon glyphicon-thumbs-down"></span> <%= @receivedNegative %>)</h3>
+  <div class="tab-pane" id="sent">
+    <%= render "sent" %>
   </div>
-  <table class="table">
-    <%= render partial: "message_row", collection: @received %>
-  </table>
-</div>
-<% end %>
-
-<% unless @authored.empty? %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><span class="glyphicon glyphicon-upload"></span> Feedback sent (<span class="glyphicon glyphicon-thumbs-up"></span> <%= @authoredPositive %>, <span class="glyphicon glyphicon-question-sign"></span> <%= @authoredNeutral %>, <span class="glyphicon glyphicon-thumbs-down"></span> <%= @authoredNegative %>)</h3>
+  <div class="tab-pane" id="about">
+    <%= render "about" %>
   </div>
-  <table class="table">
-    <%= render partial: "message_row", collection: @authored %>
-  </table>
+  <div class="tab-pane" id="chart">
+    <%= render "chart" %>
+  </div>
+  <div class="tab-pane" id="graph">
+    <%= render "graph" %>
+  </div>
 </div>
-<% end %>

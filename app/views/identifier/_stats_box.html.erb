@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Stats</h3>
+  </div>
+  <table class="table">
+    <tr>
+      <td>Sent</td> 
+      <td><span class="glyphicon glyphicon-thumbs-up"></span> <%= @authoredPositive %>, <span class="glyphicon glyphicon-question-sign"></span> <%= @authoredNeutral %>, <span class="glyphicon glyphicon-thumbs-down"></span> <%= @authoredNegative %></td>
+    </tr>
+    <tr>
+      <td>Received</td>
+      <td><span class="glyphicon glyphicon-thumbs-up"></span> <%= @receivedPositive %> <span class="glyphicon glyphicon-question-sign"></span> <%= @receivedNeutral %> <span class="glyphicon glyphicon-thumbs-down"></span> <%= @receivedNegative %></td>
+    </tr>
+    <tr>
+      <td>Recommendation <br>quality <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Recommendations given for identifiers that got good feedback later"></span></td>
+      <td>95%</td>
+    </tr>
+    <tr>
+      <td>Connections' <br>quality <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Created connections that were not disputed by others"></span></td>
+      <td>95%</td>
+    </tr>    <tr>
+      <td>First seen</td>
+      <td><%= Time.at(@received.last["data"]["signedData"]["timestamp"]).to_date() unless @received.empty? %></td>
+    </tr>
+  </table>
+</div>

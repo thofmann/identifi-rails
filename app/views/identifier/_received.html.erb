@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-4">
+    <%= render "stats_box" %>
+    <%= render "about_box" %>
+  </div>
+
+  <div class="col-md-8">
+    <% if @received.empty? %>
+      <div class="alert alert-info">No feedback for '<%= params[:value] %>' yet</div>
+    <% else %>
+      <%= render partial: "message", collection: @received, locals: {showRecipient: false, showAuthor: true } %>
+    <% end %>
+  </div>
+</div>

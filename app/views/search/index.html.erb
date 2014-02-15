@@ -3,4 +3,4 @@
 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 </div>
 
-<%= render partial: "message_panel", collection: @latest %>
+<%= render partial: "message", collection: @latest, locals: {showAuthor: true, showRecipient: true} %>

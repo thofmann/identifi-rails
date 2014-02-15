@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-md-4">
+    <%= render "stats_box" %>
+    <%= render "about_box" %>
+  </div>
+  <div class="col-md-8">
+    <% if @authored.empty? %>
+      <div class="alert alert-info">No feedback by '<%= params[:value] %>' yet</div>
+    <% else %>
+      <%= render partial: "message", collection: @authored, locals: {showRecipient: true, showAuthor: false } %>
+    <% end %>
+  </div>
+</div>
