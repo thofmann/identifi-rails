@@ -1,6 +1,2 @@
-<div class="alert alert-info">
-  <strong><a href="/login">Log in</a></strong> to write messages.
-<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-</div>
-
+<%= render "login_info" unless current_user %>
 <%= render partial: "message", collection: @latest, locals: {showAuthor: true, showRecipient: true} %>

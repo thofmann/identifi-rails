@@ -36,8 +36,11 @@
       <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="<%= 'active' if params[:controller] == 'search' %>"><a href="/"><span class="glyphicon glyphicon-home"></span></a></li>
-          <!-- <li class="<%= 'active' if params[:controller] == 'write' %>"><a href="/write"><span class="glyphicon glyphicon-envelope"></span></a></li> -->
-          <li class="<%= 'active' if params[:controller] == 'login' %>"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
+          <% if current_user %>
+            <li class="<%= 'active' if params[:controller] == 'login' %>"><a href="/login"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+          <% else %>
+            <li class="<%= 'active' if params[:controller] == 'login' %>"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
+          <% end %>
         </ul>
         <!--
         <ul class="nav navbar-nav navbar-right">

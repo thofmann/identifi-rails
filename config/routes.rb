@@ -1,5 +1,4 @@
 IdentifiRails::Application.routes.draw do
-  get "write/index"
   get "send/index"
   get "api/getpacketsbyauthor"
   get "api/getpacketsbyrecipient"
@@ -14,12 +13,17 @@ IdentifiRails::Application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
+  get 'login' => 'login#index'
+
   get 'id(/:value)' => 'identifier#show', :constraints => { :value => /[^\/]+/ }
   get 'id/:type/:value' => 'identifier#show', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
 
   get 'message(/:hash)' => 'packet#show'
 
-  get 'write(/:type/:value)' => 'write#index'
+  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  match 'auth/failure', to: redirect('/'), via: [:get, :post]
+  match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
