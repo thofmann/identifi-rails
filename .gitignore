@@ -15,5 +15,8 @@
 /log/*.log
 /tmp
 
+# Ignore built assets
+/public/assets/*
+
 config/config.yml
 *~
