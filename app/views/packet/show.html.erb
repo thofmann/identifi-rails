@@ -64,9 +64,9 @@
 </div>
 
 <h4>Message origin verified by</h4>
-<% @packet["data"]["signatures"].each do |sig| %>
+<% @packet["signatureDetails"].each do |sig| %>
 <ul>
-  <li><a href="/id/base58pubkey/<%= sig["pubKey"] %>"><%= sig["pubKey"] %></a></li>
+  <li><a href="/id/keyID/<%= sig["signerKeyID"] %>"><%= sig["signerKeyID"] %></a></li>
 </ul>
 <% end %>
 
