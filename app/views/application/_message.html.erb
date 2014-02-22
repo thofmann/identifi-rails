@@ -13,8 +13,10 @@
     iconStyle = "glyphicon-thumbs-down"
   end
 
-  firstAuthor = signedData["author"].first
-  firstRecipient = signedData["recipient"].first
+  author = signedData["author"].find { |a| a.first == "nickname" || a.first == "name" }
+  recipient = signedData["recipient"].find { |r| r.first == "nickname" || r.first == "name" }
+  author = signedData["author"].first if author.nil?
+  recipient =  signedData["recipient"].first if recipient.nil?
 %>
 
 <div class="panel <%= reviewToneStyle %>">
@@ -23,15 +25,15 @@
       <span class="glyphicon <%= iconStyle %> pull-right"></span>
       <% if showAuthor %>
       <strong>
-        <a href="/id/<%= firstAuthor.first %>/<%= firstAuthor.last %>">
-          <%= firstAuthor.second %>
+        <a href="/id/<%= author.first %>/<%= author.last %>">
+          <%= author.second %>
         </a>
       </strong>
       <% end %>
       &#x25B8;
       <% if showRecipient %>
-      <a href="/id/<%= firstRecipient.first %>/<%= firstRecipient.last %>">
-        <%= firstRecipient.second %>
+      <a href="/id/<%= recipient.first %>/<%= recipient.last %>">
+        <%= recipient.second %>
       </a>
       <% end %>
     </p>
