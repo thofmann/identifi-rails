@@ -6,13 +6,26 @@
 <%
   signedData = @packet["data"]["signedData"] 
 
-  rating = signedData["rating"]
-  neutralRating = (signedData["minRating"] + signedData["maxRating"]) / 2
-  reviewToneStyle = "panel-warning"
-  if rating > neutralRating
-    reviewToneStyle = "panel-success"
-  elsif rating < neutralRating
-    reviewToneStyle = "panel-danger"
+  panelStyle = "panel-default"
+  iconStyle = ""
+
+  if signedData["type"] == "connection"
+    iconStyle = "glyphicon-link"
+  end
+
+  if signedData["type"] == "review"
+    rating = signedData["rating"]
+    neutralRating = (signedData["minRating"] + signedData["maxRating"]) / 2
+    if rating > neutralRating
+      panelStyle = "panel-success"
+      iconStyle = "glyphicon-thumbs-up"
+    elsif rating < neutralRating
+      panelStyle = "panel-danger"
+      iconStyle = "glyphicon-thumbs-down"
+    else
+      panelStyle = "panel-warning"
+      iconStyle = "glyphicon-question-sign"
+    end
   end
 %>
 
@@ -51,9 +64,9 @@
 
 </div>
 
-<div class="panel panel-default <%= reviewToneStyle %>">
+<div class="panel panel-default <%= panelStyle %>">
   <div class="panel-heading">
-    <h3 class="panel-title">Review</h3>
+    <h3 class="panel-title"><%= signedData["type"].capitalize %></h3>
   </div>
   <div class="panel-body">
     <p><strong>Score:</strong> <%= signedData["rating"] %>
