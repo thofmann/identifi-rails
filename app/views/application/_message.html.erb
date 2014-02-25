@@ -27,8 +27,8 @@
   recipient =  signedData["recipient"].first
   authorName = message["authorName"]
   recipientName = message["recipientName"]
-  authorName = author if authorName.first.empty?
-  recipientName = recipient if recipientName.first.empty?
+  authorName = author if authorName.nil? or authorName.first.empty?
+  recipientName = recipient if recipientName.nil? or recipientName.first.empty?
 %>
 
 <div class="panel <%= panelStyle %>">
