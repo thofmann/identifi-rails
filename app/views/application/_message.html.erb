@@ -42,14 +42,24 @@
         </a>
       </strong>
       <% end %>
-      &#x25B8;
       <% if showRecipient %>
+      &#x25B8;
       <a href="/id/<%= recipient.first %>/<%= recipient.last %>">
         <%= recipientName.second %>
       </a>
       <% end %>
     </p>
+    <% if signedData["type"] == "connection" %>
+    <p class="small">
+    <% signedData["recipient"].each_with_index do |r, i| %>
+      <a href="<%= "/id/#{r.first}/#{r.second}" %>"><%= r.second %></a>
+      <% unless i + 1 == signedData["recipient"].size %>
+        <span class="glyphicon glyphicon-link"></span> 
+      <% end %>
+    <% end %>
+    </p>
+    <% end %>
     <p><%= signedData["comment"] %></p>
-    <p><a href="/message/<%= message["hash"] %>" class="text-muted"><%= Time.at(signedData["timestamp"]).to_time %></a></p>
+    <p><a href="/message/<%= message["hash"] %>" class="text-muted"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a></p>
   </div>
 </div>
