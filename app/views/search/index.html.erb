@@ -1,2 +1,6 @@
 <%= render "login_info" unless current_user %>
+
+<div id="messages">
 <%= render partial: "message", collection: @latest, locals: {showAuthor: true, showRecipient: true} %>
+</div>
+<div id="more"><a href="">More ...</a></div>

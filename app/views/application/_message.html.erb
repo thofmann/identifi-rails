@@ -31,7 +31,7 @@
   recipientName = recipient if recipientName.nil? or recipientName.first.empty?
 %>
 
-<div class="panel <%= panelStyle %>">
+<div class="panel <%= panelStyle %> message-panel">
   <div class="panel-heading">
     <p>
       <span class="glyphicon <%= iconStyle %> pull-right"></span>
@@ -60,6 +60,6 @@
     </p>
     <% end %>
     <p><%= signedData["comment"] %></p>
-    <p><a href="/message/<%= message["hash"] %>" class="text-muted"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a></p>
+    <p><a href="/message/<%= message["hash"] %>" class="text-muted small"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a></p>
   </div>
 </div>
