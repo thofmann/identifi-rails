@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).ready ->
+ready = () ->
   $("#btn-positive, #btn-neutral, #btn-negative").click (event) ->
     $(event.target).toggleClass("btn-success", $(event.target).is("#btn-positive:active"))
     $(event.target).toggleClass("btn-warning", $(event.target).is("#btn-neutral:active"))
@@ -10,3 +10,6 @@ $(document).ready ->
     $(event.target).parents(".panel").toggleClass("panel-success", $(event.target).is("#btn-positive"))
     $(event.target).parents(".panel").toggleClass("panel-warning", $(event.target).is("#btn-neutral"))
     $(event.target).parents(".panel").toggleClass("panel-danger", $(event.target).is("#btn-negative"))
+
+$(document).ready(ready)
+$(document).on('page.load', ready)

@@ -17,9 +17,12 @@
 //= require_tree .
 //= require bootstrap
 
-$(document).ready(function() {
+ready = function() {
   $("#nav-search").submit(function(event) {
   	event.preventDefault();
     window.location.assign("/id/" + $("#nav-search-field").val());
   });
-});
+}
+
+$(document).ready(ready);
+$(document).on('page.load', ready);
