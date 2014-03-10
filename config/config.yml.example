@@ -1,1 +1,5 @@
 identifiHost: 'http://identifirpc:rpcpassword@127.0.0.1:8332'
+fbID: ''
+fbKey: ''
+twitterKey: ''
+twitterSecret: ''
