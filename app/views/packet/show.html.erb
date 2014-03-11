@@ -29,7 +29,7 @@
   end
 %>
 
-<h4><%= Time.at(@packet["data"]["signedData"]["timestamp"]).to_time() %></h4>
+<h4><%= Time.at(@packet["data"]["signedData"]["timestamp"]).strftime("%-d-%-m-%Y %R") %></h4>
 
 <div class="row">
   <div class="col-xs-6">
@@ -77,14 +77,11 @@
 </div>
 
 <h4>Message origin verified by</h4>
-<% @packet["signatureDetails"].each do |sig| %>
-<ul>
-  <li><a href="/id/keyID/<%= sig["signerKeyID"] %>"><%= sig["signerKeyID"] %></a></li>
-</ul>
-<% end %>
+<% sig = @packet["signatureDetails"].first %>
+<a href="/id/keyID/<%= sig["signerKeyID"] %>"><%= sig["signerKeyID"] %></a>
 
-<h4>Raw data</h4>
-<pre>
+<h4><a data-toggle="collapse" class="text-muted" data-target="#rawdata" href="#">Show raw data</a></h4>
+<pre id="rawdata" class="collapse">
 <%= JSON.pretty_generate(@packet["data"]) %>
 </pre>
 
