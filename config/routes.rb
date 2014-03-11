@@ -18,7 +18,7 @@ IdentifiRails::Application.routes.draw do
 
   get 'login' => 'login#index'
 
-  get 'id(/:value)' => 'identifier#show', :constraints => { :value => /[^\/]+/ }
+  get 'search(/:value)' => 'identifier#show', :constraints => { :value => /[^\/]+/ }
   get 'id/:type/:value' => 'identifier#show', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
 
   get 'message(/:hash)' => 'packet#show'

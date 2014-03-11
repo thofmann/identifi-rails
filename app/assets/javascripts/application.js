@@ -20,7 +20,7 @@ ready = function() {
   $(".dropdown-toggle").dropdown();
   $("#nav-search").submit(function(event) {
   	event.preventDefault();
-    window.location.assign("/id/" + $("#nav-search-field").val());
+    window.location.assign("/search/" + $("#nav-search-field").val());
   });
 }
 
