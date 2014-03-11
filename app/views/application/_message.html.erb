@@ -48,6 +48,7 @@
         <%= recipientName.second %>
       </a>
       <% end %>
+       - <a href="/message/<%= message["hash"] %>" class="text-muted small"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a>
     </p>
     <% if signedData["type"] == "connection" %>
     <p class="small">
@@ -60,6 +61,5 @@
     </p>
     <% end %>
     <p><%= signedData["comment"] %></p>
-    <p><a href="/message/<%= message["hash"] %>" class="text-muted small"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a></p>
   </div>
 </div>
