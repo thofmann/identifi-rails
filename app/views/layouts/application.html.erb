@@ -37,7 +37,12 @@
           <% if current_user %>
             <li class="<%= 'active' if params[:controller] == 'login' %>"><a href="/login"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
           <% else %>
-            <li class="<%= 'active' if params[:controller] == 'login' %>"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
+            <li class="dropdown <%= 'active' if params[:controller] == 'login' %>">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Log in <b class="caret"></b></a>
+              <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                <%= render 'login_menu' %>
+              </ul>
+            </li>
           <% end %>
         </ul>
       </div><!-- /.navbar-collapse -->

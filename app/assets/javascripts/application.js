@@ -13,11 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.infinitescroll.min
-//= require turbolinks
 //= require_tree .
 //= require bootstrap
 
 ready = function() {
+  $(".dropdown-toggle").dropdown();
   $("#nav-search").submit(function(event) {
   	event.preventDefault();
     window.location.assign("/id/" + $("#nav-search-field").val());

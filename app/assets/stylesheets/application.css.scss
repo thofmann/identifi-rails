@@ -10,7 +10,7 @@
  *
  *= require bootstrap.min
  *= require font-awesome.min
- *= require social-buttons-3
+ *= require bootstrap-social
  *= require_tree .
  *= require_self
  */
@@ -66,4 +66,8 @@ body { padding-top: 70px; }
 
 a.text-muted:hover {
   color: #999999;
+}
+
+.btn-social:hover {
+  color: #FFFFFF;
 }
