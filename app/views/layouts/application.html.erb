@@ -33,11 +33,12 @@
           <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li class="<%= 'active' if params[:controller] == 'search' %>"><a href="/"><span class="glyphicon glyphicon-home"></span></a></li>
+          <li class="<%= 'active' if params[:controller] == 'home' %>"><a href="/"><span class="glyphicon glyphicon-home"></span></a></li>
           <% if current_user %>
-            <li class="dropdown <%= 'active' if params[:controller] == 'login' %>">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> <%= current_user.name %> <b class="caret"></b></a>
-              <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <%= current_user.name %> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class=""><a href="/id/<%= "#{current_user.provider}/#{current_user.uid}" %>"><span class="glyphicon glyphicon-user"></span> Public profile</a></li>
                 <li class=""><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
               </ul>
             </li>

@@ -1,3 +1,4 @@
+###
 jQuery ->
   $('body').prepend('<div id="fb-root"></div>')
 
@@ -5,6 +6,7 @@ jQuery ->
     url: "#{window.location.protocol}//connect.facebook.net/en_US/all.js"
     dataType: 'script'
     cache: true
+
 
 
 window.fbAsyncInit = ->
@@ -19,3 +21,4 @@ window.fbAsyncInit = ->
     FB.getLoginStatus (response) ->
       FB.logout() if response.authResponse
     true
+###
