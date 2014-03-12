@@ -76,11 +76,13 @@
   </div>
 </div>
 
-<h4>Message origin verified by</h4>
-<% sig = @packet["signatureDetails"].first %>
-<a href="/id/keyID/<%= sig["signerKeyID"] %>"><%= sig["signerKeyID"] %></a>
+<% sig = @packet["signatureDetails"].first
+signerName = sig["signerKeyID"]
+signerName = @packet["signerName"].second unless @packet["signerName"].nil?
+%>
+<p>Message origin verified by: <a href="/id/keyID/<%= sig["signerKeyID"] %>"><%= signerName %></a></p>
 
-<h4><a data-toggle="collapse" class="text-muted" data-target="#rawdata" href="#">Show raw data</a></h4>
+<p><a data-toggle="collapse" class="text-muted" data-target="#rawdata" href="#">Show raw data</a></p>
 <pre id="rawdata" class="collapse">
 <%= JSON.pretty_generate(@packet["data"]) %>
 </pre>
