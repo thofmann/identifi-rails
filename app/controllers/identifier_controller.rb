@@ -51,4 +51,17 @@ class IdentifierController < ApplicationController
       end
     end
   end
+
+  def write
+    h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+    params.require(:type)
+    params.require(:value)
+    if current_user
+      comment = (params[:comment] or "")
+      rating = (params[:rating] or "0")
+      publish = Rails.env.production?.to_s
+      h.savepacket(current_user.provider, current_user.uid, params[:type], params[:value], comment, rating, publish)
+    end
+    redirect_to :action => 'show'
+  end
 end

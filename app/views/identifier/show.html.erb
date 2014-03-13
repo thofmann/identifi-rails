@@ -1,4 +1,14 @@
-<h3><%= params[:value] %> <small class="text-muted"><%= params[:type] %></small></h3>
+<h3><%= params[:value] %>
+  <small class="text-muted">
+    <% if params[:type] == "bitcoin_address" %>
+      <a href="http://blockchain.info/address/<%= params[:value] %>">
+        <%= params[:type] %>
+      </a>
+    <% else %>
+      <%= params[:type] %>
+    <% end %>
+  </small>
+</h3>
 
 <!--
 <p>

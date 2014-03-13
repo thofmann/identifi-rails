@@ -4,12 +4,14 @@
 
 ready = () ->
   $("#btn-positive, #btn-neutral, #btn-negative").click (event) ->
-    $(event.target).toggleClass("btn-success", $(event.target).is("#btn-positive:active"))
-    $(event.target).toggleClass("btn-warning", $(event.target).is("#btn-neutral:active"))
-    $(event.target).toggleClass("btn-danger", $(event.target).is("#btn-negative:active"))
+    $("#btn-positive").toggleClass("btn-success", $(event.target).is("#btn-positive"))
+    $("#btn-neutral").toggleClass("btn-warning", $(event.target).is("#btn-neutral"))
+    $("#btn-negative").toggleClass("btn-danger", $(event.target).is("#btn-negative"))
     $(event.target).parents(".panel").toggleClass("panel-success", $(event.target).is("#btn-positive"))
     $(event.target).parents(".panel").toggleClass("panel-warning", $(event.target).is("#btn-neutral"))
     $(event.target).parents(".panel").toggleClass("panel-danger", $(event.target).is("#btn-negative"))
+    $(".btn-group button").click ->
+      $("#buttonvalue").val($(this).val());
 
 $(document).ready(ready)
 $(document).on('page.load', ready)

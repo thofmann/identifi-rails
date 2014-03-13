@@ -20,6 +20,7 @@ IdentifiRails::Application.routes.draw do
 
   get 'search(/:value)' => 'identifier#show', :constraints => { :value => /[^\/]+/ }
   get 'id/:type/:value' => 'identifier#show', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
+  post 'id/:type/:value' => 'identifier#write', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
 
   get 'message(/:hash)' => 'packet#show'
 
