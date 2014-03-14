@@ -1,0 +1,11 @@
+<h3>All results</h3>
+
+<% if @results %>
+<table class="table">
+<% @results.each do |r| %>
+<tr><td><%= r.first %></td><td><a href="/id/<%= r.first %>/<%= r.second %>"><%= r.second %></a></td></tr>
+<% end %>
+</table>
+<% else %>
+<p>No results</p>
+<% end %>

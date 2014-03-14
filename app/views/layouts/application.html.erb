@@ -28,7 +28,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <form class="navbar-form navbar-left" id="nav-search" role="search">
           <div class="form-group">
-            <input type="text" id="nav-search-field" style="width:360px" class="form-control" placeholder="Search for name, url, email or any other ID">
+            <input type="text" value="<%= params[:query] %>" id="nav-search-field" style="width:360px" class="form-control" placeholder="Search for name, url, email or any other ID">
           </div>
           <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
         </form>

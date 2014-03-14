@@ -1,4 +1,5 @@
 IdentifiRails::Application.routes.draw do
+  get "search/index"
   get "send/index"
   get "api/getpacketsbyauthor"
   get "api/getpacketsbyrecipient"
@@ -11,14 +12,13 @@ IdentifiRails::Application.routes.draw do
   root 'home#index'
 
   get 'feed' => 'home#feed'
-  get 'search' => 'home#search'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
   get 'login' => 'login#index'
 
-  get 'search(/:value)' => 'identifier#show', :constraints => { :value => /[^\/]+/ }
+  get 'search(/:query)' => 'search#index', :constraints => { :value => /[^\/]+/ }
   get 'id/:type/:value' => 'identifier#show', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
   post 'id/:type/:value' => 'identifier#write', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
 
