@@ -10,8 +10,8 @@ ready = () ->
     $(event.target).parents(".panel").toggleClass("panel-success", $(event.target).is("#btn-positive"))
     $(event.target).parents(".panel").toggleClass("panel-warning", $(event.target).is("#btn-neutral"))
     $(event.target).parents(".panel").toggleClass("panel-danger", $(event.target).is("#btn-negative"))
-    $(".btn-group button").click ->
-      $("#buttonvalue").val($(this).val());
+  $(".btn-group button").click ->
+    $("#buttonvalue").val($(this).val());
 
 $(document).ready(ready)
 $(document).on('page.load', ready)

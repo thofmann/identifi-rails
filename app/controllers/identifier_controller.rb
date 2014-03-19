@@ -61,7 +61,7 @@ class IdentifierController < ApplicationController
     params.require(:value)
     if current_user
       comment = (params[:comment] or "")
-      rating = (params[:rating] or "0")
+      rating = (params[:rating].to_s or "0")
       publish = Rails.env.production?.to_s
       h.savepacket(current_user.provider, current_user.uid, params[:type], params[:value], comment, rating, publish)
     end
