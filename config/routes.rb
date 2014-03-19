@@ -18,7 +18,7 @@ IdentifiRails::Application.routes.draw do
 
   get 'login' => 'login#index'
 
-  get 'search(/:query)' => 'search#index', :constraints => { :value => /[^\/]+/ }
+  get 'search(/:query)' => 'search#index', :constraints => { :query => /[^\/]+/ }
   get 'id/:type/:value' => 'identifier#show', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
   post 'id/:type/:value' => 'identifier#write', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
 

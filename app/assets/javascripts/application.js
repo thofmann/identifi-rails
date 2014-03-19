@@ -12,16 +12,30 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui.min
 //= require jquery.infinitescroll.min
 //= require_tree .
 //= require bootstrap
 
 ready = function() {
   $(".dropdown-toggle").dropdown();
-  $("#nav-search").submit(function(event) {
-  	event.preventDefault();
-    window.location.assign("/search/" + $("#nav-search-field").val());
+  $(".identifi-search").submit(function(event) {
+    event.preventDefault();
+    window.location.assign("/search/" + encodeURIComponent($(event.target).find("input").val()));
   });
+  $(".identifi-search input").autocomplete({
+    source: function(request, response) {
+      var output = [];
+      $.getJSON('/search/'+encodeURIComponent(request.term)+'?format=json', function(data) {
+        $.each(data, function(key, val) {
+          output.push(val[1]);
+          if (key > 3) return false;
+        });
+        response(output);
+      });
+    }
+  });
+
 }
 
 $(document).ready(ready);
