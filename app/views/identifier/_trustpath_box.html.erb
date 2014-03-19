@@ -1,0 +1,22 @@
+<% if @trustpath.empty? %>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    No trust path to this ID
+  </div>
+</div>
+<% else %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Trust path</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+    <% @trustpath.each do |packet| %>
+        <li><a href="/message/<%= packet["hash"] %>"><%= packet["data"]["signedData"]["author"][0][1] %></a> ▸ 
+        <a href="/message/<%= packet["hash"] %>"><%= packet["data"]["signedData"]["recipient"][0][1] %></a></li>
+    <% end %>
+    </ul>
+  </div>
+</div>
+<% end %>

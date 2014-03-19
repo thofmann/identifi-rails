@@ -21,7 +21,12 @@
     </tr> -->
     <tr>
       <td>First seen</td>
-      <td><%= Time.at((@received.last or @authored.last)["data"]["signedData"]["timestamp"]).to_date() unless @received.empty? and @authored.empty? %></td>
+      <td><% unless @received.empty? and @authored.empty? %>
+        <%= Time.at((@received.last or @authored.last)["data"]["signedData"]["timestamp"]).to_date() %>
+        <% else %>
+        -
+        <% end %>
+      </td>
     </tr>
   </table>
 </div>

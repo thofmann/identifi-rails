@@ -3,8 +3,11 @@ require 'identifi-rpc'
 class IdentifierController < ApplicationController
   def show
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    @authored = h.getpacketsbyauthor( params[:value] )
-    @received = h.getpacketsbyrecipient( params[:value] )
+    nodeID = IdentifiRails::Application.config.nodeID
+    @authored = h.getpacketsbyauthor( params[:type], params[:value] )
+    @received = h.getpacketsbyrecipient( params[:type], params[:value] )
+    searchDepth = 3
+    @trustpath = h.getpath(nodeID[0], nodeID[1], params[:type], params[:value], searchDepth.to_s)
     @mentionedWith = []
 
     @authoredPositive = 0
