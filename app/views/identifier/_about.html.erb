@@ -6,13 +6,13 @@
         <td><%= id.first %></td>
         <td><a href="<%= "/id/#{id.first}/#{id.second}" %>"><%= id.second %></a></td>
         <td>
-          <button class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-ok"></span> Confirm 9</button>
-          <button class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-remove"></span> Refute 1</button>
+          <button name="confirm" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-ok"></span> Confirm</button>
+          <button name="refute" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-remove"></span> Refute</button>
         </td>
         <td>
         <div class="progress" style="min-width: 50px">
           <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
-            - %
+            x %
           </div>
         </div>
 

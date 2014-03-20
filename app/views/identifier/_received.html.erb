@@ -16,7 +16,7 @@
     <% if @received.empty? %>
       <div class="alert alert-info">No feedback for '<%= params[:value] %>' yet</div>
     <% else %>
-      <%= render partial: "message", collection: @received, locals: {showRecipient: false, showAuthor: true } %>
+      <%= render partial: "message", collection: @received, locals: {showRecipient: true, showAuthor: true } %>
     <% end %>
   </div>
 </div>

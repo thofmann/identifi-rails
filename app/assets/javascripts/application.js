@@ -23,18 +23,34 @@ ready = function() {
     event.preventDefault();
     window.location.assign("/search/" + encodeURIComponent($(event.target).find("input").val()));
   });
+
   $(".identifi-search input").autocomplete({
     source: function(request, response) {
       var output = [];
       $.getJSON('/search/'+encodeURIComponent(request.term)+'?format=json', function(data) {
         $.each(data, function(key, val) {
-          output.push(val[1]);
-          if (key > 3) return false;
+          if (key > 2) return false;
+          output.push({type: val[0], value: val[1]});
         });
         response(output);
       });
+    },
+    minLength: 1,
+    autoFocus: true,
+    focus: function( event, ui ) {
+      return false;
+    },
+    select: function( event, ui ) {
+      window.location.assign("/id/" + encodeURIComponent(ui.item.type) + "/" + encodeURIComponent(ui.item.value));
+      return false;
     }
-  });
+  })
+  .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+    console.log(item);
+    return $( "<li>" )
+    .append( "<a>" + item.value + "<br><small>" + item.type + "</small></a>" )
+    .appendTo( ul );
+  };
 
 }
 

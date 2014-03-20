@@ -8,7 +8,7 @@
     <% if @authored.empty? %>
       <div class="alert alert-info">No feedback by '<%= params[:value] %>' yet</div>
     <% else %>
-      <%= render partial: "message", collection: @authored, locals: {showRecipient: true, showAuthor: false } %>
+      <%= render partial: "message", collection: @authored, locals: {showRecipient: true, showAuthor: true } %>
     <% end %>
   </div>
 </div>
