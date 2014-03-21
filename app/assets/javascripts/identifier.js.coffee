@@ -12,6 +12,23 @@ ready = () ->
     $(event.target).parents(".panel").toggleClass("panel-danger", $(event.target).is("#btn-negative"))
   $(".btn-group button").click ->
     $("#buttonvalue").val($(this).val());
+  $(".btn-confirm, .btn-refute").click (event) ->
+    event.preventDefault()
+    method = "confirm"
+    if $(event.target).hasClass('btn-refute')
+      method = "refute"
+    type = $(event.target).parents("tr").data("type")
+    value = $(event.target).parents("tr").data("value")
+    $.post window.location.href+"/"+method, {linkedType:type, linkedValue:value}, (data) ->
+      location.reload()
+      $(event.target).addClass("disabled")
+      $(event.target).addClass("btn-success")
+  $("#addButton").click (event) ->
+    event.preventDefault()
+    $.post window.location.href+'/confirm', {linkedType:$("#addType").val(), linkedValue:$("#addValue").val()}, (data) ->
+      location.reload()
+      $(event.target).addClass("disabled")
+      $(event.target).addClass("btn-success")
 
 $(document).ready(ready)
 $(document).on('page.load', ready)

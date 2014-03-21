@@ -2,17 +2,20 @@
   <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
   <table class="table truncated-table">
     <% @mentionedWith.each do |id| %>
-      <tr>
+      <tr data-type="<%= id.first %>" data-value="<%= id.second %>">
         <td><%= id.first %></td>
         <td><a href="<%= "/id/#{id.first}/#{id.second}" %>"><%= id.second %></a></td>
         <td>
-          <button name="confirm" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-ok"></span> Confirm</button>
-          <button name="refute" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-remove"></span> Refute</button>
+          <button name="confirm" class="btn btn-default btn-confirm <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-ok"></span>
+            <%= @confirmationCount[id] %> Confirm</button>
+          <button name="refute" class="btn btn-default btn-refute <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-remove"></span>
+            <%= @refutationCount[id] %> Refute</button>
         </td>
         <td>
         <div class="progress" style="min-width: 50px">
-          <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
-            x %
+          <% percentage = @confirmationCount[id] * 100 / (@confirmationCount[id] + @refutationCount[id]) %>
+          <div class="progress-bar" role="progressbar" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= percentage %>%;">
+            <%= percentage %> %
           </div>
         </div>
 
@@ -20,9 +23,9 @@
       </tr>
     <% end %>
       <tr class="active">
-        <td><input class="form-control" name="linkedType" type="text" placeholder="type" <%= "disabled" unless current_user %>></td>
-        <td><input class="form-control" name="linkedValue" type="text" placeholder="value" <%= "disabled" unless current_user %>></td>
-        <td><button class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-plus"></span> Add connection</button></td>
+        <td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type" <%= "disabled" unless current_user %>></td>
+        <td><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" <%= "disabled" unless current_user %>></td>
+        <td><button id="addButton" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-plus"></span> Add connection</button></td>
         <td></td>
       </tr>
   </table>
