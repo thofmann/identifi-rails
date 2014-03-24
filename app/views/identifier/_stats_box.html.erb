@@ -5,11 +5,11 @@
   <table class="table">
     <tr>
       <td>Sent</td> 
-      <td><span class="glyphicon glyphicon-thumbs-up"></span> <%= @authoredPositive %> <span class="glyphicon glyphicon-question-sign"></span> <%= @authoredNeutral %> <span class="glyphicon glyphicon-thumbs-down"></span> <%= @authoredNegative %></td>
+      <td><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["authoredPositive"] %> <span class="glyphicon glyphicon-question-sign"></span> <%= @stats["authoredNeutral"] %> <span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["authoredNegative"] %></td>
     </tr>
     <tr>
       <td>Received</td>
-      <td><span class="glyphicon glyphicon-thumbs-up"></span> <%= @receivedPositive %> <span class="glyphicon glyphicon-question-sign"></span> <%= @receivedNeutral %> <span class="glyphicon glyphicon-thumbs-down"></span> <%= @receivedNegative %></td>
+      <td><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["receivedPositive"] %> <span class="glyphicon glyphicon-question-sign"></span> <%= @stats["receivedNeutral"] %> <span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["receivedNegative"] %></td>
     </tr>
 <!--    <tr>
       <td>Recommendation <br>quality <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Recommendations given for identifiers that got good feedback later"></span></td>
@@ -21,8 +21,8 @@
     </tr> -->
     <tr>
       <td>First seen</td>
-      <td><% unless @received.empty? and @authored.empty? %>
-        <%= Time.at((@received.last or @authored.last)["data"]["signedData"]["timestamp"]).to_date() %>
+      <td><% if @stats["firstSeen"] != 0 %>
+        <%= Time.at(@stats["firstSeen"]).to_date() %>
         <% else %>
         -
         <% end %>

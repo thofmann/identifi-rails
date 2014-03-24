@@ -4,31 +4,19 @@ class IdentifierController < ApplicationController
   def show
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     nodeID = IdentifiRails::Application.config.nodeID
-    @authored = h.getpacketsbyauthor( params[:type], params[:value] )
-    @received = h.getpacketsbyrecipient( params[:type], params[:value] )
+    offset = 0
+    offset = params[:offset] if params[:offset]
+    @authored = h.getpacketsbyauthor( params[:type], params[:value], 10, offset )
+    @received = h.getpacketsbyrecipient( params[:type], params[:value], 10, offset )
+    @stats = h.overview(params[:type], params[:value])
     searchDepth = 3
     @trustpath = h.getpath(nodeID[0], nodeID[1], params[:type], params[:value], searchDepth.to_s)
     @mentionedWith = []
     @confirmationCount = Hash.new(0)
     @refutationCount = Hash.new(0)
 
-    @authoredPositive = 0
-    @authoredNeutral = 0
-    @authoredNegative = 0
-
     @authored.each do |m|
       signedData = m["data"]["signedData"]
-      if signedData["type"] == "review"
-        rating = signedData["rating"]
-        neutralRating = (signedData["minRating"] + signedData["maxRating"]) / 2
-        if rating > neutralRating
-          @authoredPositive += 1
-        elsif rating < neutralRating
-          @authoredNegative += 1
-        else
-        	@authoredNeutral += 1
-        end
-      end
       signedData["author"].each do |a|
         unless a == [params[:type], params[:value]]
           @confirmationCount[a] += 1
@@ -37,23 +25,8 @@ class IdentifierController < ApplicationController
       end
     end
 
-    @receivedPositive = 0
-    @receivedNeutral = 0
-    @receivedNegative = 0
-
     @received.each do |m|
       signedData = m["data"]["signedData"]
-      if signedData["type"] == "review"
-        rating = signedData["rating"]
-        neutralRating = (signedData["minRating"] + signedData["maxRating"]) / 2
-        if rating > neutralRating
-          @receivedPositive += 1
-        elsif rating < neutralRating
-          @receivedNegative += 1
-        else
-        	@receivedNeutral += 1
-        end
-      end
       signedData["recipient"].each do |a|
         unless a == [params[:type], params[:value]]
           if signedData["type"] == "refute_connection"
@@ -110,5 +83,13 @@ class IdentifierController < ApplicationController
     else
       render :text => "Login required", :status => 401
     end
+  end
+
+  def overview
+    params.require(:type)
+    params.require(:value)
+    h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+    overviewJSON = h.overview(params[:type].to_s, params[:value].to_s)
+    render :text => overviewJSON
   end
 end
