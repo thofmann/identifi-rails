@@ -8,31 +8,12 @@
   <button onclick="window.location='/auth/google_oauth2';" class="btn btn-block btn-social btn-google-plus">
     <i class="fa fa-google-plus"></i> Google
   </button>
+  <button onclick="window.location='/auth/email';" class="btn btn-block btn-social btn-success">
+    <i class="fa fa-envelope"></i> Email
+  </button>
   <% unless Rails.env.production? %>
   <button onclick="window.location='/auth/developer';" class="btn btn-block btn-social btn-facebook">
     <i class="fa fa-cog"></i> Developer
   </button>
   <% end %>
-</li>
-<li class="divider"></li>
-<li>
-  <div class="row">
-    <div class="col-md-12">
-      <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-        <div class="form-group">
-          <label class="sr-only" for="loginEmail">Email address</label>
-          <input type="email" class="form-control" id="loginEmail" placeholder="Email address" required>
-        </div>
-        <!--
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"> Remember me
-          </label>
-        </div> -->
-        <div class="form-group">
-          <button type="submit" class="btn btn-success btn-block">Send login link</button>
-        </div>
-      </form>
-    </div>
-  </div>
 </li>

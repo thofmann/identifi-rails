@@ -1,13 +1,14 @@
   require 'identifi-rpc'
 
 class IdentifierController < ApplicationController
+  MSG_COUNT = 10
   def show
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     nodeID = IdentifiRails::Application.config.nodeID
     offset = 0
     offset = params[:offset] if params[:offset]
-    @authored = h.getpacketsbyauthor( params[:type], params[:value], 10, offset )
-    @received = h.getpacketsbyrecipient( params[:type], params[:value], 10, offset )
+    @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT, offset )
+    @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT, offset )
     @stats = h.overview(params[:type], params[:value])
     searchDepth = 3
     @trustpath = h.getpath(nodeID[0], nodeID[1], params[:type], params[:value], searchDepth.to_s)

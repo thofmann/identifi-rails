@@ -6,4 +6,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :facebook, IdentifiRails::Application.config.fbID, IdentifiRails::Application.config.fbKey
   provider :twitter, IdentifiRails::Application.config.twitterKey, IdentifiRails::Application.config.twitterSecret
   provider :google_oauth2, IdentifiRails::Application.config.googleClientID, IdentifiRails::Application.config.googleClientSecret
+  provider :persona, :name => "email"
 end
