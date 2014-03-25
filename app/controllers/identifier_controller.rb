@@ -89,7 +89,7 @@ class IdentifierController < ApplicationController
     params.require(:type)
     params.require(:value)
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    overviewJSON = h.overview(params[:type].to_s, params[:value].to_s)
-    render :text => overviewJSON
+    @stats = h.overview(params[:type].to_s, params[:value].to_s)
+    render :partial => "overview"
   end
 end

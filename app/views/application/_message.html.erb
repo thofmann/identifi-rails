@@ -40,14 +40,14 @@
       <span class="<%= iconStyle %> pull-right"></span>
       <% if showAuthor %>
       <strong>
-        <a href="/id/<%= author.first %>/<%= author.last %>">
+        <a href="/id/<%= author.first %>/<%= author.last %>" class="id-link">
           <%= authorName.second %>
         </a>
       </strong>
       <% end %>
       <% if showRecipient %>
       &#x25B8;
-      <a href="/id/<%= recipient.first %>/<%= recipient.last %>">
+      <a href="/id/<%= recipient.first %>/<%= recipient.last %>" class="id-link">
         <%= recipientName.second %>
       </a>
       <% end %>

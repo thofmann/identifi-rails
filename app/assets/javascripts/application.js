@@ -52,6 +52,15 @@ ready = function() {
     .appendTo( ul );
   };
 
+  $('.id-link').hover(
+    function(event) {
+      var t=$(event.target);
+      $.get(t.attr('href')+'/overview',function(d) {
+          t.popover({content: d, html: true, trigger: 'hover', delay: 500}).popover('show');
+      });
+  }, function(event) {
+    $(event.target).popover('hide');
+  });
 }
 
 $(document).ready(ready);
