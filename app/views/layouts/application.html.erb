@@ -4,6 +4,7 @@
   <title>Identifi</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "https://login.persona.org/include.js" %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
 </head>
@@ -45,7 +46,7 @@
           <% else %>
             <li class="dropdown <%= 'active' if params[:controller] == 'login' %>">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Log in <b class="caret"></b></a>
-              <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+              <ul class="dropdown-menu login-menu">
                 <%= render 'login_menu' %>
               </ul>
             </li>

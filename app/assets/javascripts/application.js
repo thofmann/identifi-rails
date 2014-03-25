@@ -17,6 +17,17 @@
 //= require_tree .
 //= require bootstrap
 
+function loginViaEmail() {
+  navigator.id.get(function(assertion) {
+    if (assertion) {
+      $('input[name=assertion]').val(assertion);
+      $('#persona-form').submit();
+    } else {
+      window.location = "#{failure_path}"
+    }
+  });  
+}
+
 ready = function() {
   $(".dropdown-toggle").dropdown();
   $(".identifi-search").submit(function(event) {
@@ -60,6 +71,11 @@ ready = function() {
       });
   }, function(event) {
     $(event.target).popover('hide');
+  });
+
+  $('#email-login').click(function() {
+    loginViaEmail();
+    return false;
   });
 }
 
