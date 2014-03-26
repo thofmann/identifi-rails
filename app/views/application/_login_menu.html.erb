@@ -1,4 +1,12 @@
 <li>
+  <form id='persona-form' action='/auth/email/callback'>
+    <input type='hidden' name='assertion'/>
+    <button id="email-login" class="btn btn-block btn-social btn-success">
+      <i class="fa fa-envelope"></i> Email
+    </button>
+  </form>
+</li>
+<li>
   <button onclick="window.location='/auth/facebook';" class="btn btn-block btn-social btn-facebook">
     <i class="fa fa-facebook"></i> Facebook
   </button>
@@ -12,14 +20,6 @@
   <button onclick="window.location='/auth/google_oauth2';" class="btn btn-block btn-social btn-google-plus">
     <i class="fa fa-google-plus"></i> Google
   </button>
-</li>
-<li>
-  <form id='persona-form' action='/auth/email/callback'>
-    <input type='hidden' name='assertion'/>
-    <button id="email-login" class="btn btn-block btn-social btn-success">
-      <i class="fa fa-envelope"></i> Email
-    </button>
-  </form>
 </li>
   <% unless Rails.env.production? %>
 <li>

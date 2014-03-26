@@ -58,7 +58,7 @@
     <p class="small">
     <% signedData["recipient"].each_with_index do |r, i| %>
       <span class="text-muted"><%= r.first %></span>
-      <a href="<%= "/id/#{r.first}/#{r.second}" %>"><%= r.second %></a>
+      <a href="<%= "/id/#{r.first}/#{r.second}" %>" class="id-link"><%= r.second %></a>
       <% unless i + 1 == signedData["recipient"].size %>
         <span class="<%= iconStyle %>"></span> 
       <% end %>

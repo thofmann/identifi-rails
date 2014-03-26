@@ -28,6 +28,18 @@ function loginViaEmail() {
   });  
 }
 
+function setIdPopover() {
+  $('.id-link').hover(
+    function(event) {
+      var t=$(event.target);
+      $.get(t.attr('href')+'/overview',function(d) {
+          t.popover({content: d, html: true, trigger: 'hover', delay: 500}).popover('show');
+      });
+  }, function(event) {
+    $(event.target).popover('hide');
+  });
+}
+
 ready = function() {
   $(".dropdown-toggle").dropdown();
   $(".identifi-search").submit(function(event) {
@@ -63,20 +75,12 @@ ready = function() {
     .appendTo( ul );
   };
 
-  $('.id-link').hover(
-    function(event) {
-      var t=$(event.target);
-      $.get(t.attr('href')+'/overview',function(d) {
-          t.popover({content: d, html: true, trigger: 'hover', delay: 500}).popover('show');
-      });
-  }, function(event) {
-    $(event.target).popover('hide');
-  });
-
   $('#email-login').click(function() {
     loginViaEmail();
     return false;
   });
+
+  setIdPopover();
 }
 
 $(document).ready(ready);

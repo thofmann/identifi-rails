@@ -9,7 +9,7 @@
     <% @mentionedWith.each do |id| %>
       <tr>
         <td><%= id.first %></td>
-        <td><a href="<%= "/id/#{id.first}/#{id.second}" %>"><%= id.second %></a></td>
+        <td><a href="<%= "/id/#{id.first}/#{id.second}" %>" class="id-link"><%= id.second %></a></td>
       </tr>
     <% end %>
     </table>

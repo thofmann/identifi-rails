@@ -4,7 +4,7 @@
     <% @mentionedWith.each do |id| %>
       <tr data-type="<%= id.first %>" data-value="<%= id.second %>">
         <td><%= id.first %></td>
-        <td><a href="<%= "/id/#{id.first}/#{id.second}" %>"><%= id.second %></a></td>
+        <td><a href="<%= "/id/#{id.first}/#{id.second}" %>" class="id-link"><%= id.second %></a></td>
         <td>
           <button name="confirm" class="btn btn-default btn-confirm <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-ok"></span>
             <%= @confirmationCount[id] %> Confirm</button>

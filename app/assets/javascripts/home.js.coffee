@@ -9,6 +9,8 @@ ready = () ->
     itemSelector: ".message-panel"          
     path: (page) ->
       "/?page=" + page
+    , (arrayOfNewElems) ->
+      setIdPopover();
 
 $(document).ready(ready)
 $(document).on('page.load', ready)
