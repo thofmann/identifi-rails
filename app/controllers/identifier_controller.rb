@@ -5,8 +5,7 @@ class IdentifierController < ApplicationController
   def show
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     nodeID = IdentifiRails::Application.config.nodeID
-    offset = 0
-    offset = params[:offset] if params[:offset]
+    offset = (params[:page].to_i * MSG_COUNT) or 0
     @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT, offset )
     @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT, offset )
     @stats = h.overview(params[:type], params[:value])
@@ -55,6 +54,24 @@ class IdentifierController < ApplicationController
       h.savepacket(current_user.provider, current_user.uid, type, value, comment, rating, publish)
     end
     redirect_to :action => 'show'
+  end
+
+  def sent
+    h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+    params.require(:type)
+    params.require(:value)
+    offset = (params[:page].to_i * MSG_COUNT) or 0
+    @messages = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT, offset )
+    render :partial => "messages"
+  end
+
+  def received
+    h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+    params.require(:type)
+    params.require(:value)
+    offset = (params[:page].to_i * MSG_COUNT) or 0
+    @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT, offset )
+    render :partial => "messages"
   end
 
   def confirm

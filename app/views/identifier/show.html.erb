@@ -18,8 +18,8 @@
 
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
-  <li class="active"><a href="#received" data-toggle="tab">Received feedback (<%= @received.size %>)</a></li>
-  <li><a href="#sent" data-toggle="tab">Sent feedback (<%= @authored.size %>)</a></li>
+  <li class="active"><a href="#received" data-toggle="tab">Received feedback (<%= @stats["receivedPositive"] + @stats["receivedNeutral"] + @stats["receivedNegative"] %>)</a></li>
+  <li><a href="#sent" data-toggle="tab">Sent feedback (<%= @stats["authoredPositive"] + @stats["authoredNeutral"] + @stats["authoredNegative"] %>)</a></li>
   <li><a href="#about" data-toggle="tab">Connections (<%= @mentionedWith.size %>)</a></li>
   <!--<li><a href="#chart" data-toggle="tab">Chart</a></li>
   <li><a href="#graph" data-toggle="tab">Graph</a></li>-->

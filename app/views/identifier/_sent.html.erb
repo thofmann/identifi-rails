@@ -4,11 +4,12 @@
     <%= render "trustpath_box" %>
     <%= render "about_box" %>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-8" id="sent-messages">
     <% if @authored.empty? %>
       <div class="alert alert-info">No feedback by '<%= params[:value] %>' yet</div>
     <% else %>
       <%= render partial: "message", collection: @authored, locals: {showRecipient: true, showAuthor: true } %>
+      <div id="more-sent"><a href="#">More ...</a></div>
     <% end %>
   </div>
 </div>

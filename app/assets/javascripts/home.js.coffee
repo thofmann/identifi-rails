@@ -6,7 +6,12 @@ ready = () ->
   $('#messages').infinitescroll
     navSelector: "#more"    
     nextSelector: "#more a:first"  
-    itemSelector: ".message-panel"          
+    itemSelector: ".message-panel"
+    loading:
+      msgText: ""
+      finishedMsg: ""
+    state:
+      currPage: 0
     path: (page) ->
       "/?page=" + page
     , (arrayOfNewElems) ->

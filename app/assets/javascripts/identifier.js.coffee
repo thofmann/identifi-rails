@@ -30,5 +30,33 @@ ready = () ->
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
 
+  $('#received-messages').infinitescroll
+    navSelector: "#more-received"    
+    nextSelector: "#more-received a:first"  
+    itemSelector: ".message-panel"
+    loading:
+      msgText: ""
+      finishedMsg: ""
+    state:
+      currPage: 0
+    path: (page) ->
+      location.protocol + '//' + location.host + location.pathname + "/received/?page=" + page
+    , (arrayOfNewElems) ->
+      setIdPopover();
+
+  $('#sent-messages').infinitescroll
+    navSelector: "#more-sent"    
+    nextSelector: "#more-sent a:first"  
+    itemSelector: ".message-panel"
+    loading:
+      msgText: ""
+      finishedMsg: ""
+    state:
+      currPage: 0
+    path: (page) ->
+      location.protocol + '//' + location.host + location.pathname + "/sent/?page=" + page
+    , (arrayOfNewElems) ->
+      setIdPopover();
+
 $(document).ready(ready)
 $(document).on('page.load', ready)
