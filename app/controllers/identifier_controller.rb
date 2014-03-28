@@ -9,8 +9,9 @@ class IdentifierController < ApplicationController
     @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT, offset )
     @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT, offset )
     @stats = h.overview(params[:type], params[:value])
-    searchDepth = 3
+    searchDepth = 5
     @trustpath = h.getpath(nodeID[0], nodeID[1], params[:type], params[:value], searchDepth.to_s)
+    
     @mentionedWith = []
     @confirmationCount = Hash.new(0)
     @refutationCount = Hash.new(0)

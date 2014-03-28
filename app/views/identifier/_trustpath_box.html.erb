@@ -11,10 +11,10 @@
     <h3 class="panel-title">Trust path</h3>
   </div>
   <div class="panel-body">
-    <ul>
+    <ul class="list-unstyled">
     <% @trustpath.each do |packet| %>
-        <li><a href="/message/<%= packet["hash"] %>"><%= packet["data"]["signedData"]["author"][0][1] %></a> ▸ 
-        <a href="/message/<%= packet["hash"] %>"><%= packet["data"]["signedData"]["recipient"][0][1] %></a></li>
+        <li><a href="/message/<%= packet["hash"] %>"><%= packet["authorName"][1] %></a> ▸ 
+        <a href="/message/<%= packet["hash"] %>"><%= packet["recipientName"][1] %></a></li>
     <% end %>
     </ul>
   </div>
