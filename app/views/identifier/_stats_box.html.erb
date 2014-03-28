@@ -5,11 +5,11 @@
   <table class="table">
     <tr>
       <td>Sent</td> 
-      <td><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["authoredPositive"] %> <span class="glyphicon glyphicon-question-sign"></span> <%= @stats["authoredNeutral"] %> <span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["authoredNegative"] %></td>
+      <td><span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["authoredPositive"] %></span> <span clasS="neutral"><span class="glyphicon glyphicon-question-sign"></span> <%= @stats["authoredNeutral"] %></span> <span class="negative"> <span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["authoredNegative"] %></span></td>
     </tr>
     <tr>
       <td>Received</td>
-      <td><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["receivedPositive"] %> <span class="glyphicon glyphicon-question-sign"></span> <%= @stats["receivedNeutral"] %> <span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["receivedNegative"] %></td>
+      <td><span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["receivedPositive"] %></span> <span class="neutral"><span class="glyphicon glyphicon-question-sign"></span> <%= @stats["receivedNeutral"] %></span> <span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["receivedNegative"] %></span></td>
     </tr>
 <!--    <tr>
       <td>Recommendation <br>quality <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Recommendations given for identifiers that got good feedback later"></span></td>
