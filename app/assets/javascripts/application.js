@@ -29,6 +29,7 @@ function loginViaEmail() {
 }
 
 function setIdPopover() {
+  $('.id-link').unbind('mouseenter mouseleave');
   $('.id-link').hover(
     function(event) {
       var t=$(event.target);
