@@ -1,4 +1,4 @@
-<% if @mentionedWith.empty? %>
+<% if @connections.empty? %>
   <div class="alert alert-info">Not connected with other identifiers</div>
   <% else %>
   <div class="panel panel-default">
@@ -6,10 +6,10 @@
       <h3 class="panel-title"><a href="#about" data-toggle="tab">Connections</a></h3>
     </div>
     <table class="table truncated-table">
-    <% @mentionedWith.each do |id| %>
+    <% @connections.each do |id| %>
       <tr>
-        <td><%= id.first %></td>
-        <td><a href="<%= "/id/#{id.first}/#{id.second}" %>" class="id-link"><%= id.second %></a></td>
+        <td><%= id["type"] %></td>
+        <td><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" class="id-link"><%= id["value"] %></a></td>
       </tr>
     <% end %>
     </table>

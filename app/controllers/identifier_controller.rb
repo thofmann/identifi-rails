@@ -11,34 +11,7 @@ class IdentifierController < ApplicationController
     @stats = h.overview(params[:type], params[:value])
     searchDepth = 5
     @trustpath = h.getpath(nodeID[0], nodeID[1], params[:type], params[:value], searchDepth.to_s)
-    
-    @mentionedWith = []
-    @confirmationCount = Hash.new(0)
-    @refutationCount = Hash.new(0)
-
-    @authored.each do |m|
-      signedData = m["data"]["signedData"]
-      signedData["author"].each do |a|
-        unless a == [params[:type], params[:value]]
-          @confirmationCount[a] += 1
-          @mentionedWith.push(a) unless @mentionedWith.include?(a)
-        end
-      end
-    end
-
-    @received.each do |m|
-      signedData = m["data"]["signedData"]
-      signedData["recipient"].each do |a|
-        unless a == [params[:type], params[:value]]
-          if signedData["type"] == "refute_connection"
-            @refutationCount[a] += 1
-          else
-            @confirmationCount[a] += 1
-          end
-          @mentionedWith.push(a) unless @mentionedWith.include?(a)
-        end
-      end
-    end
+    @connections = h.getconnections( params[:type], params[:value] )
   end
 
   def write
