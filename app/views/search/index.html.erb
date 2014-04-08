@@ -1,11 +1,12 @@
 <h3>All results</h3>
 
-<% unless @results.empty? %>
 <table class="table">
+<% unless @results.empty? %>
 <% @results.each do |r| %>
-<tr><td><%= r.first %></td><td><a href="/id/<%= r.first %>/<%= r.second %>"><%= r.second %></a></td></tr>
+<tr><td><%= r.first %></td><td><a href="/id/<%= r.first %>/<%= r.second %>"><%= r.second %></a></td><td></td></tr>
 <% end %>
-</table>
 <% else %>
-<p>No results</p>
+<tr><td>No results</td><td></td><td></td></tr>
 <% end %>
+<tr class="active"><td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type"></td><td><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" value="<%= params[:query] %>"></td><td><button id="createpage" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-right"></span> Create page</button></td></tr>
+</table>

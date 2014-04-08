@@ -30,8 +30,8 @@
   recipient =  signedData["recipient"].first
   authorName = message["authorName"]
   recipientName = message["recipientName"]
-  authorName = author if authorName.nil? or authorName.first.empty?
-  recipientName = recipient if recipientName.nil? or recipientName.first.empty?
+  authorName = author.second if authorName.nil? or authorName.empty?
+  recipientName = recipient.second if recipientName.nil? or recipientName.empty?
 %>
 
 <div class="panel <%= panelStyle %> message-panel">
@@ -41,14 +41,14 @@
       <% if showAuthor %>
       <strong>
         <a href="/id/<%= author.first %>/<%= author.last %>" class="id-link">
-          <%= authorName.second %>
+          <%= authorName %>
         </a>
       </strong>
       <% end %>
       <% if showRecipient %>
       &#x25B8;
       <a href="/id/<%= recipient.first %>/<%= recipient.last %>" class="id-link">
-        <%= recipientName.second %>
+        <%= recipientName %>
       </a>
       <% end %>
        - <a href="/message/<%= message["hash"] %>" class="text-muted small"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a>
