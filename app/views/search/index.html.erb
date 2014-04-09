@@ -8,5 +8,5 @@
 <% else %>
 <tr><td>No results</td><td></td><td></td></tr>
 <% end %>
-<tr class="active"><td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type"></td><td><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" value="<%= params[:query] %>"></td><td><button id="createpage" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-right"></span> Create page</button></td></tr>
+<tr class="active"><td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type (example: 'email')"></td><td><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value (example: 'user@example.com')" value="<%= params[:query] %>"></td><td><button id="createpage" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-right"></span> Create page</button></td></tr>
 </table>

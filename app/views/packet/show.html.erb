@@ -78,7 +78,7 @@
 
 <% sig = @packet["signatureDetails"].first
 signerName = sig["signerKeyID"]
-signerName = @packet["signerName"] unless @packet["signerName"].nil?
+signerName = @packet["signerName"] unless @packet["signerName"].empty?
 %>
 <p>Message origin verified by: <a class="id-link" href="/id/keyID/<%= sig["signerKeyID"] %>"><%= signerName %></a></p>
 

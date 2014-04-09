@@ -1,7 +1,7 @@
 <% if @trustpath.empty? %>
 <div class="panel panel-info">
   <div class="panel-heading">
-    No trust path to this ID <span class="glyphicon glyphicon-question-sign pull-right" data-toggle="tooltip" title="A trust path to this identifier is formed when you trust an identifier that trusts this identifier. If not logged in, a trust path to this Identifi node is shown."></span>
+    No trust path to this ID <span class="glyphicon glyphicon-question-sign pull-right" data-toggle="tooltip" title="A trust path to this identifier is formed when you trust an identifier that trusts this identifier. If not logged in, a trust path from this Identifi node is shown."></span>
   </div>
 </div>
 <% else %>
@@ -15,17 +15,17 @@
     <% @trustpath.each do |packet| %>
     <% signedData = packet["data"]["signedData"] %>
         <li><a class="id-link" href="/id/<%= signedData["author"][0][0] %>/<%= signedData["author"][0][1] %>">
-          <%= if packet["authorName"][1].empty?
+          <%= if packet["authorName"].empty?
                 signedData["author"][0][1]
               else
-                packet["authorName"][1]
+                packet["authorName"]
               end %>
         </a> ▸ 
         <a class="id-link" href="/id/<%= signedData["recipient"][0][0] %>/<%= signedData["recipient"][0][1] %>">
-          <%= if packet["recipientName"][1].empty?
+          <%= if packet["recipientName"].empty?
                 signedData["recipient"][0][1]
               else
-                packet["recipientName"][1]
+                packet["recipientName"]
               end %>
         </a> - <a href="/message/<%= packet["hash"] %>" class="text-muted">msg</a></li>
     <% end %>
