@@ -41,13 +41,27 @@ function setIdPopover() {
   });
 }
 
-ready = function() {
-  $(".dropdown-toggle").dropdown();
-  $(".identifi-search").submit(function(event) {
-    event.preventDefault();
-    window.location.assign("/search/" + encodeURIComponent($(event.target).find("input").val()));
+function hidePopoverOnClick(popoverTarget) {
+  $('body').on('click', function (e) {
+    var t = $(e.target);
+    if (!(t.hasClass("popover") || t.parents(".popover").length > 0 || t.parents(".ui-autocomplete").length > 0)) {
+      popoverTarget.popover('destroy');
+      $('body').off('click');
+    }
   });
+}
 
+function gotoPage(event) {
+  event.preventDefault();
+  window.location.assign("/id/" + encodeURIComponent($(".gotoType").val()) + "/" + encodeURIComponent($(".gotoValue").val()));
+}
+
+function setUpCreatePage() {
+  $(".createPageForm").submit(gotoPage);
+  $(".createpage").off('click').click(gotoPage);
+}
+
+function setUpSearchAutocomplete() {
   $(".identifi-search input").autocomplete({
     source: function(request, response) {
       var output = [];
@@ -56,6 +70,7 @@ ready = function() {
           if (key > 2) return false;
           output.push({type: val[0], value: val[1]});
         });
+        output.push({createPage: true, type: "", value: "Create page <i>" + request.term.replace(/(<([^>]+)>)/ig,"") + "</i>"});
         response(output);
       });
     },
@@ -65,23 +80,51 @@ ready = function() {
       return false;
     },
     select: function( event, ui ) {
-      window.location.assign("/id/" + encodeURIComponent(ui.item.type) + "/" + encodeURIComponent(ui.item.value));
+      if (ui.item.createPage) {
+        event.preventDefault();
+        var content = "<form class=\"createPageForm\"><input class=\"gotoValue form-control\" placeholder=\"value\" value=\"" + 
+            $("#nav-search-field").val() + 
+            "\"><br><input class=\"gotoType form-control\" id=\"create-page-type\" placeholder=\"type (example: email)\">" +
+            "<br><button class=\"createpage btn btn-primary\">" + 
+            "<span class=\"glyphicon glyphicon-arrow-right\"></span> Create page</button></form>";
+        var popoverTarget = $(event.target).parents("form").first();
+        popoverTarget.popover({content: content, html: true, placement: 'bottom'}).popover('show');
+        popoverTarget.on('hidden.bs.popover', function (e) {
+          $(e.target).popover('destroy');
+        });
+        hidePopoverOnClick(popoverTarget);
+        $("#create-page-type").focus();
+        setUpCreatePage();
+      } else {
+        window.location.assign("/id/" + encodeURIComponent(ui.item.type) + "/" + encodeURIComponent(ui.item.value));        
+      }
       return false;
     }
   })
-  .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-    console.log(item);
-    return $( "<li>" )
-    .append( "<a>" + item.value + "<br><small>" + item.type + "</small></a>" )
-    .appendTo( ul );
-  };
+  .each(function (i, val) {
+    $(val).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+      .append( "<a>" + item.value + "<br><small>" + item.type + "</small></a>" )
+      .appendTo( ul );
+    };
+  });
+}
+
+ready = function() {
+  $(".dropdown-toggle").dropdown();
+  $(".identifi-search").submit(function(event) {
+    event.preventDefault();
+    window.location.assign("/search/" + encodeURIComponent($(event.target).find("input").val()));
+  });
 
   $('#email-login').click(function() {
     loginViaEmail();
     return false;
   });
 
+  setUpSearchAutocomplete();
   setIdPopover();
+  setUpCreatePage();
 }
 
 $(document).ready(ready);
