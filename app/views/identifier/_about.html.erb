@@ -10,6 +10,7 @@
             <%= id["confirmations"] %> Confirm</button>
           <button name="refute" class="btn btn-default btn-refute <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-remove"></span>
             <%= id["refutations"] %> Refute</button>
+          <button class="btn btn-default btn-more"><span class="fa fa-ellipsis-h"></span></button>
         </td>
         <td>
         <div class="progress" style="min-width: 50px">
@@ -21,6 +22,9 @@
         </div>
 
         </td>
+      </tr>
+      <tr style="display:none" class="active connectingpackets">
+        <td></td><td class="connectingpackets" colspan="3"></td>
       </tr>
     <% end %>
       <tr class="active">

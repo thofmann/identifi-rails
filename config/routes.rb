@@ -1,9 +1,6 @@
 IdentifiRails::Application.routes.draw do
   get "search/index"
   get "send/index"
-  get "api/getpacketsbyauthor"
-  get "api/getpacketsbyrecipient"
-  get "api/getpath"
   get "home/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -23,6 +20,7 @@ IdentifiRails::Application.routes.draw do
   get 'id/:type/:value/sent' => 'identifier#sent', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
   get 'id/:type/:value/received' => 'identifier#received', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
   get 'id/:type/:value/overview' => 'identifier#overview', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
+  post 'id/:id1type/:id1value/getconnectingpackets' => 'identifier#getconnectingpackets', :constraints => { :id1type => /[^\/]+/, :id1value => /[^\/]+/ }
   post 'id/:type/:value' => 'identifier#write', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
   post 'id/:type/:value/confirm' => 'identifier#confirm', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
   post 'id/:type/:value/refute' => 'identifier#refute', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }

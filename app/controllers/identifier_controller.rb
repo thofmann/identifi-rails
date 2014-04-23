@@ -84,4 +84,14 @@ class IdentifierController < ApplicationController
     @stats = h.overview(params[:type].to_s, params[:value].to_s)
     render :partial => "overview"
   end
+
+  def getconnectingpackets
+    params.require(:id1type)
+    params.require(:id2type)
+    params.require(:id1value)
+    params.require(:id2value)
+    h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+    @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value])
+    render :partial => "messages"
+  end
 end

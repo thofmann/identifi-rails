@@ -23,6 +23,15 @@ ready = () ->
       location.reload()
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
+  $(".btn-more").click (event) ->
+    event.preventDefault()
+    row = $(event.target).parents("tr").next(".connectingpackets")
+    row.toggle()
+    type = $(event.target).parents("tr").data("type")
+    value = $(event.target).parents("tr").data("value")
+    unless $.trim(row.children("td.connectingpackets").html())
+      $.post window.location.href+"/getconnectingpackets", {id2type:type, id2value:value}, (data) ->
+        row.children("td.connectingpackets").html(data)
   $("#addButton").click (event) ->
     event.preventDefault()
     $.post window.location.href+'/confirm', {linkedType:$("#addType").val(), linkedValue:$("#addValue").val()}, (data) ->
