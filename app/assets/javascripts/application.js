@@ -32,13 +32,16 @@ function setIdPopover() {
   $('.id-link').unbind('mouseenter mouseleave');
   $('.id-link').hover(
     function(event) {
-      var t=$(event.target);
+      var t=$(this);
+      t.unbind('mouseenter mouseleave');
       $.get(t.attr('href')+'/overview',function(d) {
-          t.popover({content: d, html: true, trigger: 'hover', delay: 500}).popover('show');
+          t.popover({content: d, html: true, trigger: 'hover', delay: 0}).popover('show');
       });
-  }, function(event) {
-    $(event.target).popover('hide');
-  });
+  },
+    function(event) {
+      var t=$(this);
+      t.popover('hide');
+    });
 }
 
 function hidePopoverOnClick(popoverTarget) {
