@@ -76,7 +76,7 @@
   </div>
 </div>
 
-<% sig = @packet["signatureDetails"].first
+<% sig = @packet["signatureDetails"]
 signerName = sig["signerKeyID"]
 signerName = @packet["signerName"] unless @packet["signerName"].empty?
 %>
