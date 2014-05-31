@@ -1,45 +1,19 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <strong>Filters</strong>
-    <ul class="list-unstyled">
-      <li>
-        <span class="checkbox">
-          <label><input type="checkbox" <%= "checked" if session[:trusted_only] %>> Trusted content only</label>
-        </span>
-      </li>
-      <li>
-        <span class="checkbox">
-          <label><input type="checkbox" <%= "checked" if session[:trusted_only] %>> Review</label>
-        </span>
-      </li>
-      <ul>
-        <li>
-          <span class="checkbox">
-           <label><input type="checkbox" <%= "checked" if session[:trusted_only] %>> Positive</label>
-          </span>
-        </li>
-        <li>
-          <span class="checkbox">
-           <label><input type="checkbox" <%= "checked" if session[:trusted_only] %>> Neutral</label>
-          </span>
-        </li>
-        <li>
-          <span class="checkbox">
-           <label><input type="checkbox" <%= "checked" if session[:trusted_only] %>> Negative</label>
-          </span>
-        </li>
+    <ul class="nav nav-pills nav-stacked">
+      <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> All</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Review</a></li>
+      <ul class="nav nav-pills nav-stacked" style="padding-left: 1em;">
+        <li><a href="#"><span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> Positive</span></a></li>
+        <li><a href="#"><span class="neutral"><span class="glyphicon glyphicon-question-sign"></span> Neutral</span></a></li>
+        <li><a href="#"><span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> Negative</span></a></li>
       </ul>
-      <li>
-        <span class="checkbox">
-          <label><input type="checkbox" <%= "checked" if session[:trusted_only] %>> Connection</label>
-        </span>
-      </li>
-      <li>
-        <span class="checkbox">
-          <label><input type="checkbox" <%= "checked" if session[:trusted_only] %>> Other</label>
-        </span>
-      </li>
+      <li><a href="#"><span class="fa fa-link"></span> Connection</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Other</a></li>
       <li>
     </ul>
+    <div class="checkbox">
+      <label><input type="checkbox" <%= "checked" if session[:trusted_only] %>> Trusted content only</label>
+    </div>
   </div>
 </div>
