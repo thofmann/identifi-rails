@@ -38,7 +38,8 @@
           <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li class="<%= 'active' if params[:controller] == 'home' %>"><a href="/"><span class="glyphicon glyphicon-home"></span></a></li>
+          <li class="<%= 'active' if params[:controller] == 'home' && params[:action] == 'info' %>"><a href="/info"><span class="glyphicon glyphicon-info-sign"></span></a></li>
+          <li class="<%= 'active' if params[:controller] == 'home' && params[:action] == 'index' %>"><a href="/"><span class="glyphicon glyphicon-home"></span></a></li>
           <% if current_user %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <%= current_user.name %> <b class="caret"></b></a>

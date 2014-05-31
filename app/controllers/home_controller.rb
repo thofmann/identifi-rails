@@ -11,4 +11,7 @@ class HomeController < ApplicationController
   def feed
     index
   end
+
+  def info
+  end
 end
