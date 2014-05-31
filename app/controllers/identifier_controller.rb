@@ -6,12 +6,27 @@ class IdentifierController < ApplicationController
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     nodeID = IdentifiRails::Application.config.nodeID
     offset = (params[:page].to_i * MSG_COUNT) or 0
+    
+    t1 = Time.now
     @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT, offset )
+    logger.debug "getpacketsbyauthor completed in #{(Time.now - t1) * 1000}ms"
+    
+    t1 = Time.now
     @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT, offset )
+    logger.debug "getpacketsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
+
+    t1 = Time.now
     @stats = h.overview(params[:type], params[:value])
-    searchDepth = 5
+    logger.debug "overview completed in #{(Time.now - t1) * 1000}ms"
+
+    searchDepth = 3
+    t1 = Time.now
     @trustpath = h.getpath(nodeID[0], nodeID[1], params[:type], params[:value], searchDepth.to_s)
+    logger.debug "getpath completed in #{(Time.now - t1) * 1000}ms"
+
+    t1 = Time.now
     @connections = h.getconnections( params[:type], params[:value] )
+    logger.debug "getconnections completed in #{(Time.now - t1) * 1000}ms"
   end
 
   def write

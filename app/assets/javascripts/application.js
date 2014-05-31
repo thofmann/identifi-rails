@@ -25,7 +25,7 @@ function loginViaEmail() {
     } else {
       window.location = "#{failure_path}"
     }
-  });  
+  });
 }
 
 function setIdPopover() {
@@ -35,6 +35,7 @@ function setIdPopover() {
       var t=$(this);
       t.unbind('mouseenter mouseleave');
       $.get(t.attr('href')+'/overview',function(d) {
+          $('.popover').hide();
           t.popover({content: d, html: true, trigger: 'hover', delay: 0}).popover('show');
       });
   },
@@ -113,6 +114,17 @@ function setUpSearchAutocomplete() {
   });
 }
 
+function listenToSettingsChanges() {
+  $("#settings_trusted_only").click(
+    function(event) {
+      event.preventDefault();
+      var el = $("#settings_trusted_only .glyphicon");
+      el.toggleClass("glyphicon-check").toggleClass("glyphicon-unchecked");
+      $.post('/settings', {"trusted_only": (el.hasClass("glyphicon-check")?1:0) });
+    }
+  );
+}
+
 ready = function() {
   $(".dropdown-toggle").dropdown();
   $(".identifi-search").submit(function(event) {
@@ -128,6 +140,7 @@ ready = function() {
   setUpSearchAutocomplete();
   setIdPopover();
   setUpCreatePage();
+  listenToSettingsChanges();
 }
 
 $(document).ready(ready);
