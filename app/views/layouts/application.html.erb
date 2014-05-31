@@ -10,7 +10,11 @@
 </head>
 <body>
 
-<div id="wrap">
+<!--<div id="footer">
+  <div class="container">
+    <p class="text-muted"><a href="http://identifi.org">Identifi</a> stores all data in a decentralized network running on <a href="https://github.com/identifi">free software</a>.</p>
+  </div>
+</div>-->
 
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -40,7 +44,6 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <%= current_user.name %> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class=""><a href="/id/<%= "#{current_user.provider}/#{current_user.uid}" %>"><span class="glyphicon glyphicon-user"></span> Public profile</a></li>
-                <li class=""><a href="#" id="settings_trusted_only"><span class="glyphicon glyphicon-<%if session[:trusted_only] %>check<%else%>unchecked<%end%>"></span> Show trusted content only</a></li>
                 <li class=""><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
               </ul>
             </li>
@@ -49,12 +52,6 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Log in <b class="caret"></b></a>
               <ul class="dropdown-menu login-menu">
                 <%= render 'login_menu' %>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-bars"></span></a>
-              <ul class="dropdown-menu">
-                <li class=""><a href="#" id="settings_trusted_only"><span class="glyphicon glyphicon-<%if session[:trusted_only] %>check<%else%>unchecked<%end%>"></span> Show trusted content only</a></li>
               </ul>
             </li>
           <% end %>
@@ -66,13 +63,6 @@
   <div class="container">
     <%= yield %>
   </div>
-</div>
-
-<div id="footer">
-  <div class="container">
-    <p class="text-muted"><a href="http://identifi.org">Identifi</a> stores all data in a decentralized network running on <a href="https://github.com/identifi">free software</a>.</p>
-  </div>
-</div>
 
 </body>
 </html>
