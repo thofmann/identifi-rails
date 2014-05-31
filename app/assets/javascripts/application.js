@@ -33,15 +33,22 @@ function setIdPopover() {
   $('.id-link').hover(
     function(event) {
       var t=$(this);
-      t.unbind('mouseenter mouseleave');
+      t.unbind('mouseenter');
+      t.data('mouseover', true);
+      t.on('mouseenter', function(event) {
+        $(this).data('mouseover', true);
+      });
       $.get(t.attr('href')+'/overview',function(d) {
           $('.popover').hide();
-          t.popover({content: d, html: true, trigger: 'hover', delay: 0}).popover('show');
+          t.popover({content: d, html: true, trigger: 'hover', delay: 0});
+          if (t.data('mouseover')) {
+            t.popover('show');
+          }
       });
   },
     function(event) {
       var t=$(this);
-      t.popover('hide');
+      t.data('mouseover', false);
     });
 }
 
