@@ -47,6 +47,10 @@ body {
 /* For fixed header */
 body { padding-top: 70px; }
 
+#content {
+  padding-bottom: 30px;
+}
+
 /* Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;

@@ -125,9 +125,11 @@ function listenToSettingsChanges() {
   $("#settings_trusted_only").click(
     function(event) {
       event.preventDefault();
-      var el = $("#settings_trusted_only .glyphicon");
-      el.toggleClass("glyphicon-check").toggleClass("glyphicon-unchecked");
-      $.post('/settings', {"trusted_only": (el.hasClass("glyphicon-check")?1:0) });
+      var el = $("#settings_trusted_only input");
+      el.prop("checked", !el.prop("checked"));
+      $.post('/settings', {"trusted_only": (el.prop("checked")?1:0) }, function(data) {
+        location.reload();
+      });
     }
   );
 }
