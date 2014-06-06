@@ -12,6 +12,10 @@
       <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Other</a></li>
       <li>
     </ul>
+    <% nodeID = IdentifiRails::Application.config.nodeID %>
+    <div><p>Trust viewpoint: 
+      <a href="/id/<%= nodeID[0] %>/<%= nodeID[1] %>" class="id-link"><%= nodeID[1] %></a>
+    </p></div>
     <div id="settings_trusted_only" class="checkbox">
       <label><input type="checkbox" <%= "checked" if session[:trusted_only] %>> Trusted content only</label><span class="glyphicon glyphicon-question-sign pull-right" data-toggle="tooltip" title="Trusted content consists of messages that are authored and verified by identities that are connected to your web of trust."></span>
     </div>
