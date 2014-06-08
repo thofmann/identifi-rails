@@ -2,30 +2,43 @@
 
 class IdentifierController < ApplicationController
   MSG_COUNT = 10
+  MSG_COUNT_S = MSG_COUNT.to_s
+  NODE_ID = IdentifiRails::Application.config.nodeID
   def show
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    nodeID = IdentifiRails::Application.config.nodeID
-    offset = (params[:page].to_i * MSG_COUNT) or 0
+    offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     
     t1 = Time.now
-    @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT, offset )
+    @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset )
     logger.debug "getpacketsbyauthor completed in #{(Time.now - t1) * 1000}ms"
     
     t1 = Time.now
-    @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT, offset )
+    if (session[:trusted_only])
+      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1] )
+    else
+      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset )
+    end
     logger.debug "getpacketsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
 
     t1 = Time.now
-    @stats = h.overview(params[:type], params[:value])
+    if (session[:trusted_only])
+      @stats = h.overview( params[:type], params[:value], NODE_ID[0], NODE_ID[1] )
+    else
+      @stats = h.overview(params[:type], params[:value])
+    end
     logger.debug "overview completed in #{(Time.now - t1) * 1000}ms"
 
     searchDepth = 3
     t1 = Time.now
-    @trustpath = h.getpath(nodeID[0], nodeID[1], params[:type], params[:value], searchDepth.to_s)
+    @trustpath = h.getpath(NODE_ID[0], NODE_ID[1], params[:type], params[:value], searchDepth.to_s)
     logger.debug "getpath completed in #{(Time.now - t1) * 1000}ms"
 
     t1 = Time.now
-    @connections = h.getconnections( params[:type], params[:value] )
+    if (session[:trusted_only])
+      @connections = h.getconnections( params[:type], params[:value], "0", "0", NODE_ID[0], NODE_ID[1] )
+    else
+      @connections = h.getconnections( params[:type], params[:value] )
+    end
     logger.debug "getconnections completed in #{(Time.now - t1) * 1000}ms"
   end
 
@@ -49,8 +62,8 @@ class IdentifierController < ApplicationController
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     params.require(:type)
     params.require(:value)
-    offset = (params[:page].to_i * MSG_COUNT) or 0
-    @messages = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT, offset )
+    offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
+    @messages = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset )
     render :partial => "messages"
   end
 
@@ -58,8 +71,12 @@ class IdentifierController < ApplicationController
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     params.require(:type)
     params.require(:value)
-    offset = (params[:page].to_i * MSG_COUNT) or 0
-    @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT, offset )
+    offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
+    if (session[:trusted_only])
+      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1] )
+    else
+      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset )
+    end
     render :partial => "messages"
   end
 
@@ -96,7 +113,11 @@ class IdentifierController < ApplicationController
     params.require(:type)
     params.require(:value)
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    @stats = h.overview(params[:type].to_s, params[:value].to_s)
+    if (session[:trusted_only])
+      @stats = h.overview(params[:type].to_s, params[:value].to_s, NODE_ID[0], NODE_ID[1])
+    else
+      @stats = h.overview(params[:type].to_s, params[:value].to_s)
+    end
     render :partial => "overview"
   end
 
@@ -106,7 +127,11 @@ class IdentifierController < ApplicationController
     params.require(:id1value)
     params.require(:id2value)
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value])
+    if (session[:trusted_only])
+      @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value], "0", "0", NODE_ID[0], NODE_ID[1] )
+    else
+      @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value])
+    end
     render :partial => "messages"
   end
 end
