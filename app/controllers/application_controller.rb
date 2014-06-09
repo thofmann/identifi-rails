@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   private
+  def setViewpointName(identifiRPC)
+    nodeID = IdentifiRails::Application.config.nodeID
+    @viewpointName = identifiRPC.getname(nodeID[0], nodeID[1])
+    @viewpointName = nil if @viewpointName.empty?
+  end
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end

@@ -6,6 +6,7 @@ class IdentifierController < ApplicationController
   NODE_ID = IdentifiRails::Application.config.nodeID
   def show
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+    setViewpointName(h)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     
     t1 = Time.now
