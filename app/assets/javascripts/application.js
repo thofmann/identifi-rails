@@ -122,12 +122,12 @@ function setUpSearchAutocomplete() {
 }
 
 function listenToSettingsChanges() {
-  $("#settings_trusted_only").click(
+  $(".trust-distance-selector button").click(
     function(event) {
       event.preventDefault();
-      var el = $("#settings_trusted_only input");
-      el.prop("checked", !el.prop("checked"));
-      $.post('/settings', {"trusted_only": (el.prop("checked")?1:0) }, function(data) {
+      var el = $(event.target);
+      el.toggleClass("active");
+      $.post('/settings', {"max_trust_distance": el.data("val") }, function(data) {
         location.reload();
       });
     }

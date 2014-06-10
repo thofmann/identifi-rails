@@ -14,16 +14,16 @@ class IdentifierController < ApplicationController
     logger.debug "getpacketsbyauthor completed in #{(Time.now - t1) * 1000}ms"
     
     t1 = Time.now
-    if (session[:trusted_only])
-      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1] )
+    if (session[:max_trust_distance] >= 0)
+      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s )
     else
       @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset )
     end
     logger.debug "getpacketsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
 
     t1 = Time.now
-    if (session[:trusted_only])
-      @stats = h.overview( params[:type], params[:value], NODE_ID[0], NODE_ID[1] )
+    if (session[:max_trust_distance] >= 0)
+      @stats = h.overview( params[:type], params[:value], NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s )
     else
       @stats = h.overview(params[:type], params[:value])
     end
@@ -35,8 +35,8 @@ class IdentifierController < ApplicationController
     logger.debug "getpath completed in #{(Time.now - t1) * 1000}ms"
 
     t1 = Time.now
-    if (session[:trusted_only])
-      @connections = h.getconnections( params[:type], params[:value], "0", "0", NODE_ID[0], NODE_ID[1] )
+    if (session[:max_trust_distance] >= 0)
+      @connections = h.getconnections( params[:type], params[:value], "0", "0", NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s )
     else
       @connections = h.getconnections( params[:type], params[:value] )
     end
@@ -73,8 +73,8 @@ class IdentifierController < ApplicationController
     params.require(:type)
     params.require(:value)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
-    if (session[:trusted_only])
-      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1] )
+    if (session[:max_trust_distance] >= 0)
+      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s )
     else
       @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset )
     end
@@ -114,8 +114,8 @@ class IdentifierController < ApplicationController
     params.require(:type)
     params.require(:value)
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    if (session[:trusted_only])
-      @stats = h.overview(params[:type].to_s, params[:value].to_s, NODE_ID[0], NODE_ID[1])
+    if (session[:max_trust_distance] >= 0)
+      @stats = h.overview(params[:type].to_s, params[:value].to_s, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s)
     else
       @stats = h.overview(params[:type].to_s, params[:value].to_s)
     end
@@ -128,8 +128,8 @@ class IdentifierController < ApplicationController
     params.require(:id1value)
     params.require(:id2value)
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    if (session[:trusted_only])
-      @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value], "0", "0", NODE_ID[0], NODE_ID[1] )
+    if (session[:max_trust_distance] >= 0)
+      @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value], "0", "0", NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s )
     else
       @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value])
     end

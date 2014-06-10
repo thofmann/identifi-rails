@@ -2,8 +2,13 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_filter :setSessionDefaults
 
   private
+  def setSessionDefaults
+    session[:max_trust_distance] = 0 unless session[:max_trust_distance]
+  end
+
   def setViewpointName(identifiRPC)
     nodeID = IdentifiRails::Application.config.nodeID
     @viewpointName = identifiRPC.getname(nodeID[0], nodeID[1])

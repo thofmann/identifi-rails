@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
   end
 
   def settings
-    session[:trusted_only] = (params[:trusted_only].to_i != 0) if params[:trusted_only]
+    session[:max_trust_distance] = params[:max_trust_distance].to_i
     render :nothing => true, :status => 200
   end
 end
