@@ -29,7 +29,7 @@ class IdentifierController < ApplicationController
     end
     logger.debug "overview completed in #{(Time.now - t1) * 1000}ms"
 
-    searchDepth = 3
+    searchDepth = IdentifiRails::Application.config.maxPathSearchDepth
     t1 = Time.now
     @trustpath = h.getpath(NODE_ID[0], NODE_ID[1], params[:type], params[:value], searchDepth.to_s)
     logger.debug "getpath completed in #{(Time.now - t1) * 1000}ms"

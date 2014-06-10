@@ -6,3 +6,4 @@ twitterKey: ''
 twitterSecret: ''
 googleClientID: ''
 googleClientSecret: ''
+maxPathSearchDepth: 2
