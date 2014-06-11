@@ -1,15 +1,15 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <ul class="nav nav-pills nav-stacked">
-      <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> All</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Review</a></li>
+    <ul class="nav nav-pills nav-stacked packet-type-filter">
+      <li <%= "class=active" if session[:packet_type_filter] == "" %>><a href="#" data-val=""><span class="glyphicon glyphicon-home"></span> All</a></li>
+      <li <%= "class=active" if session[:packet_type_filter] == "review" %>><a href="#" data-val="review"><span class="glyphicon glyphicon-thumbs-up"></span> Review</a></li>
       <ul class="nav nav-pills nav-stacked" style="padding-left: 1em;">
-        <li><a href="#"><span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> Positive</span></a></li>
-        <li><a href="#"><span class="neutral"><span class="glyphicon glyphicon-question-sign"></span> Neutral</span></a></li>
-        <li><a href="#"><span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> Negative</span></a></li>
+        <li <%= "class=active" if session[:packet_type_filter] == "positive" %>><a href="#" data-val="positive"><span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> Positive</span></a></li>
+        <li <%= "class=active" if session[:packet_type_filter] == "neutral" %>><a href="#" data-val="neutral"><span class="neutral"><span class="glyphicon glyphicon-question-sign"></span> Neutral</span></a></li>
+        <li <%= "class=active" if session[:packet_type_filter] == "negative" %>><a href="#" data-val="negative"><span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> Negative</span></a></li>
       </ul>
-      <li><a href="#"><span class="fa fa-link"></span> Connection</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Other</a></li>
+      <li <%= "class=active" if session[:packet_type_filter] == "connection" %>><a href="#" data-val="connection"><span class="fa fa-link"></span> Connection</a></li>
+      <li <%= "class=active" if session[:packet_type_filter] == "other" %>><a href="#" data-val="other"><span class="glyphicon glyphicon-question-sign"></span> Other</a></li>
       <li>
     </ul>
     <% nodeID = IdentifiRails::Application.config.nodeID %>

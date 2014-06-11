@@ -15,9 +15,9 @@ class IdentifierController < ApplicationController
     
     t1 = Time.now
     if (session[:max_trust_distance] >= 0)
-      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s )
+      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s, session[:packet_type_filter] )
     else
-      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset )
+      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     end
     logger.debug "getpacketsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
 
@@ -25,7 +25,7 @@ class IdentifierController < ApplicationController
     if (session[:max_trust_distance] >= 0)
       @stats = h.overview( params[:type], params[:value], NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s )
     else
-      @stats = h.overview(params[:type], params[:value])
+      @stats = h.overview(params[:type], params[:value], "", "", "0" )
     end
     logger.debug "overview completed in #{(Time.now - t1) * 1000}ms"
 
@@ -64,7 +64,7 @@ class IdentifierController < ApplicationController
     params.require(:type)
     params.require(:value)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
-    @messages = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset )
+    @messages = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     render :partial => "messages"
   end
 
@@ -74,9 +74,9 @@ class IdentifierController < ApplicationController
     params.require(:value)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     if (session[:max_trust_distance] >= 0)
-      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s )
+      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s, session[:packet_type_filter] )
     else
-      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset )
+      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     end
     render :partial => "messages"
   end
