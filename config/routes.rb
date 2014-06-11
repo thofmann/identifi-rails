@@ -9,7 +9,7 @@ IdentifiRails::Application.routes.draw do
   root 'home#index'
 
   get 'feed' => 'home#feed'
-  get 'info' => 'home#info'
+  get 'about' => 'home#about'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -18,6 +18,6 @@ class HomeController < ApplicationController
     index
   end
 
-  def info
+  def about
   end
 end

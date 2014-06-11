@@ -96,3 +96,5 @@ a.text-muted:hover {
 .negative {
   color: #A94442;
 }
+
+@media (min-width: 768px) { #nav-search-field { width: 360px; }}
