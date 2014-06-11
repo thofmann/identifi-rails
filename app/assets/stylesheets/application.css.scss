@@ -97,4 +97,7 @@ a.text-muted:hover {
   color: #A94442;
 }
 
-@media (min-width: 768px) { #nav-search-field { width: 360px; }}
+@media (min-width: 768px) { 
+  #nav-search-field { width: 360px; }
+  .navbar-form { width: 400px; }
+}
