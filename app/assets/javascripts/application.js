@@ -38,7 +38,7 @@ function setIdPopover() {
       t.on('mouseenter', function(event) {
         $(this).data('mouseover', true);
       });
-      $.get(t.attr('href')+'/overview',function(d) {
+      $.post('/id/overview',{type:t.data('id-type'), value:t.data('id-value')},function(d) {
           $('.popover').hide();
           t.popover({content: d, html: true, trigger: 'hover', delay: 0});
           if (t.data('mouseover')) {

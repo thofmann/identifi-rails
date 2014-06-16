@@ -14,14 +14,14 @@
     <ul class="list-unstyled">
     <% @trustpath.each do |packet| %>
     <% signedData = packet["data"]["signedData"] %>
-        <li><a class="id-link" href="/id/<%= signedData["author"][0][0] %>/<%= signedData["author"][0][1] %>">
+        <li><a data-id-type="<%= signedData["author"][0][0] %>" data-id-value="<%= signedData["author"][0][1] %>" class="id-link" href="/id/<%= signedData["author"][0][0] %>/<%= signedData["author"][0][1] %>">
           <%= if packet["authorName"].empty?
                 signedData["author"][0][1]
               else
                 packet["authorName"]
               end %>
         </a> ▸ 
-        <a class="id-link" href="/id/<%= signedData["recipient"][0][0] %>/<%= signedData["recipient"][0][1] %>">
+        <a data-id-type="<%= signedData["recipient"][0][0] %>" data-id-value="<%= signedData["recipient"][0][1] %>" class="id-link" href="/id/<%= signedData["recipient"][0][0] %>/<%= signedData["recipient"][0][1] %>">
           <%= if packet["recipientName"].empty?
                 signedData["recipient"][0][1]
               else

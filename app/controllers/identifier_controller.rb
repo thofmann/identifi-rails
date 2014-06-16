@@ -86,7 +86,7 @@ class IdentifierController < ApplicationController
       message[:signedData][:timestamp] = Time.now.to_i
       h.savepacketfromdata(message.to_json, publish.to_s)
     end
-    redirect_to :action => 'show'
+    redirect_to :action => 'show', :type => params[:type], :value => params[:value]
   end
 
   def sent

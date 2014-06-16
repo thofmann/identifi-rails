@@ -4,7 +4,7 @@
     <% @connections.each do |id| %>
       <tr data-type="<%= id["type"] %>" data-value="<%= id["value"] %>">
         <td><%= id["type"] %></td>
-        <td><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" class="id-link"><%= id["value"] %></a></td>
+        <td><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a></td>
         <td>
           <button name="confirm" class="btn btn-default btn-confirm <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-ok"></span>
             <%= id["confirmations"] %> Confirm</button>

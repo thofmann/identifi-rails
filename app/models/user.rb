@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
       user.uid = auth.uid
       user.name = auth.info.name
       user.nickname = auth.info.nickname
-      if auth.info.urls['Twitter']
+      if (auth.info.urls && auth.info.urls['Twitter'])
         user.url = auth.info.urls['Twitter']
       else
         user.url = auth.info.urls.first[1] if (auth.info.urls && auth.info.urls.first[1])

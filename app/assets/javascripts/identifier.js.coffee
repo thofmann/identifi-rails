@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = () ->
+  idType = $("#id-type").html()
+  idValue = $("#id-value").html()
   $("#btn-positive, #btn-neutral, #btn-negative").click (event) ->
     $("#btn-positive").toggleClass("btn-success", $(event.target).is("#btn-positive"))
     $("#btn-neutral").toggleClass("btn-warning", $(event.target).is("#btn-neutral"))
@@ -19,7 +21,7 @@ ready = () ->
       method = "refute"
     type = $(event.target).parents("tr").data("type")
     value = $(event.target).parents("tr").data("value")
-    $.post window.location.href+"/"+method, {linkedType:type, linkedValue:value}, (data) ->
+    $.post "/id/"+method, {type:idType, value:idValue, linkedType:type, linkedValue:value}, (data) ->
       location.reload()
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
@@ -30,11 +32,11 @@ ready = () ->
     type = $(event.target).parents("tr").data("type")
     value = $(event.target).parents("tr").data("value")
     unless $.trim(row.children("td.connectingpackets").html())
-      $.post window.location.href+"/getconnectingpackets", {id2type:type, id2value:value}, (data) ->
+      $.post "/id/getconnectingpackets", {id1type:idType, id1value:idValue, id2type:type, id2value:value}, (data) ->
         row.children("td.connectingpackets").html(data)
   $("#addButton").click (event) ->
     event.preventDefault()
-    $.post window.location.href+'/confirm', {linkedType:$("#addType").val(), linkedValue:$("#addValue").val()}, (data) ->
+    $.post '/id/confirm', {type:idType, value:idValue, linkedType:$("#addType").val(), linkedValue:$("#addValue").val()}, (data) ->
       location.reload()
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
@@ -49,7 +51,7 @@ ready = () ->
     state:
       currPage: 0
     path: (page) ->
-      location.protocol + '//' + location.host + location.pathname + "/received/?page=" + page
+      "/id/received/?page=" + page # todoo!
     , (arrayOfNewElems) ->
       setIdPopover();
 
@@ -63,7 +65,7 @@ ready = () ->
     state:
       currPage: 0
     path: (page) ->
-      location.protocol + '//' + location.host + location.pathname + "/sent/?page=" + page
+      "/id/sent/?page=" + page
     , (arrayOfNewElems) ->
       setIdPopover();
 

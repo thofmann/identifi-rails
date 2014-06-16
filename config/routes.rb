@@ -17,14 +17,14 @@ IdentifiRails::Application.routes.draw do
   get 'login' => 'login#index'
 
   get 'search(/:query)' => 'search#index', :constraints => { :query => /[^\/]+/ }
-  get 'id/:type/:value' => 'identifier#show', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
-  get 'id/:type/:value/sent' => 'identifier#sent', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
-  get 'id/:type/:value/received' => 'identifier#received', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
-  get 'id/:type/:value/overview' => 'identifier#overview', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
-  post 'id/:id1type/:id1value/getconnectingpackets' => 'identifier#getconnectingpackets', :constraints => { :id1type => /[^\/]+/, :id1value => /[^\/]+/ }
-  post 'id/:type/:value' => 'identifier#write', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
-  post 'id/:type/:value/confirm' => 'identifier#confirm', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
-  post 'id/:type/:value/refute' => 'identifier#refute', :constraints => { :type => /[^\/]+/, :value => /[^\/]+/ }
+  get 'id/:type/:value' => 'identifier#show', :constraints => { :type => /[^\/]+/, :value => /.+/ }
+  post 'id/sent' => 'identifier#sent', :constraints => { :type => /[^\/]+/, :value => /.+/ }
+  post 'id/received' => 'identifier#received', :constraints => { :type => /[^\/]+/, :value => /.+/ }
+  post 'id/overview' => 'identifier#overview', :constraints => { :type => /[^\/]+/, :value => /.+/ }
+  post 'id/getconnectingpackets' => 'identifier#getconnectingpackets', :constraints => { :id1type => /[^\/]+/, :id1value => /[^\/]+/ }
+  post 'id/write' => 'identifier#write', :constraints => { :type => /[^\/]+/, :value => /.+/ }
+  post 'id/confirm' => 'identifier#confirm', :constraints => { :type => /[^\/]+/, :value => /.+/ }
+  post 'id/refute' => 'identifier#refute', :constraints => { :type => /[^\/]+/, :value => /.+/ }
 
 
   get 'message(/:hash)' => 'packet#show'

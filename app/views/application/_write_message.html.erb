@@ -3,7 +3,9 @@
     <h3 class="panel-title">Write feedback</h3>
   </div>
   <div class="panel-body">
-    <form action="" method="post">
+    <form action="/id/write" method="post">
+      <%= hidden_field_tag :type, params[:type] -%>
+      <%= hidden_field_tag :value, params[:value] -%>
       <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
       <div class="form-group">
         <textarea name="comment" class="form-control" id="comment" placeholder="Comment"></textarea>

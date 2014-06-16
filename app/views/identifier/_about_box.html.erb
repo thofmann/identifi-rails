@@ -9,7 +9,7 @@
     <% @connections.each do |id| %>
       <tr>
         <td><%= id["type"] %></td>
-        <td><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" class="id-link"><%= id["value"] %></a></td>
+        <td><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a></td>
       </tr>
     <% end %>
     </table>

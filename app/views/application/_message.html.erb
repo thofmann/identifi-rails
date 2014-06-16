@@ -40,14 +40,14 @@
       <span class="<%= iconStyle %> pull-right"></span>
       <% if showAuthor %>
       <strong>
-        <a href="/id/<%= author.first %>/<%= author.last %>" class="id-link">
+        <a href="/id/<%= author.first %>/<%= author.last %>" data-id-type="<%= author.first %>" data-id-value="<%= author.last %>" class="id-link">
           <%= authorName %>
         </a>
       </strong>
       <% end %>
       <% if showRecipient %>
       &#x25B8;
-      <a href="/id/<%= recipient.first %>/<%= recipient.last %>" class="id-link">
+      <a href="/id/<%= recipient.first %>/<%= recipient.last %>" data-id-type="<%= recipient.first %>" data-id-value="<%= recipient.last %>" class="id-link">
         <%= recipientName %>
       </a>
       <% end %>
@@ -58,7 +58,7 @@
     <p class="small">
     <% signedData["recipient"].each_with_index do |r, i| %>
       <span class="text-muted"><%= r.first %></span>
-      <a href="<%= "/id/#{r.first}/#{r.second}" %>" class="id-link"><%= r.second %></a>
+      <a href="<%= "/id/#{r.first}/#{r.second}" %>" data-id-type="<%= r.first %>" data-id-value="<%= r.last %>" class="id-link"><%= r.second %></a>
       <% unless i + 1 == signedData["recipient"].size %>
         <span class="<%= iconStyle %>"></span> 
       <% end %>
