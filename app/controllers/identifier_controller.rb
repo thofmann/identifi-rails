@@ -19,6 +19,13 @@ class IdentifierController < ApplicationController
                       signature: {}
                     }
 
+  before_filter :checkParams, :except => [:getconnectingpackets]
+
+  def checkParams
+    params.require(:type)
+    params.require(:value)
+  end
+
   def show
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     setViewpointName(h)
@@ -61,8 +68,6 @@ class IdentifierController < ApplicationController
   def write
     if current_user
       h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-      params.require(:type)
-      params.require(:value)
       params.require(:rating)
       type = params[:type].to_s
       value = params[:value].to_s
@@ -86,8 +91,6 @@ class IdentifierController < ApplicationController
 
   def sent
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    params.require(:type)
-    params.require(:value)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     @messages = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     render :partial => "messages"
@@ -95,8 +98,6 @@ class IdentifierController < ApplicationController
 
   def received
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    params.require(:type)
-    params.require(:value)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     if (session[:max_trust_distance] >= 0)
       @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s, session[:packet_type_filter] )
@@ -117,8 +118,6 @@ class IdentifierController < ApplicationController
   def connection(confirm)
     if current_user
       h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-      params.require(:type)
-      params.require(:value)
       params.require(:linkedType)
       params.require(:linkedValue)
       type = params[:type].to_s
@@ -136,8 +135,6 @@ class IdentifierController < ApplicationController
   end
 
   def overview
-    params.require(:type)
-    params.require(:value)
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     if (session[:max_trust_distance] >= 0)
       @stats = h.overview(params[:type].to_s, params[:value].to_s, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s)
