@@ -4,6 +4,21 @@ class IdentifierController < ApplicationController
   MSG_COUNT = 10
   MSG_COUNT_S = MSG_COUNT.to_s
   NODE_ID = IdentifiRails::Application.config.nodeID
+  IDENTIFI_PACKET = {
+                      signedData:
+                        {
+                          timestamp: 0,
+                          author: [],
+                          recipient: [],
+                          rating: 0,
+                          maxRating: 1,
+                          minRating: -1,
+                          comment: "",
+                          type: "review"
+                        },
+                      signature: {}
+                    }
+
   def show
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     setViewpointName(h)
@@ -51,10 +66,20 @@ class IdentifierController < ApplicationController
       params.require(:rating)
       type = params[:type].to_s
       value = params[:value].to_s
-      rating = params[:rating].to_s
+      rating = params[:rating].to_i
       comment = (params[:comment].to_s or "")
       publish = Rails.env.production?.to_s
-      h.savepacket(current_user.provider, current_user.uid, type, value, comment, rating, publish)
+
+      message = Marshal.load(Marshal.dump(IDENTIFI_PACKET))
+      message[:signedData][:author].push([current_user.provider, current_user.uid])
+      message[:signedData][:author].push(["name", current_user.name]) if current_user.name
+      message[:signedData][:author].push(["nickname", current_user.nickname]) if current_user.nickname
+      message[:signedData][:author].push(["url", current_user.url]) if current_user.url
+      message[:signedData][:recipient].push([type, value])
+      message[:signedData][:rating] = rating
+      message[:signedData][:comment] = comment unless comment.empty?
+      message[:signedData][:timestamp] = Time.now.to_i
+      h.savepacketfromdata(message.to_json, publish.to_s)
     end
     redirect_to :action => 'show'
   end
