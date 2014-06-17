@@ -32,7 +32,7 @@ class IdentifierController < ApplicationController
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     
     t1 = Time.now
-    @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset )
+    @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     logger.debug "getpacketsbyauthor completed in #{(Time.now - t1) * 1000}ms"
     
     t1 = Time.now
