@@ -9,7 +9,7 @@
         <li <%= "class=active" if session[:packet_type_filter] == "review/negative" %>><a href="#" data-val="review/negative"><span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> Negative</span></a></li>
       </ul>
       <li <%= "class=active" if session[:packet_type_filter] == "connection" %>><a href="#" data-val="connection"><span class="fa fa-link"></span> Connection</a></li>
-      <li <%= "class=active" if session[:packet_type_filter] == "other" %>><a href="#" data-val="other"><span class="glyphicon glyphicon-question-sign"></span> Other</a></li>
+      <!-- <li <%= "class=active" if session[:packet_type_filter] == "!review,connection" %>><a href="#" data-val="other"><span class="glyphicon glyphicon-question-sign"></span> Other</a></li> -->
       <li>
     </ul>
     <% nodeID = IdentifiRails::Application.config.nodeID %>
