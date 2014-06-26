@@ -1,11 +1,10 @@
-<%= render "login_info" unless current_user %>
-
 <div class="row">
   <div class="col-md-4">
     <%= render "filters_box" %>
   </div>
   <div class="col-md-8">
     <div id="messages">
+   	<%= render "login_info" unless current_user %>
     <%= render partial: "message", collection: @latest, locals: {showAuthor: true, showRecipient: true} %>
     </div>
     <div id="more"><a href="#">More ...</a></div>
