@@ -6,6 +6,7 @@
         <td><%= id["type"] %></td>
         <td><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a></td>
         <td>
+         <input class="form-control" name="linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>>
           <button name="confirm" class="btn btn-default btn-confirm <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-ok"></span>
             <%= id["confirmations"] %> Confirm</button>
           <button name="refute" class="btn btn-default btn-refute <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-remove"></span>
@@ -20,7 +21,6 @@
             <%= percentage %> %
           </div>
         </div>
-
         </td>
       </tr>
       <tr style="display:none" class="active connectingpackets">
@@ -30,6 +30,7 @@
       <tr class="active">
         <td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type" <%= "disabled" unless current_user %>></td>
         <td><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" <%= "disabled" unless current_user %>></td>
+        <td><input id="addComment" class="form-control" name="linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>></td>
         <td><button id="addButton" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-plus"></span> Add connection</button></td>
         <td></td>
       </tr>
