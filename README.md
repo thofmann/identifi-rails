@@ -16,3 +16,5 @@ Using [RVM](http://rvm.io/) for Ruby is recommended. A javascript runtime is req
     rake db:migrate
     rake assets:precompile
     rails server
+
+[Phusion Passenger](https://www.phusionpassenger.com/) with nginx is an easy way to run a production server.
