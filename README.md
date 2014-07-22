@@ -5,7 +5,7 @@ Ruby on Rails interface for [Identifi](https://github.com/identifi/identifi)
 
 Running
 -------
-Using [RVM](http://rvm.io/) for Ruby is recommended.
+Using [RVM](http://rvm.io/) for Ruby is recommended. A javascript runtime is required, install [NodeJS](http://nodejs.org/download/) unless you have one.
 
     git clone https://github.com/identifi/identifi-rails
     gem install bundler
@@ -13,5 +13,6 @@ Using [RVM](http://rvm.io/) for Ruby is recommended.
     bundle install
     cp config/config.yml.example config/config.yml
     # Edit config.yml
+    rake db:migrate
     rake assets:precompile
     rails server
