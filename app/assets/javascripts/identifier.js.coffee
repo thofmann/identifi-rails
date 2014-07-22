@@ -16,12 +16,11 @@ ready = () ->
     $("#buttonvalue").val($(this).val());
   $(".btn-confirm, .btn-refute").click (event) ->
     event.preventDefault()
-    method = "confirm"
-    if $(event.target).hasClass('btn-refute')
-      method = "refute"
+    method = if $(event.target).hasClass('btn-refute') then "refute" else "confirm"
     type = $(event.target).parents("tr").data("type")
     value = $(event.target).parents("tr").data("value")
-    $.post "/id/"+method, {type:idType, value:idValue, linkedType:type, linkedValue:value}, (data) ->
+    comment = $(event.target).siblings(".linkedComment").val()
+    $.post "/id/"+method, {type:idType, value:idValue, linkedType:type, linkedValue:value, linkedComment:comment}, (data) ->
       location.reload()
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
@@ -36,7 +35,7 @@ ready = () ->
         row.children("td.connectingpackets").html(data)
   $("#addButton").click (event) ->
     event.preventDefault()
-    $.post '/id/confirm', {type:idType, value:idValue, linkedType:$("#addType").val(), linkedValue:$("#addValue").val()}, (data) ->
+    $.post '/id/confirm', {type:idType, value:idValue, linkedType:$("#addType").val(), linkedValue:$("#addValue").val(), linkedComment:$("#addComment").val()}, (data) ->
       location.reload()
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
