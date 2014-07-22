@@ -116,7 +116,9 @@ class IdentifierController < ApplicationController
   end
 
   def connection(confirm)
-    if current_user
+    if params.has_key?(:linkedComment)
+      connectioncomment(confirm)
+    elsif current_user
       h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
       params.require(:linkedType)
       params.require(:linkedValue)
@@ -124,10 +126,35 @@ class IdentifierController < ApplicationController
       value = params[:value].to_s
       publish = Rails.env.production?.to_s
       if confirm
-        h.saveconnection(current_user.provider, current_user.uid, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish) 
+        h.saveconnection(current_user.provider, current_user.uid, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish)
       else
-        h.refuteconnection(current_user.provider, current_user.uid, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish) 
+        h.refuteconnection(current_user.provider, current_user.uid, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish)
       end
+      render :text => "OK"
+    else
+      render :text => "Login required", :status => 401
+    end
+  end
+  
+  def connectioncomment(confirm)
+    if current_user
+      h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+      params.require(:linkedType)
+      params.require(:linkedValue)
+      type = params[:type].to_s
+      value = params[:value].to_s
+      publish = Rails.env.production?.to_s
+      comment = params[:linkedComment].to_s
+      message = Marshal.load(Marshal.dump(IDENTIFI_PACKET))
+
+      message[:signedData][:timestamp] = Time.now.to_i
+      message[:signedData][:author].push([current_user.provider, current_user.uid])
+      message[:signedData][:recipient].push([type, value])
+      message[:signedData][:recipient].push([params[:linkedType], params[:linkedValue]])
+      message[:signedData][:type] = confirm ? "confirm_connection" : "refute_connection"
+      message[:signedData][:comment] = comment unless comment.empty?
+      h.savepacketfromdata(message.to_json, publish.to_s)
+
       render :text => "OK"
     else
       render :text => "Login required", :status => 401

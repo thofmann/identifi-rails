@@ -28,9 +28,9 @@
       </tr>
     <% end %>
       <tr class="active">
-        <td><input id="addComment" class="form-control" name="linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>></td>
         <td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type" <%= "disabled" unless current_user %>></td>
         <td><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" <%= "disabled" unless current_user %>></td>
+        <td><input id="addComment" class="form-control" name="linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>></td>
         <td><button id="addButton" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-plus"></span> Add connection</button></td>
         <td></td>
       </tr>
