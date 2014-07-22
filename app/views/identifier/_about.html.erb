@@ -5,7 +5,7 @@
       <tr data-type="<%= id["type"] %>" data-value="<%= id["value"] %>">
         <td><%= id["type"] %></td>
         <td><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a></td>
-        <td style="width: 260px">
+        <td style="width: 270px">
          <input class="form-control linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>>
           <button name="confirm" class="btn btn-default btn-confirm <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-ok"></span>
             <%= id["confirmations"] %> Confirm</button>
