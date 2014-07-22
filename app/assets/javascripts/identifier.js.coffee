@@ -16,7 +16,7 @@ ready = () ->
     $("#buttonvalue").val($(this).val());
   $(".btn-confirm, .btn-refute").click (event) ->
     event.preventDefault()
-    method = $(event.target).hasClass('btn-refute') ? "refute" : "confirm"
+    method = if $(event.target).hasClass('btn-refute') then "refute" else "confirm"
     type = $(event.target).parents("tr").data("type")
     value = $(event.target).parents("tr").data("value")
     comment = $(event.target).siblings(".linkedComment").val()
