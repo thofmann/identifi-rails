@@ -28,7 +28,7 @@ class IdentifierController < ApplicationController
 
   def show
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    setViewpointName(h)
+    setViewpoint(h)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     
     t1 = Time.now
@@ -53,11 +53,7 @@ class IdentifierController < ApplicationController
 
     searchDepth = IdentifiRails::Application.config.maxPathSearchDepth
     t1 = Time.now
-    if current_user
-        @trustpath = h.getpath(current_user.provider, current_user.uid, params[:type], params[:value], searchDepth.to_s)
-    else
-        @trustpath = h.getpath(NODE_ID[0], NODE_ID[1], params[:type], params[:value], searchDepth.to_s)
-    end
+    @trustpath = h.getpath(@viewpointType, @viewpointValue, params[:type], params[:value], searchDepth.to_s)
     logger.debug "getpath completed in #{(Time.now - t1) * 1000}ms"
 
     t1 = Time.now

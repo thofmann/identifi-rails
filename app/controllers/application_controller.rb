@@ -10,9 +10,16 @@ class ApplicationController < ActionController::Base
     session[:packet_type_filter] = "" unless session[:packet_type_filter]
   end
 
-  def setViewpointName(identifiRPC)
+  def setViewpoint(identifiRPC)
     nodeID = IdentifiRails::Application.config.nodeID
-    @viewpointName = identifiRPC.getname(nodeID[0], nodeID[1])
+    if current_user
+      @viewpointType = current_user.provider
+      @viewpointValue = current_user.uid
+    else
+      @viewpointType = nodeID[0]
+      @viewpointValue = nodeID[1]
+    end
+    @viewpointName = identifiRPC.getname(@viewpointType, @viewpointValue)
     @viewpointName = nil if @viewpointName.empty?
   end
 
