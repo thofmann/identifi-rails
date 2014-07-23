@@ -14,7 +14,7 @@
     </ul>
     <% nodeID = IdentifiRails::Application.config.nodeID %>
     <div class="alert alert-info"><p>Trust viewpoint: 
-      <a href="/id/<%= nodeID[0] %>/<%= nodeID[1] %>" data-id-type="<%= nodeID[0] %>" data-id-value="<%= nodeID[1] %>" class="id-link"><%= @viewpointName or nodeID[1] %></a>
+      <a href="/id/<%= @viewpointType %>/<%= @viewpointValue %>" data-id-type="<%= @viewpointType %>" data-id-value="<%= @viewpointValue %>" class="id-link"><%= @viewpointName or @viewpointValue %></a>
     </p>
     <p>Max distance from viewpoint:</p>
     <div class="btn-group trust-distance-selector">
