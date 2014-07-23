@@ -5,29 +5,41 @@
   </div>
 </div>
 <% else %>
-
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Trust path</h3>
   </div>
   <div class="panel-body">
     <ul class="list-unstyled">
+    <% firstPacket = true %>
     <% @trustpath.each do |packet| %>
     <% signedData = packet["data"]["signedData"] %>
-        <li><a data-id-type="<%= signedData["author"][0][0] %>" data-id-value="<%= signedData["author"][0][1] %>" class="id-link" href="/id/<%= signedData["author"][0][0] %>/<%= signedData["author"][0][1] %>">
-          <%= if packet["authorName"].empty?
-                signedData["author"][0][1]
-              else
-                packet["authorName"]
-              end %>
-        </a> ▸ 
-        <a data-id-type="<%= signedData["recipient"][0][0] %>" data-id-value="<%= signedData["recipient"][0][1] %>" class="id-link" href="/id/<%= signedData["recipient"][0][0] %>/<%= signedData["recipient"][0][1] %>">
-          <%= if packet["recipientName"].empty?
-                signedData["recipient"][0][1]
-              else
-                packet["recipientName"]
-              end %>
-        </a> - <a href="/message/<%= packet["hash"] %>" class="text-muted">msg</a></li>
+        <% if firstPacket %>
+            <li>
+                <a data-id-type="<%= signedData["author"][0][0] %>" data-id-value="<%= signedData["author"][0][1] %>" class="id-link" href="/id/<%= signedData["author"][0][0] %>/<%= signedData["author"][0][1] %>">
+                    <% if packet["authorName"].empty?
+                        signedData["author"][0][1]
+                    else
+                        packet["authorName"]
+                    end %>
+                </a>
+            </li>
+            <li>
+                <a href="/message/<%= packet["hash"] %>" class="text-muted">
+                    <span class="glyphicon glyphicon-arrow-down"></span>
+                </a>
+            </li>
+        <% end %>
+        <% firstPacket = false %>
+        <li>
+            <a data-id-type="<%= signedData["recipient"][0][0] %>" data-id-value="<%= signedData["recipient"][0][1] %>" class="id-link" href="/id/<%= signedData["recipient"][0][0] %>/<%= signedData["recipient"][0][1] %>">
+                <%= if packet["recipientName"].empty?
+                    signedData["recipient"][0][1]
+                else
+                    packet["recipientName"]
+                end %>
+            </a>
+        </li>
     <% end %>
     </ul>
   </div>
