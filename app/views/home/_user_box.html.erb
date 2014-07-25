@@ -1,0 +1,8 @@
+<% if current_user %>
+<div id="user-box" class="panel panel-default">
+  <div class="panel-body">
+    <h4><a href="<%= "/id/#{current_user.provider}/#{current_user.uid}"  %>"><%= current_user.name %></a></h4>
+    Positive ratings: <strong><%= @userOverview[:score] %> %</strong>
+  </div>
+</div>
+<% end %>

@@ -12,6 +12,15 @@ class HomeController < ApplicationController
     else
       @latest = h.getlatestpackets( MSG_COUNT.to_s, offset.to_s, "", "", "0", session[:packet_type_filter] )
     end
+    if current_user
+      @userOverview = h.overview(current_user.provider, current_user.uid.to_s, nodeID[0], nodeID[1])
+      total = (@userOverview["receivedPositive"] + @userOverview["receivedNeutral"] + @userOverview["receivedNegative"])
+      if total > 0
+        @userOverview[:score] = @userOverview["receivedPositive"].to_f / total * 100
+      else
+        @userOverview[:score] = "-"
+      end
+    end
   end
 
   def feed
