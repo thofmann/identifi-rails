@@ -3,7 +3,6 @@
 class IdentifierController < ApplicationController
   MSG_COUNT = 10
   MSG_COUNT_S = MSG_COUNT.to_s
-  NODE_ID = IdentifiRails::Application.config.nodeID
   IDENTIFI_PACKET = {
                       signedData:
                         {
@@ -37,7 +36,7 @@ class IdentifierController < ApplicationController
     
     t1 = Time.now
     if (session[:max_trust_distance] >= 0)
-      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s, session[:packet_type_filter] )
+      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s, session[:packet_type_filter] )
     else
       @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     end
@@ -45,7 +44,7 @@ class IdentifierController < ApplicationController
 
     t1 = Time.now
     if (session[:max_trust_distance] >= 0)
-      @stats = h.overview( params[:type], params[:value], NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s )
+      @stats = h.overview( params[:type], params[:value], @viewpointType, @viewpointValue, session[:max_trust_distance].to_s )
     else
       @stats = h.overview(params[:type], params[:value], "", "", "0" )
     end
@@ -58,7 +57,7 @@ class IdentifierController < ApplicationController
 
     t1 = Time.now
     if (session[:max_trust_distance] >= 0)
-      @connections = h.getconnections( params[:type], params[:value], "0", "0", NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s )
+      @connections = h.getconnections( params[:type], params[:value], "0", "0", @viewpointType, @viewpointValue, session[:max_trust_distance].to_s )
     else
       @connections = h.getconnections( params[:type], params[:value] )
     end
@@ -98,9 +97,10 @@ class IdentifierController < ApplicationController
 
   def received
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+    setViewpoint(h)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     if (session[:max_trust_distance] >= 0)
-      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s, session[:packet_type_filter] )
+      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s, session[:packet_type_filter] )
     else
       @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     end
@@ -163,8 +163,9 @@ class IdentifierController < ApplicationController
 
   def overview
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+    setViewpoint(h)
     if (session[:max_trust_distance] >= 0)
-      @stats = h.overview(params[:type].to_s, params[:value].to_s, NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s)
+      @stats = h.overview(params[:type].to_s, params[:value].to_s, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s)
     else
       @stats = h.overview(params[:type].to_s, params[:value].to_s)
     end
@@ -178,7 +179,7 @@ class IdentifierController < ApplicationController
     params.require(:id2value)
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     if (session[:max_trust_distance] >= 0)
-      @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value], "0", "0", NODE_ID[0], NODE_ID[1], session[:max_trust_distance].to_s )
+      @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value], "0", "0", @viewpointType, @viewpointValue, session[:max_trust_distance].to_s )
     else
       @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value])
     end
