@@ -135,8 +135,8 @@ function listenToSettingsChanges() {
   $(".packet-type-filter a").click(
     function(event) {
       event.preventDefault();
-      var el = $(event.target);
-      el.parent("li").addClass("active");
+      var el = $(event.target).parents("li");
+      el.addClass("active");
       $.post('/settings', {"packet_type_filter": el.data("val") }, function(data) {
         location.reload();
       });

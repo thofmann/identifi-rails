@@ -1,16 +1,15 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <ul class="nav nav-pills nav-stacked packet-type-filter">
-      <li <%= "class=active" if session[:packet_type_filter] == "" %>><a href="#" data-val=""><span class="glyphicon glyphicon-home"></span> All</a></li>
-      <li <%= "class=active" if session[:packet_type_filter] == "review" %>><a href="#" data-val="review"><span class="glyphicon glyphicon-thumbs-up"></span> Review</a></li>
+      <li <%= "class=active" if session[:packet_type_filter] == "" %> data-val=""><a href="#"><span class="glyphicon glyphicon-home"></span> All</a></li>
+      <li <%= "class=active" if session[:packet_type_filter] == "review" %> data-val="review"><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Review</a></li>
       <ul class="nav nav-pills nav-stacked" style="padding-left: 1em;">
-        <li <%= "class=active" if session[:packet_type_filter] == "review/positive" %>><a href="#" data-val="review/positive"><span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> Positive</span></a></li>
-        <li <%= "class=active" if session[:packet_type_filter] == "review/neutral" %>><a href="#" data-val="review/neutral"><span class="neutral"><span class="glyphicon glyphicon-question-sign"></span> Neutral</span></a></li>
-        <li <%= "class=active" if session[:packet_type_filter] == "review/negative" %>><a href="#" data-val="review/negative"><span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> Negative</span></a></li>
+        <li <%= "class=active" if session[:packet_type_filter] == "review/positive" %> data-val="review/positive"><a href="#"><span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> Positive</span></a></li>
+        <li <%= "class=active" if session[:packet_type_filter] == "review/neutral" %> data-val="review/neutral"><a href="#"><span class="neutral"><span class="glyphicon glyphicon-question-sign"></span> Neutral</span></a></li>
+        <li <%= "class=active" if session[:packet_type_filter] == "review/negative" %> data-val="review/negative"><a href="#"><span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> Negative</span></a></li>
       </ul>
-      <li <%= "class=active" if session[:packet_type_filter] == "connection" %>><a href="#" data-val="connection"><span class="fa fa-link"></span> Connection</a></li>
+      <li <%= "class=active" if session[:packet_type_filter] == "connection" %> data-val="connection"><a href="#"><span class="fa fa-link"></span> Connection</a></li>
       <!-- <li <%= "class=active" if session[:packet_type_filter] == "!review,connection" %>><a href="#" data-val="other"><span class="glyphicon glyphicon-question-sign"></span> Other</a></li> -->
-      <li>
     </ul>
     <% nodeID = IdentifiRails::Application.config.nodeID %>
     <div class="alert alert-info"><p>Trust viewpoint: 
