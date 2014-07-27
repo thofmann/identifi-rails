@@ -4,6 +4,9 @@
     <%= render "filters_box" %>
   </div>
   <div class="col-md-8">
+    <% if @latest.empty? %>
+    <div class="alert alert-info"><div class="panel-body">Your trust network is empty. Extend your trust network by giving positive ratings to identifiers you trust.</div></div>
+    <% end %>
     <div id="messages">
    	<%= render "login_info" unless current_user %>
     <%= render partial: "message", collection: @latest, locals: {showAuthor: true, showRecipient: true} %>
