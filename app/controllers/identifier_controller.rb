@@ -84,6 +84,7 @@ class IdentifierController < ApplicationController
       message[:signedData][:comment] = comment unless comment.empty?
       message[:signedData][:timestamp] = Time.now.to_i
       h.savepacketfromdata(message.to_json, publish.to_s)
+      h.generatetrustmap(current_user.provider, current_user.uid) if rating > 0 
     end
     redirect_to :action => 'show', :type => params[:type], :value => params[:value]
   end

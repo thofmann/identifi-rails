@@ -27,5 +27,8 @@ class HomeController < ApplicationController
   end
 
   def about
+    h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+    @packetCount = h.getpacketcount
+    @identifierCount = h.getidentifiercount
   end
 end
