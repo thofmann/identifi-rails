@@ -4,7 +4,7 @@
     <h4><a href="<%= "/id/#{current_user.provider}/#{current_user.uid}"  %>"><%= current_user.name %></a></h4>
     <p>
     <% if @userOverview[:score] != "-" %>
-    <strong><%= @userOverview[:score] %> %</strong> positive ratings
+    <strong><%= @userOverview[:score].round(2) %>%</strong> positive ratings
     <% else %>
     Not rated by anyone
     <% end %>
