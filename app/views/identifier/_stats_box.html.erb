@@ -18,11 +18,7 @@
         <td>Connection <br>quality <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Created connections that were not disputed by others"></span></td>
         <td>- %</td>
       </tr> -->
-      <tr>
-        <td>Identifiers in trust map</td>
-        <td><%= @stats["trustMapSize"] %></td>
-      </tr>
-      <tr>
+     <tr>
         <td>First seen</td>
         <td><% if @stats["firstSeen"] != 0 %>
           <%= Time.at(@stats["firstSeen"]).to_date() %>
@@ -30,6 +26,10 @@
           -
           <% end %>
         </td>
+      </tr>
+       <tr>
+        <td>Trust map size</td>
+        <td><%= @stats["trustMapSize"] %></td>
       </tr>
     </table>
   </div>

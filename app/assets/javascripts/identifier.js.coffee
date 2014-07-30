@@ -24,7 +24,8 @@ ready = () ->
       location.reload()
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
-  $(".btn-more").click (event) ->
+  $(".id-row").click (event) ->
+    return if $(event.target).is("a,input,button")
     event.preventDefault()
     row = $(event.target).parents("tr").next(".connectingpackets")
     row.toggle()
