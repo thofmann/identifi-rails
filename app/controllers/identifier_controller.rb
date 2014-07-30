@@ -42,14 +42,6 @@ class IdentifierController < ApplicationController
     end
     logger.debug "getpacketsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
 
-    t1 = Time.now
-    if (session[:max_trust_distance] >= 0)
-      @stats = h.overview( params[:type], params[:value], @viewpointType, @viewpointValue, session[:max_trust_distance].to_s )
-    else
-      @stats = h.overview(params[:type], params[:value], "", "", "0" )
-    end
-    logger.debug "overview completed in #{(Time.now - t1) * 1000}ms"
-
     searchDepth = IdentifiRails::Application.config.maxPathSearchDepth
     t1 = Time.now
     @trustpath = h.getpath(@viewpointType, @viewpointValue, params[:type], params[:value], searchDepth.to_s)
@@ -62,6 +54,14 @@ class IdentifierController < ApplicationController
       @connections = h.getconnections( params[:type], params[:value] )
     end
     logger.debug "getconnections completed in #{(Time.now - t1) * 1000}ms"
+
+    t1 = Time.now
+    if (session[:max_trust_distance] >= 0)
+      @stats = h.overview( params[:type], params[:value], @viewpointType, @viewpointValue, session[:max_trust_distance].to_s )
+    else
+      @stats = h.overview(params[:type], params[:value], "", "", "0" )
+    end
+    logger.debug "overview completed in #{(Time.now - t1) * 1000}ms"
   end
 
   def write
