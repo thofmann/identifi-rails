@@ -1,8 +1,9 @@
 <div class="panel panel-default panel-success">
   <div class="panel-heading">
-    <h3 class="panel-title">Write feedback</h3>
+    <h3 class="panel-title visible-xs"><a data-toggle="collapse" data-target="#write-feedback"><span class="glyphicon glyphicon-chevron-down"></span> Write feedback</a></h3>
+    <h3 class="panel-title hidden-xs">Write feedback</h3>
   </div>
-  <div class="panel-body">
+  <div class="panel-body collapse" id="write-feedback">
     <form action="/id/write" method="post">
       <%= hidden_field_tag :type, params[:type] -%>
       <%= hidden_field_tag :value, params[:value] -%>

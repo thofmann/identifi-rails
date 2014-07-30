@@ -104,4 +104,8 @@ a.text-muted:hover {
 @media (min-width: 768px) { 
   #nav-search-field { width: 360px; }
   .navbar-form { width: 400px; }
+   #filters, #write-feedback
+   {
+       display: block !important;
+   }
 }

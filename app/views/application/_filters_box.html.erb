@@ -1,5 +1,7 @@
 <div class="panel panel-default">
-  <div class="panel-body">
+  <div class="panel-heading visible-xs">
+    <h4 class="panel-title"><a data-toggle="collapse" data-target="#filters"><span class="glyphicon glyphicon-chevron-down"></span> Filters</a></h4></div>
+  <div class="panel-body collapse" id="filters">
     <ul class="nav nav-pills nav-stacked packet-type-filter">
       <li <%= "class=active" if session[:packet_type_filter] == "" %> data-val=""><a href="#"><span class="glyphicon glyphicon-home"></span> All</a></li>
       <li <%= "class=active" if session[:packet_type_filter] == "review" %> data-val="review"><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Review</a></li>
