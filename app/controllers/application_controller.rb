@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   private
   def setSessionDefaults
     session[:max_trust_distance] = 0 unless session[:max_trust_distance]
-    session[:packet_type_filter] = "" unless session[:packet_type_filter]
+    session[:packet_type_filter] = "review" unless session[:packet_type_filter]
   end
 
   def setViewpoint(identifiRPC)
