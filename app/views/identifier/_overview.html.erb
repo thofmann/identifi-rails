@@ -1,7 +1,1 @@
-<ul class="list-unstyled">
-  <% if @stats["name"] %>
-  <li><strong><%= @stats["name"] %></strong></li>
-  <% end %>
-  <li><small>Received: <span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["receivedPositive"] %></span><span class="neutral"> <span class="glyphicon glyphicon-question-sign"></span> <%= @stats["receivedNeutral"] %></span> <span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["receivedNegative"] %></span></small></li>
-  <li><small>Given: <span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["authoredPositive"] %></span> <span class="neutral"><span class="glyphicon glyphicon-question-sign"></span> <%= @stats["authoredNeutral"] %></span> <span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["authoredNegative"] %></span></small></li>
-</ul>
+<span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["receivedPositive"] %></span><span class="neutral"> <span class="glyphicon glyphicon-question-sign"></span> <%= @stats["receivedNeutral"] %></span> <span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["receivedNegative"] %></span>
