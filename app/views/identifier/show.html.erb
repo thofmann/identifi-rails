@@ -20,7 +20,7 @@
 <ul class="nav nav-tabs">
   <li class="active"><a href="#received" data-toggle="tab"><span class="glyphicon glyphicon-download"></span><span class="hidden-xs"> Received</span> (<%= @stats["receivedPositive"] + @stats["receivedNeutral"] + @stats["receivedNegative"] %>)</a></li>
   <li><a href="#sent" data-toggle="tab"><span class="glyphicon glyphicon-upload"></span><span class="hidden-xs"> Sent</span> (<%= @stats["authoredPositive"] + @stats["authoredNeutral"] + @stats["authoredNegative"] %>)</a></li>
-  <li><a href="#about" data-toggle="tab"><span class="glyphicon glyphicon-link"></span><span class="hidden-xs"> Connections</span> (<%= @connections.size %>)</a></li>
+  <li><a href="#connections" data-toggle="tab"><span class="glyphicon glyphicon-link"></span><span class="hidden-xs"> Connections</span> (<%= @connections.size %>)</a></li>
   <!--<li><a href="#chart" data-toggle="tab">Chart</a></li>
   <li><a href="#graph" data-toggle="tab">Graph</a></li>-->
 </ul>
@@ -33,8 +33,8 @@
   <div class="tab-pane" id="sent">
     <%= render "sent" %>
   </div>
-  <div class="tab-pane" id="about">
-    <%= render "about" %>
+  <div class="tab-pane" id="connections">
+    <%= render "connections" %>
   </div>
   <div class="tab-pane" id="chart">
     <%= render "chart" %>

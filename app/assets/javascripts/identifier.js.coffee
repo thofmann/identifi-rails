@@ -21,6 +21,7 @@ ready = () ->
     value = $(event.target).parents("tr").data("value")
     comment = $(event.target).siblings(".linkedComment").val()
     $.post "/id/"+method, {type:idType, value:idValue, linkedType:type, linkedValue:value, linkedComment:comment}, (data) ->
+      location.hash or location.hash = "connections"
       location.reload()
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
@@ -37,6 +38,7 @@ ready = () ->
   $("#addButton").click (event) ->
     event.preventDefault()
     $.post '/id/confirm', {type:idType, value:idValue, linkedType:$("#addType").val(), linkedValue:$("#addValue").val(), linkedComment:$("#addComment").val()}, (data) ->
+      location.hash or location.hash = "connections"
       location.reload()
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
@@ -68,6 +70,9 @@ ready = () ->
       "/id/sent/?page=" + page
     , (arrayOfNewElems) ->
       setIdPopover();
+
+  activeTab = $('[href=' + location.hash + ']')
+  activeTab && activeTab.tab('show')
 
 $(document).ready(ready)
 $(document).on('page.load', ready)
