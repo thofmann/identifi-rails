@@ -47,6 +47,8 @@ ready = () ->
   activeTab && activeTab.tab('show')
 
   $('a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
+    $('#sent-messages').infinitescroll 'bind'
+    $('#received-messages').infinitescroll 'bind'
     $('#sent-messages').infinitescroll
       state: 
         isPaused: !$('#sent').is(':visible')
@@ -83,7 +85,6 @@ ready = () ->
       "/id/sent/?type=" + encodeURIComponent(idType) + "&value=" + encodeURIComponent(idValue) + "&page=" + page
     , (arrayOfNewElems) ->
       setIdPopover();
-
 
 $(document).ready(ready)
 $(document).on('page.load', ready)
