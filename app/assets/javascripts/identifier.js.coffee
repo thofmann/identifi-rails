@@ -53,7 +53,7 @@ ready = () ->
     state:
       currPage: 0
     path: (page) ->
-      "/id/received/?page=" + page # todoo!
+      "/id/received/?type=" + encodeURIComponent(idType) + "&value=" + encodeURIComponent(idValue) + "&page=" + page
     , (arrayOfNewElems) ->
       setIdPopover();
 
@@ -67,7 +67,7 @@ ready = () ->
     state:
       currPage: 0
     path: (page) ->
-      "/id/sent/?page=" + page
+      "/id/sent/?type=" + encodeURIComponent(idType) + "&value=" + encodeURIComponent(idValue) + "&page=" + page
     , (arrayOfNewElems) ->
       setIdPopover();
 

@@ -18,8 +18,8 @@ IdentifiRails::Application.routes.draw do
 
   get 'search(/:query)' => 'search#index', :constraints => { :query => /[^\/]+/ }
   get 'id/:type/:value' => 'identifier#show', :constraints => { :type => /[^\/]+/, :value => /.+/ }
-  post 'id/sent' => 'identifier#sent', :constraints => { :type => /[^\/]+/, :value => /.+/ }
-  post 'id/received' => 'identifier#received', :constraints => { :type => /[^\/]+/, :value => /.+/ }
+  get 'id/sent' => 'identifier#sent', :constraints => { :type => /[^\/]+/, :value => /.+/ }
+  get 'id/received' => 'identifier#received', :constraints => { :type => /[^\/]+/, :value => /.+/ }
   post 'id/overview' => 'identifier#overview', :constraints => { :type => /[^\/]+/, :value => /.+/ }
   post 'id/getconnectingpackets' => 'identifier#getconnectingpackets', :constraints => { :id1type => /[^\/]+/, :id1value => /[^\/]+/ }
   post 'id/write' => 'identifier#write', :constraints => { :type => /[^\/]+/, :value => /.+/ }
