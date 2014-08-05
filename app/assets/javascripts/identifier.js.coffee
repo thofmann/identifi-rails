@@ -43,6 +43,17 @@ ready = () ->
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
 
+  activeTab = $('[href=' + location.hash + ']')
+  activeTab && activeTab.tab('show')
+
+  $('a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
+    $('#sent-messages').infinitescroll
+      state: 
+        isPaused: !$('#sent').is(':visible')
+    $('#received-messages').infinitescroll
+      state:
+        isPaused: !$('#received').is(':visible')
+
   $('#received-messages').infinitescroll
     navSelector: "#more-received"    
     nextSelector: "#more-received a:first"  
@@ -52,6 +63,7 @@ ready = () ->
       finishedMsg: ""
     state:
       currPage: 0
+      isPaused: !$('#received').is(':visible')
     path: (page) ->
       "/id/received/?type=" + encodeURIComponent(idType) + "&value=" + encodeURIComponent(idValue) + "&page=" + page
     , (arrayOfNewElems) ->
@@ -66,13 +78,12 @@ ready = () ->
       finishedMsg: ""
     state:
       currPage: 0
+      isPaused: !$('#sent').is(':visible')
     path: (page) ->
       "/id/sent/?type=" + encodeURIComponent(idType) + "&value=" + encodeURIComponent(idValue) + "&page=" + page
     , (arrayOfNewElems) ->
       setIdPopover();
 
-  activeTab = $('[href=' + location.hash + ']')
-  activeTab && activeTab.tab('show')
 
 $(document).ready(ready)
 $(document).on('page.load', ready)
