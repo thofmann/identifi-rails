@@ -179,6 +179,7 @@ class IdentifierController < ApplicationController
     params.require(:id1value)
     params.require(:id2value)
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+    setViewpoint(h)
     if (session[:max_trust_distance] >= 0)
       @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value], "0", "0", @viewpointType, @viewpointValue, session[:max_trust_distance].to_s )
     else
