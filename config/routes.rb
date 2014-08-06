@@ -21,7 +21,7 @@ IdentifiRails::Application.routes.draw do
   get 'id/sent' => 'identifier#sent', :constraints => { :type => /[^\/]+/, :value => /.+/ }
   get 'id/received' => 'identifier#received', :constraints => { :type => /[^\/]+/, :value => /.+/ }
   post 'id/overview' => 'identifier#overview', :constraints => { :type => /[^\/]+/, :value => /.+/ }
-  post 'id/getconnectingpackets' => 'identifier#getconnectingpackets', :constraints => { :id1type => /[^\/]+/, :id1value => /[^\/]+/ }
+  post 'id/getconnectingpackets' => 'identifier#getconnectingpackets', :constraints => { :id1type => /[^\/]+/, :id1value => /.+/ }
   post 'id/write' => 'identifier#write', :constraints => { :type => /[^\/]+/, :value => /.+/ }
   post 'id/confirm' => 'identifier#confirm', :constraints => { :type => /[^\/]+/, :value => /.+/ }
   post 'id/refute' => 'identifier#refute', :constraints => { :type => /[^\/]+/, :value => /.+/ }

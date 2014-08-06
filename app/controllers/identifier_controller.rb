@@ -25,9 +25,15 @@ class IdentifierController < ApplicationController
     params.require(:value)
   end
 
+  def fixUrlParams(params)
+    # Rails messes these up in get requests. Maybe a better fix could be found.
+    params[:value] = params[:value].sub(':/', '://')
+  end
+
   def show
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     setViewpoint(h)
+    fixUrlParams(params)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     
     t1 = Time.now
@@ -91,6 +97,7 @@ class IdentifierController < ApplicationController
 
   def sent
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+    fixUrlParams(params)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     @messages = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     render :partial => "messages"
@@ -99,6 +106,7 @@ class IdentifierController < ApplicationController
   def received
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     setViewpoint(h)
+    fixUrlParams(params)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     if (session[:max_trust_distance] >= 0)
       @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s, session[:packet_type_filter] )
