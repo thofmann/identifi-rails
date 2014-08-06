@@ -4,6 +4,10 @@
       <a href="http://blockchain.info/address/<%= params[:value] %>">
         <span id="id-type"><%= params[:type] %></span>
       </a>
+    <% elsif params[:type] == "url" %>
+      <a href="<%= params[:value] %>">
+        <span id="id-type"><%= params[:type] %></span>
+      </a>
     <% else %>
       <span id="id-type"><%= params[:type] %></span>
     <% end %>
