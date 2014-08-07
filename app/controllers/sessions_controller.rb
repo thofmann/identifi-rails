@@ -4,8 +4,8 @@ class SessionsController < ApplicationController
     user = User.from_omniauth(request.env["omniauth.auth"])
     session[:user_id] = user.id
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    if h.gettrustmapsize(current_user.provider, current_user.uid) < 10
-        h.generatetrustmap(current_user.provider, current_user.uid)
+    if h.gettrustmapsize(current_user.type, current_user.value) < 10
+        h.generatetrustmap(current_user.type, current_user.value)
     end
     redirect_to root_url
   end

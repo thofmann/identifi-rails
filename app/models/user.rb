@@ -15,4 +15,16 @@ class User < ActiveRecord::Base
       user.save!
     end
   end
+
+  def type
+    if self.url
+      return "url"
+    else
+      return self.provider
+    end
+  end
+
+  def value
+    (self.url or self.uid)
+  end
 end

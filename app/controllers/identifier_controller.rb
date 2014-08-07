@@ -81,10 +81,9 @@ class IdentifierController < ApplicationController
       publish = Rails.env.production?.to_s
 
       message = Marshal.load(Marshal.dump(IDENTIFI_PACKET))
-      message[:signedData][:author].push([current_user.provider, current_user.uid])
+      message[:signedData][:author].push([current_user.type, current_user.value])
       message[:signedData][:author].push(["name", current_user.name]) if current_user.name
       message[:signedData][:author].push(["nickname", current_user.nickname]) if current_user.nickname
-      message[:signedData][:author].push(["url", current_user.url]) if current_user.url
       message[:signedData][:recipient].push([type, value])
       message[:signedData][:rating] = rating
       message[:signedData][:comment] = comment unless comment.empty?

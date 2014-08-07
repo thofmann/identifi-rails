@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
   def setViewpoint(identifiRPC)
     @nodeID = IdentifiRails::Application.config.nodeID
     if current_user
-      @viewpointType = current_user.provider
-      @viewpointValue = current_user.uid
+      @viewpointType = current_user.type
+      @viewpointValue = current_user.value
     else
       @viewpointType = @nodeID[0]
       @viewpointValue = @nodeID[1]
