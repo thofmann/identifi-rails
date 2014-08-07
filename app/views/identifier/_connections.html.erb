@@ -18,8 +18,8 @@
           end 
        %>
       <tr class="id-row <%= "#{rowClass}" if rowClass %>" data-type="<%= id["type"] %>" data-value="<%= id["value"] %>">
-        <td><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a></td>
-        <td><%= id["type"] %></td>
+        <td><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a><span class="visible-xs"> <%= id["type"] %></span></td>
+        <td class="hidden-xs"><%= id["type"] %></td>
         <td>
           <input class="form-control linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>>
         </td>
