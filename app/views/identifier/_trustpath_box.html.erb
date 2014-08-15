@@ -1,51 +1,54 @@
-<% if @trustpath.empty? %>
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <% if params[:type] == @viewpointType and params[:value] == @viewpointValue %>
-      This is the current trust viewpoint.
-    <% else %>
-      No trust path to this ID <span class="glyphicon glyphicon-question-sign pull-right" data-toggle="tooltip" title="A trust path to this identifier is formed when you trust an identifier that trusts this identifier. If not logged in, a trust path from this Identifi node is shown."></span>
-    <% end %>
+<% isViewpoint = params[:type] == @viewpointType and params[:value] == @viewpointValue %>
+<% if (isViewpoint and current_user.nil?) %>
+  <% if @trustpath.empty? %>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <% if isViewpoint %>
+        This is the current trust viewpoint.
+      <% else %>
+        No trust path to this ID <span class="glyphicon glyphicon-question-sign pull-right" data-toggle="tooltip" title="A trust path to this identifier is formed when you trust an identifier that trusts this identifier. If not logged in, a trust path from this Identifi node is shown."></span>
+      <% end %>
+    </div>
   </div>
-</div>
-<% else %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Trust path</h3>
+  <% else %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Trust path</h3>
+    </div>
+    <div class="panel-body">
+      <ul class="list-unstyled">
+      <% firstPacket = true %>
+      <% @trustpath.each do |packet| %>
+      <% signedData = packet["data"]["signedData"] %>
+          <% if firstPacket %>
+              <li>
+                  <a data-id-type="<%= signedData["author"][0][0] %>" data-id-value="<%= signedData["author"][0][1] %>" class="id-link" href="/id/<%= signedData["author"][0][0] %>/<%= signedData["author"][0][1] %>">
+                      <%= if packet["authorName"].empty?
+                          signedData["author"][0][1]
+                      else
+                          packet["authorName"]
+                      end %>
+                  </a>
+              </li>
+          <% firstPacket = false %>
+          <% end %>
+          <li>
+              <a href="/message/<%= packet["hash"] %>" class="text-muted">
+                  <span class="glyphicon glyphicon-arrow-down"></span>
+              </a>
+          </li>
+          <li>
+              <a data-id-type="<%= signedData["recipient"][0][0] %>" data-id-value="<%= signedData["recipient"][0][1] %>" class="id-link" href="/id/<%= signedData["recipient"][0][0] %>/<%= signedData["recipient"][0][1] %>">
+                  <%= if packet["recipientName"].empty?
+                      signedData["recipient"][0][1]
+                  else
+                      packet["recipientName"]
+                  end %>
+              </a>
+          </li>
+      <% end %>
+      </ul>
+    </div>
   </div>
-  <div class="panel-body">
-    <ul class="list-unstyled">
-    <% firstPacket = true %>
-    <% @trustpath.each do |packet| %>
-    <% signedData = packet["data"]["signedData"] %>
-        <% if firstPacket %>
-            <li>
-                <a data-id-type="<%= signedData["author"][0][0] %>" data-id-value="<%= signedData["author"][0][1] %>" class="id-link" href="/id/<%= signedData["author"][0][0] %>/<%= signedData["author"][0][1] %>">
-                    <%= if packet["authorName"].empty?
-                        signedData["author"][0][1]
-                    else
-                        packet["authorName"]
-                    end %>
-                </a>
-            </li>
-        <% firstPacket = false %>
-        <% end %>
-        <li>
-            <a href="/message/<%= packet["hash"] %>" class="text-muted">
-                <span class="glyphicon glyphicon-arrow-down"></span>
-            </a>
-        </li>
-        <li>
-            <a data-id-type="<%= signedData["recipient"][0][0] %>" data-id-value="<%= signedData["recipient"][0][1] %>" class="id-link" href="/id/<%= signedData["recipient"][0][0] %>/<%= signedData["recipient"][0][1] %>">
-                <%= if packet["recipientName"].empty?
-                    signedData["recipient"][0][1]
-                else
-                    packet["recipientName"]
-                end %>
-            </a>
-        </li>
-    <% end %>
-    </ul>
-  </div>
-</div>
+  <% end %>
 <% end %>
