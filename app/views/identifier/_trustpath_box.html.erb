@@ -1,5 +1,5 @@
 <% isViewpoint = params[:type] == @viewpointType and params[:value] == @viewpointValue %>
-<% if (isViewpoint and current_user.nil?) %>
+<% if !(isViewpoint and current_user) %>
   <% if @trustpath.empty? %>
   <div class="panel panel-info">
     <div class="panel-heading">

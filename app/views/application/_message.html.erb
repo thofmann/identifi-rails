@@ -3,14 +3,18 @@
 
   panelStyle = "panel-default"
   iconStyle =""
+  hasSuccess = ""
 
   case signedData["type"]
   when "confirm_connection"
-    iconStyle = "fa fa-chain"
+    iconStyle = "glyphicon glyphicon-ok"
+    hasSuccess = "has-success"
   when "connection"
-    iconStyle = "fa fa-chain"
+    iconStyle = "glyphicon glyphicon-ok"
+    hasSuccess = "has-success"
   when "refute_connection"
-    iconStyle = "fa fa-chain-broken"
+    iconStyle = "glyphicon glyphicon-remove"
+    hasSuccess = "has-error"
   when "review"
     rating = signedData["rating"]
     neutralRating = (signedData["minRating"] + signedData["maxRating"]) / 2
@@ -36,8 +40,8 @@
 
 <div class="panel <%= panelStyle %> message-panel">
   <div class="panel-heading">
-    <p>
-      <span class="<%= iconStyle %> pull-right"></span>
+    <p class="<%= hasSuccess %>">
+      <span class="<%= iconStyle %> pull-right form-control-feedback"></span>
       <% if showAuthor %>
       <strong>
         <a href="/id/<%= author.first %>/<%= author.last %>" data-id-type="<%= author.first %>" data-id-value="<%= author.last %>" class="id-link">
