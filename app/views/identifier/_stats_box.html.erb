@@ -1,6 +1,12 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <h4><%= @stats["name"] %></h4>
+   <h4>
+    <% if @gravatarHash %>
+    <a href="http://www.gravatar.com/<%= @gravatarHash %>" data-toggle="tooltip" data-placement="right" title="Gravatar for <%= @gravatarEmail %>"><img src="http://www.gravatar.com/avatar/<%= @gravatarHash %>?d=retro&s=60" class="img-thumbnail" alt="Gravatar for <%= @gravatarEmail %>"></a>
+    <% end %>
+    
+    <%= @stats["name"] %>
+    </h4>
     <table class="table-condensed">
       <tr>
         <td>Received</td>

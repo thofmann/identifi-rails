@@ -25,6 +25,17 @@ class IdentifierController < ApplicationController
     params.require(:value)
   end
 
+  def setGravatarHash(params)
+    if params[:type] == "email"
+      @gravatarEmail = params[:value].downcase
+    elsif @connections
+      emailId = @connections.find { |id| id["type"] == "email" && (id["confirmations"] >= id["refutations"]) }
+      @gravatarEmail = emailId["value"].downcase if emailId
+    end
+
+    @gravatarHash = Digest::MD5.hexdigest(@gravatarEmail) if @gravatarEmail
+  end
+
   def fixUrlParams(params)
     # Rails messes these up in get requests. Maybe a better fix could be found.
     params[:value] = params[:value].sub(':/', '://')
@@ -60,6 +71,8 @@ class IdentifierController < ApplicationController
       @connections = h.getconnections( params[:type], params[:value] )
     end
     logger.debug "getconnections completed in #{(Time.now - t1) * 1000}ms"
+
+    setGravatarHash(params)
 
     t1 = Time.now
     if (session[:max_trust_distance] >= 0)
