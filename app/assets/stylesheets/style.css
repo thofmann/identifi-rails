@@ -32,7 +32,7 @@ h1,h2,h3,h4,h5,h6 {
 	font-style: normal;
 	margin: 0 0 20px 0;
 }
-h1 { font-size: 40px; line-height: 30px; }
+h1 { font-size: 40px; /*line-height: 30px;*/ }
 h2 { font-size: 32px; }
 h3 { font-size: 24px; }
 h4 { font-size: 18px; }
@@ -396,11 +396,12 @@ section.section {
 	padding-bottom: 22px;
 }
 
-h1 a.navbar-brand {
+.navbar-default h1 a.navbar-brand {
 	font-size: 24px;
-	color: #fff;
+	color: #428BCA;
 	font-weight: 900;
 	text-shadow: none;
+  &:hover { color: #2A6496; }
 }
 
 .navbar-brand {
@@ -415,9 +416,9 @@ h1 a.navbar-brand {
 }
 
 .navbar-toggle {
-	padding: 0;
+/*	padding: 0;
 	margin: 0;
-	width: 80px;
+	width: 80px;*/
 }
 
 .navbar-collapse.in {
@@ -1068,7 +1069,7 @@ Media queries
 		background-color:rgba(0,0,0,1);
 	}
 	.navbar .navbar-collapse ul.nav {
-		background-color: #444;
+//		background-color: #444;
 		width: 100%;
 		float: none;
 		margin:0;
