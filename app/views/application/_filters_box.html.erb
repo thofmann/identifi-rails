@@ -13,7 +13,6 @@
       <li <%= "class=active" if session[:packet_type_filter] == "connection" %> data-val="connection"><a href="#"><span class="glyphicon glyphicon-ok"></span> Connection</a></li>
       <!-- <li <%= "class=active" if session[:packet_type_filter] == "!review,connection" %>><a href="#" data-val="other"><span class="glyphicon glyphicon-question-sign"></span> Other</a></li> -->
     </ul>
-    <% nodeID = IdentifiRails::Application.config.nodeID %>
     <div class="alert alert-info"><p>Trust viewpoint: 
       <a href="/id/<%= @viewpointType %>/<%= @viewpointValue %>" data-id-type="<%= @viewpointType %>" data-id-value="<%= @viewpointValue %>" class="id-link"><%= @viewpointName or @viewpointValue %></a>
     </p>
