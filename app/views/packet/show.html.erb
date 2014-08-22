@@ -13,7 +13,7 @@
     iconStyle = "glyphicon-link"
   end
 
-  if signedData["type"] == "review"
+  if signedData["type"] == "rating"
     rating = signedData["rating"]
     neutralRating = (signedData["minRating"] + signedData["maxRating"]) / 2
     if rating > neutralRating

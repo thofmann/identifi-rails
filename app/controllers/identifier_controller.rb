@@ -13,7 +13,7 @@ class IdentifierController < ApplicationController
                           maxRating: 1,
                           minRating: -1,
                           comment: "",
-                          type: "review"
+                          type: "rating"
                         },
                       signature: {}
                     }

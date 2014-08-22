@@ -15,7 +15,7 @@
   when "refute_connection"
     iconStyle = "glyphicon glyphicon-remove"
     hasSuccess = "has-error"
-  when "review"
+  when "rating"
     rating = signedData["rating"]
     neutralRating = (signedData["minRating"] + signedData["maxRating"]) / 2
     if rating > neutralRating
