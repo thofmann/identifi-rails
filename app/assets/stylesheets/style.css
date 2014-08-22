@@ -401,7 +401,7 @@ section.section {
 	color: #428BCA;
 	font-weight: 900;
 	text-shadow: none;
-  &:hover { color: #2A6496; }
+  &:hover, &:focus { color: #2A6496; }
 }
 
 .navbar-brand {

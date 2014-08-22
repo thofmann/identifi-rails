@@ -147,9 +147,9 @@ class IdentifierController < ApplicationController
       value = params[:value].to_s
       publish = Rails.env.production?.to_s
       if confirm
-        h.saveconnection(current_user.provider, current_user.uid, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish)
+        h.saveconnection(current_user.type, current_user.value, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish)
       else
-        h.refuteconnection(current_user.provider, current_user.uid, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish)
+        h.refuteconnection(current_user.type, current_user.value, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish)
       end
       render :text => "OK"
     else
@@ -169,7 +169,7 @@ class IdentifierController < ApplicationController
       message = Marshal.load(Marshal.dump(IDENTIFI_PACKET))
 
       message[:signedData][:timestamp] = Time.now.to_i
-      message[:signedData][:author].push([current_user.provider, current_user.uid])
+      message[:signedData][:author].push([current_user.type, current_user.value])
       message[:signedData][:recipient].push([type, value])
       message[:signedData][:recipient].push([params[:linkedType], params[:linkedValue]])
       message[:signedData][:type] = confirm ? "confirm_connection" : "refute_connection"
