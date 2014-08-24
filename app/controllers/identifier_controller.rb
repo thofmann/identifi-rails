@@ -33,7 +33,8 @@ class IdentifierController < ApplicationController
       @gravatarEmail = emailId["value"].downcase if emailId
     end
 
-    @gravatarHash = Digest::MD5.hexdigest(@gravatarEmail) if @gravatarEmail
+    @gravatarEmail = "#{params[:type]}:#{params[:value]}" unless @gravatarEmail
+    @gravatarHash = Digest::MD5.hexdigest(@gravatarEmail)
   end
 
   def fixUrlParams(params)
