@@ -1,4 +1,3 @@
-<form action="#connections" method="post">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
   <table class="table truncated-table table-hover">
     <% @connections.each do |id| %>
@@ -34,11 +33,10 @@
         <td></td><td class="connectingpackets" colspan="3"></td>
       </tr>
     <% end %>
-      <tr class="active">
+      <tr class="active add-row">
         <td><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" <%= "disabled" unless current_user %>></td>
         <td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type" <%= "disabled" unless current_user %>></td>
         <td><input id="addComment" class="form-control" name="linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>></td>
         <td colspan="1"><button id="addButton" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-plus"></span> Add connection</button></td>
       </tr>
   </table>
-</form>

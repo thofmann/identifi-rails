@@ -35,6 +35,9 @@ ready = () ->
     unless $.trim(row.children("td.connectingpackets").html())
       $.post "/id/getconnectingpackets", {id1type:idType, id1value:idValue, id2type:type, id2value:value}, (data) ->
         row.children("td.connectingpackets").html(data)
+  $(".linkedComment").keypress (event) ->
+    if event.which == 13 
+      $(event.target).parents(".id-row").find(".btn-confirm").click()
   $("#addButton").click (event) ->
     event.preventDefault()
     $.post '/id/confirm', {type:idType, value:idValue, linkedType:$("#addType").val(), linkedValue:$("#addValue").val(), linkedComment:$("#addComment").val()}, (data) ->
@@ -42,6 +45,9 @@ ready = () ->
       location.reload()
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
+  $(".add-row").keypress (event) ->
+    if event.which == 13
+      $("#addButton").click()
 
   activeTab = $('[href=' + location.hash + ']')
   activeTab && activeTab.tab('show')
