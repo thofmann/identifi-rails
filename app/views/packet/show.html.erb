@@ -32,7 +32,7 @@
 <h4><%= Time.at(@packet["data"]["signedData"]["timestamp"]).strftime("%-d-%-m-%Y %R") %></h4>
 
 <div class="row">
-  <div class="col-xs-6">
+  <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">From</h3>
@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  <div class="col-xs-6" style="overflow:hidden">
+  <div class="col-md-6" style="overflow:hidden">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">To</h3>
@@ -84,7 +84,7 @@ signerName = @packet["signerName"] unless @packet["signerName"].empty?
 
 <p><a data-toggle="collapse" class="text-muted" data-target="#rawdata" href="#">Show raw data</a></p>
 <pre id="rawdata" class="collapse">
-<%= JSON.pretty_generate(@packet["data"]) %>
+<%= JSON.pretty_generate(@packet) %>
 </pre>
 
 <% end %>

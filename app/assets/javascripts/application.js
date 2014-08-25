@@ -145,6 +145,7 @@ function listenToSettingsChanges() {
 }
 
 ready = function() {
+  $("#nav-search-field").filter(":visible").focus();
   $(".dropdown-toggle").dropdown();
   $(".identifi-search").submit(function(event) {
     event.preventDefault();
