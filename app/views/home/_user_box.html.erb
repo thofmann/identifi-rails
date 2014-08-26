@@ -2,10 +2,12 @@
 <div id="user-box" class="panel panel-default">
   <div class="panel-body">
     <h4>
-      <% if @gravatarHash %>
-      <a href="http://www.gravatar.com/<%= @gravatarHash %>" data-toggle="tooltip" data-placement="right" title="Gravatar for <%= @gravatarEmail %>"><img src="http://www.gravatar.com/avatar/<%= @gravatarHash %>?d=retro&s=70" class="img-thumbnail" alt="Gravatar for <%= @gravatarEmail %>"></a>
-      <% end %>
-      <a href="<%= "/id/#{current_user.type}/#{current_user.value}"  %>"><%= current_user.name %></a>
+      <a href="<%= "/id/#{current_user.type}/#{current_user.value}"  %>">
+        <% if @gravatarHash %>
+        <img src="http://www.gravatar.com/avatar/<%= @gravatarHash %>?d=retro&s=70" class="img-thumbnail mar-right5" alt="Gravatar for <%= @gravatarEmail %>">
+        <% end %>
+      <%= current_user.name %>
+      </a>
     </h4>
     <p>
     <% if @userOverview[:score] != "-" %>
