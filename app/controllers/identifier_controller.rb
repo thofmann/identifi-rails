@@ -51,6 +51,7 @@ class IdentifierController < ApplicationController
     t1 = Time.now
     @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     logger.debug "getpacketsbyauthor completed in #{(Time.now - t1) * 1000}ms"
+    setGravatars(@authored)
     
     t1 = Time.now
     if (session[:max_trust_distance] >= 0)
@@ -59,6 +60,7 @@ class IdentifierController < ApplicationController
       @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     end
     logger.debug "getpacketsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
+    setGravatars(@received)
 
     searchDepth = IdentifiRails::Application.config.maxPathSearchDepth
     t1 = Time.now
@@ -113,6 +115,7 @@ class IdentifierController < ApplicationController
     fixUrlParams(params)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     @messages = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
+    setGravatars(@messages)
     render :partial => "messages"
   end
 
@@ -126,6 +129,7 @@ class IdentifierController < ApplicationController
     else
       @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     end
+    setGravatars(@messages)
     render :partial => "messages"
   end
 
@@ -191,6 +195,9 @@ class IdentifierController < ApplicationController
     else
       @stats = h.overview(params[:type].to_s, params[:value].to_s)
     end
+    gravatarEmail = @stats["email"] if (@stats["email"] and not @stats["email"].empty?)
+    gravatarEmail = "#{params[:type]}:#{params[:value]}" unless gravatarEmail
+    @stats["gravatarHash"] = getGravatarHash(gravatarEmail)
     render :partial => "overview"
   end
 
@@ -206,6 +213,7 @@ class IdentifierController < ApplicationController
     else
       @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value])
     end
+    setGravatars(@messages)
     render :partial => "messages"
   end
 end

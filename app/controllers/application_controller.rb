@@ -23,6 +23,21 @@ class ApplicationController < ActionController::Base
     @viewpointName = nil if @viewpointName.empty?
   end
 
+  def setGravatars(messages)
+    messages.each do |m|
+      author = m["authorEmail"] if (m["authorEmail"] and not m["authorEmail"].empty?)
+      recipient = m["recipientEmail"] if (m["recipientEmail"] and not m["recipientEmail"].empty?)
+      author = "#{m["data"]["signedData"]["author"][0][0]}:#{m["data"]["signedData"]["author"][0][1]}" unless author
+      recipient = "#{m["data"]["signedData"]["recipient"][0][0]}:#{m["data"]["signedData"]["recipient"][0][1]}" unless recipient
+      m["authorGravatar"] = getGravatarHash(author)
+      m["recipientGravatar"] = getGravatarHash(recipient)
+    end
+  end
+  
+  def getGravatarHash(gravatarEmail)
+    Digest::MD5.hexdigest(gravatarEmail)
+  end
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
