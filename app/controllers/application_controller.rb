@@ -26,11 +26,8 @@ class ApplicationController < ActionController::Base
   def setGravatars(messages)
     messages.each do |m|
       author = m["authorEmail"] if (m["authorEmail"] and not m["authorEmail"].empty?)
-      recipient = m["recipientEmail"] if (m["recipientEmail"] and not m["recipientEmail"].empty?)
       author = "#{m["data"]["signedData"]["author"][0][0]}:#{m["data"]["signedData"]["author"][0][1]}" unless author
-      recipient = "#{m["data"]["signedData"]["recipient"][0][0]}:#{m["data"]["signedData"]["recipient"][0][1]}" unless recipient
       m["authorGravatar"] = getGravatarHash(author)
-      m["recipientGravatar"] = getGravatarHash(recipient)
     end
   end
   
