@@ -71,6 +71,6 @@
     </p>
     <% end %>
 
-    <p><%= signedData["comment"] %></p>
+    <p><%= auto_link(signedData["comment"], :link => :urls) %></p>
   </div>
 </div>

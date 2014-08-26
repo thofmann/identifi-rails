@@ -35,14 +35,14 @@
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">From</h3>
+        <h3 class="panel-title">From<%= ": #{@packet["authorName"]}" unless @packet["authorName"].empty? %></h3>
       </div>
       <div class="panel-body">
+        <ul class="list list-unstyled">
         <% signedData["author"].each do |a| %>
-        <ul>
           <li><%= a.first %>: <a data-id-type="<%= a.first %>" data-id-value="<%= a.last %>" class="id-link" href="/id/<%= a.first %>/<%= a.last %>"><%= a.last %></a></li>
-        </ul>
         <% end %>
+        </ul>
       </div>
     </div>
   </div>
@@ -50,14 +50,14 @@
   <div class="col-md-6" style="overflow:hidden">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">To</h3>
+        <h3 class="panel-title">To<%= ": #{@packet["recipientName"]}" unless @packet["recipientName"].empty? %></h3>
       </div>
       <div class="panel-body">
+        <ul class="list list-unstyled">
         <% signedData["recipient"].each do |r| %>
-        <ul>
           <li><%= r.first %>: <a data-id-type="<%= r.first %>" data-id-value="<%= r.last %>" class="id-link" href="/id/<%= r.first %>/<%= r.last %>"><%= r.last %></a></li>
-        </ul>
         <% end %>
+        </ul>
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@
     <p><strong>Score:</strong> <%= signedData["rating"] %>
       <small>(<%= signedData["minRating"] %>...<%= signedData["maxRating"] %>)</small>
     </p>
-    <p><strong>Comment:</strong> <%= signedData["comment"] %></p>
+    <p><strong>Comment:</strong> <%= auto_link(signedData["comment"], :link => :urls) %></p>
   </div>
 </div>
 
