@@ -56,7 +56,7 @@
         <%= recipientName %>
       </a>
       <% end %>
-       - <a href="/message/<%= message["hash"] %>" class="text-muted small"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a>
+       - <a href="/message/<%= message["hash"] %>" class="text-muted small" style="display:inline-block;"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a>
     </p>
 
     <% if ["connection", "confirm_connection", "refute_connection"].include?(signedData["type"]) %>

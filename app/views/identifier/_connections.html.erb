@@ -1,7 +1,15 @@
+<div class="row">
+  <div class="col-md-4">
+    <%= render "stats_box" %>
+    <%= render "trustpath_box" %>
+    <%= render "filters_box" %>
+  </div>
+  <div class="col-md-8">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
   <table class="table truncated-table table-hover">
     <% @connections.each do |id| %>
        <% 
+          next if (id["confirmations"] == 0 and id["refutations"] > 0)
           percentage = id["confirmations"] * 100 / (id["confirmations"] + id["refutations"]) unless (id["confirmations"] + id["refutations"]) == 0
           if percentage
             case percentage
@@ -19,9 +27,9 @@
       <tr class="id-row <%= "#{rowClass}" if rowClass %>" data-type="<%= id["type"] %>" data-value="<%= id["value"] %>">
         <td><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a><span class="visible-xs"> <%= id["type"] %></span></td>
         <td class="hidden-xs"><%= id["type"] %></td>
-        <td>
+        <!--<td>
           <input class="form-control linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>>
-        </td>
+        </td>-->
         <td colspan="1">
           <button name="confirm" class="btn btn-default btn-confirm has-success <%= "disabled" unless current_user %>"><span class="form-control-feedback glyphicon glyphicon-ok"></span>
             <%= id["confirmations"] %></button>
@@ -30,13 +38,15 @@
         </td>
       </tr>
       <tr style="display:none" class="active connectingpackets">
-        <td></td><td class="connectingpackets" colspan="3"></td>
+        <td class="connectingpackets" colspan="3"></td>
       </tr>
     <% end %>
       <tr class="active add-row">
         <td><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" <%= "disabled" unless current_user %>></td>
         <td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type" <%= "disabled" unless current_user %>></td>
-        <td><input id="addComment" class="form-control" name="linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>></td>
+        <!--<td><input id="addComment" class="form-control" name="linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>></td> -->
         <td colspan="1"><button id="addButton" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-plus"></span> Add connection</button></td>
       </tr>
-  </table>
+    </table>
+  </div>
+</div>
