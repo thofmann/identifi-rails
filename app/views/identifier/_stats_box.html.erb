@@ -5,7 +5,15 @@
     <a href="http://www.gravatar.com/<%= @gravatarHash %>" data-toggle="tooltip" data-placement="right" title="Gravatar for <%= @gravatarEmail %>"><img src="http://www.gravatar.com/avatar/<%= @gravatarHash %>?d=retro&s=70" class="img-thumbnail mar-right5" alt="Gravatar for <%= @gravatarEmail %>"></a>
     <% end %>
     
-    <%= @stats["name"].empty? ? params[:value] : @stats["name"] %>
+    <%= unless @stats["name"].empty?
+          @stats["name"]
+        else
+          if (current_user.type == params[:type] and current_user.value == params[:value])
+            current_user.name
+          else
+            params[:value]
+          end
+        end %>
     </h4>
     <table class="table-condensed">
       <tr>

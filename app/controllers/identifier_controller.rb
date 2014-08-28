@@ -181,13 +181,14 @@ class IdentifierController < ApplicationController
   def overview
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     setViewpoint(h)
-    if (session[:max_trust_distance] >= 0)
-      @stats = h.overview(params[:type].to_s, params[:value].to_s, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s)
+    @stats = h.overview(*overview_args)
+    if params[:type] == "email"
+      gravatarEmail = params[:value] 
+    elsif (@stats["email"] and not @stats["email"].empty?) 
+      gravatarEmail = @stats["email"] 
     else
-      @stats = h.overview(params[:type].to_s, params[:value].to_s)
+      gravatarEmail = "#{params[:type]}:#{params[:value]}"
     end
-    gravatarEmail = @stats["email"] if (@stats["email"] and not @stats["email"].empty?)
-    gravatarEmail = "#{params[:type]}:#{params[:value]}" unless gravatarEmail
     @stats["gravatarHash"] = getGravatarHash(gravatarEmail)
     render :partial => "overview"
   end

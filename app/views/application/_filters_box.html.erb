@@ -14,7 +14,7 @@
       <!-- <li <%= "class=active" if session[:packet_type_filter] == "!rating,connection,confirm_connection,refute_connection" %>><a href="#" data-val="other"><span class="glyphicon glyphicon-question-sign"></span> Other</a></li> -->
     </ul>
     <div class="alert alert-info"><p>Viewing as 
-      <a href="/id/<%= @viewpointType %>/<%= @viewpointValue %>" data-id-type="<%= @viewpointType %>" data-id-value="<%= @viewpointValue %>" class="id-link"><%= @viewpointName or @viewpointValue %></a>
+      <a href="/id/<%= @viewpointType %>/<%= @viewpointValue %>" data-id-type="<%= @viewpointType %>" data-id-value="<%= @viewpointValue %>" class="id-link"><%= @viewpointName or current_user.name or @viewpointValue %></a>
     </p>
     <p>Max distance from viewpoint:</p>
     <div class="btn-group trust-distance-selector">

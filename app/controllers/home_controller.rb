@@ -1,7 +1,7 @@
 require 'identifi-rpc'
 
 class HomeController < ApplicationController
-  MSG_COUNT = 10
+  MSG_COUNT = 12
   def index
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     setViewpoint(h)

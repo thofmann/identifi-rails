@@ -1,4 +1,4 @@
-<%= cache("message-#{message["hash"]}", :expires_in => 1.minute) do %>
+<%= cache("message-#{message["hash"]}", :expires_in => 10.minutes) do %>
 <%
   signedData = message["data"]["signedData"] 
 
