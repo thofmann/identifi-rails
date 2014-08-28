@@ -1,52 +1,45 @@
-<div class="row">
-  <div class="col-md-4">
-    <%= render "stats_box" %>
-    <%= render "trustpath_box" %>
-    <%= render "filters_box" %>
+  <div id="connections">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+    <table class="table truncated-table table-hover">
+      <% @connections.each do |id| %>
+         <% 
+            next if (id["confirmations"] == 0 and id["refutations"] > 0)
+            percentage = id["confirmations"] * 100 / (id["confirmations"] + id["refutations"]) unless (id["confirmations"] + id["refutations"]) == 0
+            if percentage
+              case percentage
+              when 80..100
+                rowClass = "success"
+              when 50..79
+                rowClass = "warning"
+              when 0..49
+                rowClass = "danger"
+              end
+            else
+              percentage = 0
+            end 
+         %>
+        <tr class="id-row <%= "#{rowClass}" if rowClass %>" data-type="<%= id["type"] %>" data-value="<%= id["value"] %>">
+          <td colspan="2"><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a><span class="visible-xs"> <%= id["type"] %></span></td>
+          <td class="hidden-xs"><%= id["type"] %></td>
+          <!--<td>
+            <input class="form-control linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>>
+          </td>-->
+          <td>
+            <button name="confirm" class="btn btn-default btn-confirm has-success <%= "disabled" unless current_user %>"><span class="form-control-feedback glyphicon glyphicon-ok"></span>
+              <%= id["confirmations"] %></button>
+            <button name="refute" class="btn btn-default btn-refute has-error <%= "disabled" unless current_user %>"><span class="form-control-feedback glyphicon glyphicon-remove"></span>
+              <%= id["refutations"] %></button>
+          </td>
+        </tr>
+        <tr style="display:none" class="active connectingpackets">
+          <td class="connectingpackets" colspan="4"></td>
+        </tr>
+      <% end %>
+        <tr class="active add-row">
+          <td colspan="2"><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" <%= "disabled" unless current_user %>></td>
+          <td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type" <%= "disabled" unless current_user %>></td>
+          <!--<td><input id="addComment" class="form-control" name="linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>></td> -->
+          <td><button id="addButton" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-plus"></span> Add connection</button></td>
+        </tr>
+      </table>
   </div>
-  <div class="col-md-8">
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-  <table class="table truncated-table table-hover">
-    <% @connections.each do |id| %>
-       <% 
-          next if (id["confirmations"] == 0 and id["refutations"] > 0)
-          percentage = id["confirmations"] * 100 / (id["confirmations"] + id["refutations"]) unless (id["confirmations"] + id["refutations"]) == 0
-          if percentage
-            case percentage
-            when 80..100
-              rowClass = "success"
-            when 50..79
-              rowClass = "warning"
-            when 0..49
-              rowClass = "danger"
-            end
-          else
-            percentage = 0
-          end 
-       %>
-      <tr class="id-row <%= "#{rowClass}" if rowClass %>" data-type="<%= id["type"] %>" data-value="<%= id["value"] %>">
-        <td colspan="2"><a href="<%= "/id/#{id["type"]}/#{id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a><span class="visible-xs"> <%= id["type"] %></span></td>
-        <td class="hidden-xs"><%= id["type"] %></td>
-        <!--<td>
-          <input class="form-control linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>>
-        </td>-->
-        <td>
-          <button name="confirm" class="btn btn-default btn-confirm has-success <%= "disabled" unless current_user %>"><span class="form-control-feedback glyphicon glyphicon-ok"></span>
-            <%= id["confirmations"] %></button>
-          <button name="refute" class="btn btn-default btn-refute has-error <%= "disabled" unless current_user %>"><span class="form-control-feedback glyphicon glyphicon-remove"></span>
-            <%= id["refutations"] %></button>
-        </td>
-      </tr>
-      <tr style="display:none" class="active connectingpackets">
-        <td class="connectingpackets" colspan="4"></td>
-      </tr>
-    <% end %>
-      <tr class="active add-row">
-        <td colspan="2"><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" <%= "disabled" unless current_user %>></td>
-        <td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type" <%= "disabled" unless current_user %>></td>
-        <!--<td><input id="addComment" class="form-control" name="linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>></td> -->
-        <td><button id="addButton" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-plus"></span> Add connection</button></td>
-      </tr>
-    </table>
-  </div>
-</div>

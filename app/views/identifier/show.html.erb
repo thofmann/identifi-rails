@@ -1,4 +1,5 @@
-<h3><span id="id-value"><%= params[:value] %></span>
+<div class="row"><div class="col-lg-12">
+<h3 class="hidden-xs"><span id="id-value"><%= params[:value] %></span>
   <small class="text-muted">
     <% if params[:type] == "bitcoin_address" %>
       <a href="http://blockchain.info/address/<%= params[:value] %>">
@@ -13,6 +14,7 @@
     <% end %>
   </small>
 </h3>
+</div></div>
 
 <!--
 <p>
@@ -20,30 +22,40 @@
   <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-screenshot"></span> Set as point of view</a>
 </p> -->
 
-<!-- Nav tabs -->
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#received" data-toggle="tab"><span class="glyphicon glyphicon-download"></span><span class="hidden-xs"> Received</span> (<%= @stats["receivedPositive"] + @stats["receivedNeutral"] + @stats["receivedNegative"] %>)</a></li>
-  <li><a href="#sent" data-toggle="tab"><span class="glyphicon glyphicon-upload"></span><span class="hidden-xs"> Sent</span> (<%= @stats["authoredPositive"] + @stats["authoredNeutral"] + @stats["authoredNegative"] %>)</a></li>
-  <li><a href="#connections" data-toggle="tab"><span class="glyphicon glyphicon-link"></span><span class="hidden-xs"> Connections</span> (<%= @connections.size %>)</a></li>
-  <!--<li><a href="#chart" data-toggle="tab">Chart</a></li>
-  <li><a href="#graph" data-toggle="tab">Graph</a></li>-->
-</ul>
-<br>
 <!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane active" id="received">
-    <%= render "received" %>
+<div class="row">
+  <div class="col-md-4">
+    <%= render "stats_box" %>
+    <%= render "trustpath_box" %>
+    <%= render "filters_box" %>
   </div>
-  <div class="tab-pane" id="sent">
-    <%= render "sent" %>
-  </div>
-  <div class="tab-pane" id="connections">
-    <%= render "connections" %>
-  </div>
-  <div class="tab-pane" id="chart">
-    <%= render "chart" %>
-  </div>
-  <div class="tab-pane" id="graph">
-    <%= render "graph" %>
+  <div class="col-md-8">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#received" data-toggle="tab"><span class="glyphicon glyphicon-download"></span><span class="hidden-xs"> Received</span> (<%= @stats["receivedPositive"] + @stats["receivedNeutral"] + @stats["receivedNegative"] %>)</a></li>
+      <li><a href="#sent" data-toggle="tab"><span class="glyphicon glyphicon-upload"></span><span class="hidden-xs"> Sent</span> (<%= @stats["authoredPositive"] + @stats["authoredNeutral"] + @stats["authoredNegative"] %>)</a></li>
+      <li><a href="#connections" data-toggle="tab"><span class="glyphicon glyphicon-link"></span><span class="hidden-xs"> Connections</span> (<%= @connections.size %>)</a></li>
+      <!--<li><a href="#chart" data-toggle="tab">Chart</a></li>
+      <li><a href="#graph" data-toggle="tab">Graph</a></li>-->
+    </ul>
+    <br>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="received">
+        <%= render "received" %>
+      </div>
+      <div class="tab-pane" id="sent">
+        <%= render "sent" %>
+      </div>
+      <div class="tab-pane" id="connections">
+        <%= render "connections" %>
+      </div>
+      <div class="tab-pane" id="chart">
+        <%= render "chart" %>
+      </div>
+      <div class="tab-pane" id="graph">
+        <%= render "graph" %>
+      </div>
+    </div>
   </div>
 </div>

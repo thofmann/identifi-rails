@@ -1,12 +1,4 @@
-<div class="row">
-  <div class="col-md-4">
-    <%= render "stats_box" %>
-    <%= render "trustpath_box" %>
-    <%= render "filters_box" %>
-  </div>
-
-  <div class="col-md-8" id="received-messages">
-
+  <div id="received-messages">
     <% if current_user %>
       <%= render "write_message" %>
     <% else %>
@@ -20,4 +12,3 @@
       <div id="more-received"><a href="#"></a></div>
     <% end %>
   </div>
-</div>

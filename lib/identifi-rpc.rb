@@ -15,12 +15,14 @@ class IdentifiRPC
   end
  
   def http_post_request(post_body)
-    http    = Net::HTTP.new(@uri.host, @uri.port)
-    request = Net::HTTP::Post.new(@uri.request_uri)
-    request.basic_auth @uri.user, @uri.password
-    request.content_type = 'application/json'
-    request.body = post_body
-    http.request(request).body
+    Rails.cache.fetch(post_body, :expires_in => 10.seconds) do
+      http    = Net::HTTP.new(@uri.host, @uri.port)
+      request = Net::HTTP::Post.new(@uri.request_uri)
+      request.basic_auth @uri.user, @uri.password
+      request.content_type = 'application/json'
+      request.body = post_body
+      http.request(request).body
+    end
   end
  
   class JSONRPCError < RuntimeError; end

@@ -1,10 +1,4 @@
-<div class="row">
-  <div class="col-md-4">
-    <%= render "stats_box" %>
-    <%= render "trustpath_box" %>
-    <%= render "filters_box" %>
-  </div>
-  <div class="col-md-8" id="sent-messages">
+  <div id="sent-messages">
     <% if @authored.empty? %>
       <div class="alert alert-info">No messages to show</div>
     <% else %>
@@ -12,4 +6,3 @@
       <div id="more-sent"><a href="#"></a></div>
     <% end %>
   </div>
-</div>
