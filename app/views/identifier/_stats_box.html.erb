@@ -8,7 +8,7 @@
     <%= unless @stats["name"].empty?
           @stats["name"]
         else
-          if (current_user.type == params[:type] and current_user.value == params[:value])
+          if (current_user and current_user.type == params[:type] and current_user.value == params[:value])
             current_user.name
           else
             params[:value]
