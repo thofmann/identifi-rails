@@ -136,6 +136,7 @@ class IdentifierController < ApplicationController
       connectioncomment(confirm)
     elsif current_user
       h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+      h.delete_cached("getconnections", getconnections_args)
       params.require(:linkedType)
       params.require(:linkedValue)
       type = params[:type].to_s
@@ -150,12 +151,12 @@ class IdentifierController < ApplicationController
     else
       render :text => "Login required", :status => 401
     end
-    h.delete_cached("getconnections", getconnections_args)
   end
   
   def connectioncomment(confirm)
     if current_user
       h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
+      h.delete_cached("getconnections", getconnections_args)
       params.require(:linkedType)
       params.require(:linkedValue)
       type = params[:type].to_s
