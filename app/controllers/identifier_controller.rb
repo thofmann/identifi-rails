@@ -54,35 +54,22 @@ class IdentifierController < ApplicationController
     setGravatars(@authored)
     
     t1 = Time.now
-    if (session[:max_trust_distance] >= 0)
-      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s, session[:packet_type_filter] )
-    else
-      @received = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
-    end
+    @received = h.getpacketsbyrecipient(*getpacketsbyrecipient_args(offset))
     logger.debug "getpacketsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
     setGravatars(@received)
 
-    searchDepth = IdentifiRails::Application.config.maxPathSearchDepth
     t1 = Time.now
-    @trustpath = h.getpath(@viewpointType, @viewpointValue, params[:type], params[:value], searchDepth.to_s)
+    @trustpath = h.getpath(*getpath_args)
     logger.debug "getpath completed in #{(Time.now - t1) * 1000}ms"
 
     t1 = Time.now
-    if (session[:max_trust_distance] >= 0)
-      @connections = h.getconnections( params[:type], params[:value], "0", "0", @viewpointType, @viewpointValue, session[:max_trust_distance].to_s )
-    else
-      @connections = h.getconnections( params[:type], params[:value] )
-    end
+    @connections = h.getconnections(*getconnections_args)
     logger.debug "getconnections completed in #{(Time.now - t1) * 1000}ms"
 
     setGravatarHash(params)
 
     t1 = Time.now
-    if (session[:max_trust_distance] >= 0)
-      @stats = h.overview( params[:type], params[:value], @viewpointType, @viewpointValue, session[:max_trust_distance].to_s )
-    else
-      @stats = h.overview(params[:type], params[:value], "", "", "0" )
-    end
+    @stats = h.overview(*overview_args)
     logger.debug "overview completed in #{(Time.now - t1) * 1000}ms"
   end
 
@@ -105,7 +92,10 @@ class IdentifierController < ApplicationController
       message[:signedData][:comment] = comment unless comment.empty?
       message[:signedData][:timestamp] = Time.now.to_i
       h.savepacketfromdata(message.to_json, publish.to_s)
-      h.generatetrustmap(current_user.provider, current_user.uid) if rating > 0 
+      h.generatetrustmap(current_user.type, current_user.value) if rating > 0 
+      h.delete_cached("getpacketsbyrecipient", getpacketsbyrecipient_args(0))
+      h.delete_cached("overview", overview_args)
+      h.delete_cached("getpath", getpath_args)
     end
     redirect_to :action => 'show', :type => params[:type], :value => params[:value]
   end
@@ -160,6 +150,7 @@ class IdentifierController < ApplicationController
     else
       render :text => "Login required", :status => 401
     end
+    h.delete_cached("getconnections", getconnections_args)
   end
   
   def connectioncomment(confirm)
@@ -215,5 +206,36 @@ class IdentifierController < ApplicationController
     end
     setGravatars(@messages)
     render :partial => "messages"
+  end
+
+  private
+  def getpacketsbyrecipient_args(offset)
+    if (session[:max_trust_distance] >= 0)
+      return [params[:type], params[:value], MSG_COUNT_S, offset, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s, session[:packet_type_filter]]
+    else
+      return [params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter]]
+    end
+  end
+
+  def overview_args
+    if (session[:max_trust_distance] >= 0)
+      return [params[:type], params[:value], @viewpointType, @viewpointValue, session[:max_trust_distance].to_s]
+    else
+      return [params[:type], params[:value], "", "", "0"]
+    end
+
+  end
+
+  def getconnections_args
+    if (session[:max_trust_distance] >= 0)
+      return [ params[:type], params[:value], "0", "0", @viewpointType, @viewpointValue, session[:max_trust_distance].to_s ]
+    else
+      return [ params[:type], params[:value] ]
+    end
+  end
+
+  def getpath_args
+    searchDepth = IdentifiRails::Application.config.maxPathSearchDepth
+    [@viewpointType, @viewpointValue, params[:type], params[:value], searchDepth.to_s]
   end
 end

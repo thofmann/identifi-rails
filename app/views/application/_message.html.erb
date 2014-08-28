@@ -1,3 +1,4 @@
+<%= cache("message-#{message["hash"]}", :expires_in => 1.minute) do %>
 <%
   signedData = message["data"]["signedData"] 
 
@@ -74,3 +75,4 @@
     <p><%= auto_link(signedData["comment"], :link => :urls) %></p>
   </div>
 </div>
+<% end %>

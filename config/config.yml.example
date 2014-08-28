@@ -1,5 +1,6 @@
 identifiHost: 'http://identifirpc:rpcpassword@127.0.0.1:8332'
 nodeID: ["keyID", "1FMUysmVbnWfFkLbdw4bmWhR642j3Am24H"]
+nodeName: ''
 fbID: ''
 fbKey: ''
 twitterKey: ''

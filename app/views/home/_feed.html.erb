@@ -7,8 +7,9 @@
     <% if @latest.empty? %>
     <div class="alert alert-info"><div class="panel-body"><p>No messages from your trust network. Extend your trust network by giving positive ratings to identifiers you trust.</p> 
     <% if current_user %>
-    <p>Suggestion: <a href="<%= "/id/#{@nodeID[0]}/#{@nodeID[1]}" %>" class="id-link"><%= @nodeID[1] %></a> (this node).</p>
-    <p>You can also link <a href="<%= "/id/#{current_user.provider}/#{current_user.uid}" %>"><%= "#{current_user.provider}: #{current_user.uid}" %></a> to other identifiers that belong to you.</p></div>
+    <p>Suggestion: <a href="<%= "/id/#{@nodeID[0]}/#{@nodeID[1]}" %>" class="id-link"><%= @nodeName %></a> (this node).</p>
+    <p>You can also <a href="<%= "/id/#{current_user.type}/#{current_user.value}#connections" %>">get connected</a> to other identifiers that belong to you.</p></div>
+ 
     <% end %>
     </div>
     <% end %>

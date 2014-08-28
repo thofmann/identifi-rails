@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   def setViewpoint(identifiRPC)
     @nodeID = IdentifiRails::Application.config.nodeID
+    @nodeName = IdentifiRails::Application.config.nodeName
     if current_user
       @viewpointType = current_user.type
       @viewpointValue = current_user.value
