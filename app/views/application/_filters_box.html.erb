@@ -10,11 +10,11 @@
         <li <%= "class=active" if session[:packet_type_filter] == "rating/neutral" %> data-val="rating/neutral"><a href="#"><span class="neutral"><span class="glyphicon glyphicon-question-sign"></span> Neutral</span></a></li>
         <li <%= "class=active" if session[:packet_type_filter] == "rating/negative" %> data-val="rating/negative"><a href="#"><span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> Negative</span></a></li>
       </ul>
-      <li <%= "class=active" if session[:packet_type_filter] == "confirm_connection" %> data-val="connection"><a href="#"><span class="glyphicon glyphicon-ok"></span> Connection</a></li>
+      <li <%= "class=active" if session[:packet_type_filter] == "confirm_connection" %> data-val="confirm_connection"><a href="#"><span class="glyphicon glyphicon-ok"></span> Connection</a></li>
       <!-- <li <%= "class=active" if session[:packet_type_filter] == "!rating,connection,confirm_connection,refute_connection" %>><a href="#" data-val="other"><span class="glyphicon glyphicon-question-sign"></span> Other</a></li> -->
     </ul>
     <div class="alert alert-info"><p>Viewing as 
-      <a href="/id/<%= @viewpointType %>/<%= @viewpointValue %>" data-id-type="<%= @viewpointType %>" data-id-value="<%= @viewpointValue %>" class="id-link"><%= @viewpointName or current_user.name or @viewpointValue %></a>
+      <a href="/id/<%= @viewpointType %>/<%= @viewpointValue %>" data-id-type="<%= @viewpointType %>" data-id-value="<%= @viewpointValue %>" class="id-link"><%= @viewpointName or (current_user and current_user.name) or @viewpointValue %></a>
     </p>
     <p>Max distance from viewpoint:</p>
     <div class="btn-group trust-distance-selector">

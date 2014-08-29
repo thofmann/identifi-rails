@@ -7,7 +7,7 @@ class IdentifiRPC
     @uri = URI.parse(service_url)
   end
 
-  def delete_cached(name, *args)
+  def delete_cached(name, args)
     Rails.cache.delete(get_post_body(name, args))
   end
  
