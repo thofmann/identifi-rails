@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Identifi</title>
+  <title>Identifi<%= " - #{@pageTitle}" if @pageTitle  %></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "https://login.persona.org/include.js" %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Address book with trust ratings. Link all your identifiers and profiles, get verified and use the same trusted identity on any site or situation.">
+  <meta property="og:image" content="<%= image_url "identifi.png" %>" />
+  <% if @googlePlusUrl %>
+  <link rel=”author” href=”<%= @googlePlusUrl %>“/>
+  <% end %>
 </head>
 <body>
 

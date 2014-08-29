@@ -47,6 +47,7 @@ class IdentifierController < ApplicationController
     setViewpoint(h)
     fixUrlParams(params)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
+    @googlePlusUrl = params[:value] if (params[:type] == "url" and /https:\/\/plus.google.com/.match(params[:value]))
     
     t1 = Time.now
     @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
