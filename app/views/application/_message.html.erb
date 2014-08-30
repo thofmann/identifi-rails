@@ -5,6 +5,7 @@
   panelStyle = "panel-default"
   iconStyle =""
   hasSuccess = ""
+  bgColor = ""
 
   case signedData["type"]
   when "confirm_connection"
@@ -22,9 +23,13 @@
     if rating > neutralRating
       panelStyle = "panel-success"
       iconStyle = "glyphicon glyphicon-thumbs-up"
+      alpha = (rating - neutralRating - 0.5) / (signedData["maxRating"] - neutralRating) / 1.25 + 0.2
+      bgColor = "background-image:linear-gradient(rgba(206,240,192,#{alpha}) 0%, rgba(191,233,175,#{alpha}) 100%);background-color: rgba(206,240,192,#{alpha});"
     elsif rating < neutralRating
       panelStyle = "panel-danger"
       iconStyle = "glyphicon glyphicon-thumbs-down"
+      alpha = (rating - neutralRating + 0.5) / (signedData["minRating"] - neutralRating) / 1.25 + 0.2
+      bgColor = "background-image:linear-gradient(rgba(242,208,208,#{alpha}) 0%, rgba(235,190,190,#{alpha}) 100%);background-color: rgba(242,208,208,#{alpha});"
     else
       panelStyle = "panel-warning"
       iconStyle = "glyphicon glyphicon-question-sign"
@@ -40,7 +45,7 @@
 %>
 
 <div class="panel <%= panelStyle %> message-panel">
-  <div class="panel-heading">
+    <div class="panel-heading" style="<%= bgColor %>">
     <p class="<%= hasSuccess %>">
       <span class="<%= iconStyle %> pull-right form-control-feedback"></span>
       <% if showAuthor %>
