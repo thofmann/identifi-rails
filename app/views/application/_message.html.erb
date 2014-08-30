@@ -24,12 +24,12 @@
       panelStyle = "panel-success"
       iconStyle = "glyphicon glyphicon-thumbs-up"
       alpha = (rating - neutralRating - 0.5) / (signedData["maxRating"] - neutralRating) / 1.25 + 0.2
-      bgColor = "background-image:linear-gradient(rgba(206,240,192,#{alpha}) 0%, rgba(191,233,175,#{alpha}) 100%);background-color: rgba(206,240,192,#{alpha});"
+      bgColor = "background-image:linear-gradient(rgba(223,240,216,#{alpha}) 0%, rgba(208,233,198,#{alpha}) 100%);background-color: rgba(223,240,216,#{alpha});"
     elsif rating < neutralRating
       panelStyle = "panel-danger"
       iconStyle = "glyphicon glyphicon-thumbs-down"
       alpha = (rating - neutralRating + 0.5) / (signedData["minRating"] - neutralRating) / 1.25 + 0.2
-      bgColor = "background-image:linear-gradient(rgba(242,208,208,#{alpha}) 0%, rgba(235,190,190,#{alpha}) 100%);background-color: rgba(242,208,208,#{alpha});"
+      bgColor = "background-image:linear-gradient(rgba(242,222,222,#{alpha}) 0%, rgba(235,204,204,#{alpha}) 100%);background-color: rgba(242,222,222,#{alpha});"
     else
       panelStyle = "panel-warning"
       iconStyle = "glyphicon glyphicon-question-sign"
