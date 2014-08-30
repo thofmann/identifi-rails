@@ -48,6 +48,7 @@ class IdentifierController < ApplicationController
     fixUrlParams(params)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     @googlePlusUrl = params[:value] if (params[:type] == "url" and /https:\/\/plus.google.com/.match(params[:value]))
+    @pageTitle = params[:value]
     
     t1 = Time.now
     @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
@@ -97,7 +98,7 @@ class IdentifierController < ApplicationController
       h.delete_cached("overview", overview_args(params, session))
       h.delete_cached("getpath", getpath_args(params, session))
       h.savepacketfromdata(message.to_json, publish.to_s)
-      h.generatetrustmap(current_user.type, current_user.value, "3") if rating > 0 
+      h.generatetrustmap(current_user.type, current_user.value, IdentifiRails::Application.config.generateTrustMapDepth.to_s) if rating > 0 
     end
     redirect_to :action => 'show', :type => params[:type], :value => params[:value]
   end
@@ -147,7 +148,7 @@ class IdentifierController < ApplicationController
       publish = Rails.env.production?.to_s
       if confirm
         h.saveconnection(current_user.type, current_user.value, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish)
-        h.generatetrustmap(type, value, "3") if (current_user.type == type and current_user.value == value)
+        h.generatetrustmap(type, value, IdentifiRails::Application.config.identifiHost) if (current_user.type == type and current_user.value == value)
       else
         h.refuteconnection(current_user.type, current_user.value, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish)
       end
@@ -177,7 +178,7 @@ class IdentifierController < ApplicationController
       message[:signedData][:type] = confirm ? "confirm_connection" : "refute_connection"
       message[:signedData][:comment] = comment unless comment.empty?
       h.savepacketfromdata(message.to_json, publish.to_s)
-      h.generatetrustmap(type, value, 3) if (confirm and current_user.type == type and current_user.value == value)
+      h.generatetrustmap(type, value, IdentifiRails::Application.config.generateTrustMapDepth.to_s) if (confirm and current_user.type == type and current_user.value == value)
 
       render :text => "OK"
     else

@@ -8,3 +8,5 @@ twitterSecret: ''
 googleClientID: ''
 googleClientSecret: ''
 maxPathSearchDepth: 2
+generateTrustMapDepth: 3
+rpcCacheTime: 10

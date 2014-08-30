@@ -19,7 +19,7 @@ class IdentifiRPC
   end
  
   def http_post_request(post_body)
-    Rails.cache.fetch(post_body, :expires_in => 20.seconds) do
+    Rails.cache.fetch(post_body, :expires_in => IdentifiRails::Application.config.rpcCacheTime.seconds) do
       http    = Net::HTTP.new(@uri.host, @uri.port)
       request = Net::HTTP::Post.new(@uri.request_uri)
       request.basic_auth @uri.user, @uri.password
