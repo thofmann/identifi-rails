@@ -11,7 +11,7 @@ class HomeController < ApplicationController
     else
       @latest = h.getlatestpackets( MSG_COUNT.to_s, offset.to_s, "", "", "0", session[:packet_type_filter] )
     end
-    setGravatars(@latest)
+    setGravatarsAndLinks(@latest)
     if current_user
       @userOverview = h.overview(current_user.type, current_user.value.to_s, @viewpointType, @viewpointValue)
       setGravatarHash(@userOverview)

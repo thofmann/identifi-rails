@@ -10,3 +10,4 @@ googleClientSecret: ''
 maxPathSearchDepth: 2
 generateTrustMapDepth: 3
 rpcCacheTime: 10
+trustPathableTypes: ['email', 'url', 'keyID', 'bitcoin_address', 'account']

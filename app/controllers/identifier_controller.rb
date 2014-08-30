@@ -53,12 +53,12 @@ class IdentifierController < ApplicationController
     t1 = Time.now
     @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     logger.debug "getpacketsbyauthor completed in #{(Time.now - t1) * 1000}ms"
-    setGravatars(@authored)
+    setGravatarsAndLinks(@authored)
     
     t1 = Time.now
     @received = h.getpacketsbyrecipient(*getpacketsbyrecipient_args(params, session, offset))
     logger.debug "getpacketsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
-    setGravatars(@received)
+    setGravatarsAndLinks(@received)
 
     t1 = Time.now
     @trustpath = h.getpath(*getpath_args(params, session))
@@ -108,7 +108,7 @@ class IdentifierController < ApplicationController
     fixUrlParams(params)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     @messages = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
-    setGravatars(@messages)
+    setGravatarsAndLinks(@messages)
     render :partial => "messages"
   end
 
@@ -122,7 +122,7 @@ class IdentifierController < ApplicationController
     else
       @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
     end
-    setGravatars(@messages)
+    setGravatarsAndLinks(@messages)
     render :partial => "messages"
   end
 
@@ -213,7 +213,7 @@ class IdentifierController < ApplicationController
     else
       @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value])
     end
-    setGravatars(@messages)
+    setGravatarsAndLinks(@messages)
     render :partial => "messages"
   end
 
