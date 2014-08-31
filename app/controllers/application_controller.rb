@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
       m["authorGravatar"] = getGravatarHash(authorEmail)
       if gravatarForRecipient
         recipientEmail = m["recipientEmail"] if (m["recipientEmail"] and not m["recipientEmail"].empty?)
-        recipientEmail = "#{m["data"]["signedData"]["recipient"][0][0]}:#{m["data"]["signedData"]["recipient"][0][1]}" unless authorEmail
+        recipientEmail = "#{m["data"]["signedData"]["recipient"][0][0]}:#{m["data"]["signedData"]["recipient"][0][1]}" unless recipientEmail
         m["recipientGravatar"] = getGravatarHash(recipientEmail)
       end
       authors = m["data"]["signedData"]["author"]
