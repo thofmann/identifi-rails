@@ -89,7 +89,8 @@ class IdentifierController < ApplicationController
 
       message = Marshal.load(Marshal.dump(IDENTIFI_PACKET))
       message[:signedData][:author].push([current_user.type, current_user.value])
-      message[:signedData][:author].push(["name", current_user.name]) if current_user.name
+      message[:signedData][:author].push(["name", current_user.name]) if \
+        (current_user.name and current_user.type != "email")
       message[:signedData][:author].push(["nickname", current_user.nickname]) if current_user.nickname
       message[:signedData][:recipient].push([type, value])
       message[:signedData][:rating] = rating
@@ -99,7 +100,8 @@ class IdentifierController < ApplicationController
       h.delete_cached("overview", overview_args(params, session))
       h.delete_cached("getpath", getpath_args(params, session))
       h.savepacketfromdata(message.to_json, publish.to_s)
-      h.generatetrustmap(current_user.type, current_user.value, IdentifiRails::Application.config.generateTrustMapDepth.to_s) if rating > 0 
+      h.generatetrustmap(current_user.type, current_user.value, \
+                         IdentifiRails::Application.config.generateTrustMapDepth.to_s) if rating > 0 
     end
     redirect_to :action => 'show', :type => params[:type], :value => params[:value]
   end
