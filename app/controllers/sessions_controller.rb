@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
   def settings
     session[:max_trust_distance] = params[:max_trust_distance].to_i if params[:max_trust_distance]
-    session[:packet_type_filter] = params[:packet_type_filter] if params[:packet_type_filter]
+    session[:msg_type_filter] = params[:msg_type_filter] if params[:msg_type_filter]
     render :nothing => true, :status => 200
   end
 end

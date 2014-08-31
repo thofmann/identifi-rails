@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class PacketHelperTest < ActionView::TestCase
+class MessageHelperTest < ActionView::TestCase
 end

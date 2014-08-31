@@ -18,7 +18,7 @@ class IdentifierController < ApplicationController
                       signature: {}
                     }
 
-  before_filter :checkParams, :except => [:getconnectingpackets]
+  before_filter :checkParams, :except => [:getconnectingmsgs]
 
   def checkParams
     params.require(:type)
@@ -51,13 +51,13 @@ class IdentifierController < ApplicationController
     @pageTitle = params[:value]
     
     t1 = Time.now
-    @authored = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
-    logger.debug "getpacketsbyauthor completed in #{(Time.now - t1) * 1000}ms"
+    @authored = h.getmsgsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:msg_type_filter] )
+    logger.debug "getmsgsbyauthor completed in #{(Time.now - t1) * 1000}ms"
     setGravatarsAndLinks(@authored)
     
     t1 = Time.now
-    @received = h.getpacketsbyrecipient(*getpacketsbyrecipient_args(params, session, offset))
-    logger.debug "getpacketsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
+    @received = h.getmsgsbyrecipient(*getmsgsbyrecipient_args(params, session, offset))
+    logger.debug "getmsgsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
     setGravatarsAndLinks(@received)
 
     t1 = Time.now
@@ -96,10 +96,10 @@ class IdentifierController < ApplicationController
       message[:signedData][:rating] = rating
       message[:signedData][:comment] = comment unless comment.empty?
       message[:signedData][:timestamp] = Time.now.to_i
-      h.delete_cached("getpacketsbyrecipient", getpacketsbyrecipient_args(params, session, "0"))
+      h.delete_cached("getmsgsbyrecipient", getmsgsbyrecipient_args(params, session, "0"))
       h.delete_cached("overview", overview_args(params, session))
       h.delete_cached("getpath", getpath_args(params, session))
-      h.savepacketfromdata(message.to_json, publish.to_s)
+      h.savemsgfromdata(message.to_json, publish.to_s)
       h.generatetrustmap(current_user.type, current_user.value, \
                          IdentifiRails::Application.config.generateTrustMapDepth.to_s) if rating > 0 
     end
@@ -110,7 +110,7 @@ class IdentifierController < ApplicationController
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     fixUrlParams(params)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
-    @messages = h.getpacketsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
+    @messages = h.getmsgsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:msg_type_filter] )
     setGravatarsAndLinks(@messages)
     render :partial => "messages"
   end
@@ -121,9 +121,9 @@ class IdentifierController < ApplicationController
     fixUrlParams(params)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     if (session[:max_trust_distance] >= 0)
-      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s, session[:packet_type_filter] )
+      @messages = h.getmsgsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s, session[:msg_type_filter] )
     else
-      @messages = h.getpacketsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter] )
+      @messages = h.getmsgsbyrecipient( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:msg_type_filter] )
     end
     setGravatarsAndLinks(@messages)
     render :partial => "messages"
@@ -180,7 +180,7 @@ class IdentifierController < ApplicationController
       message[:signedData][:recipient].push([params[:linkedType], params[:linkedValue]])
       message[:signedData][:type] = confirm ? "confirm_connection" : "refute_connection"
       message[:signedData][:comment] = comment unless comment.empty?
-      h.savepacketfromdata(message.to_json, publish.to_s)
+      h.savemsgfromdata(message.to_json, publish.to_s)
       h.generatetrustmap(type, value, IdentifiRails::Application.config.generateTrustMapDepth.to_s) if (confirm and current_user.type == type and current_user.value == value)
 
       render :text => "OK"
@@ -204,7 +204,7 @@ class IdentifierController < ApplicationController
     render :partial => "overview"
   end
 
-  def getconnectingpackets
+  def getconnectingmsgs
     params.require(:id1type)
     params.require(:id2type)
     params.require(:id1value)
@@ -212,20 +212,20 @@ class IdentifierController < ApplicationController
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
     setViewpoint(h)
     if (session[:max_trust_distance] >= 0)
-      @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value], "0", "0", @viewpointType, @viewpointValue, session[:max_trust_distance].to_s )
+      @messages = h.getconnectingmsgs(params[:id1type], params[:id1value], params[:id2type], params[:id2value], "0", "0", @viewpointType, @viewpointValue, session[:max_trust_distance].to_s )
     else
-      @messages = h.getconnectingpackets(params[:id1type], params[:id1value], params[:id2type], params[:id2value])
+      @messages = h.getconnectingmsgs(params[:id1type], params[:id1value], params[:id2type], params[:id2value])
     end
     setGravatarsAndLinks(@messages)
     render :partial => "messages"
   end
 
   private
-  def getpacketsbyrecipient_args(params, session, offset)
+  def getmsgsbyrecipient_args(params, session, offset)
     if (session[:max_trust_distance] >= 0)
-      return [params[:type], params[:value], MSG_COUNT_S, offset, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s, session[:packet_type_filter]]
+      return [params[:type], params[:value], MSG_COUNT_S, offset, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s, session[:msg_type_filter]]
     else
-      return [params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:packet_type_filter]]
+      return [params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:msg_type_filter]]
     end
   end
 

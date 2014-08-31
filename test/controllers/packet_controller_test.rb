@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PacketControllerTest < ActionController::TestCase
+class MessageControllerTest < ActionController::TestCase
   test "should get show" do
     get :show
     assert_response :success

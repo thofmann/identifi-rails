@@ -7,9 +7,9 @@ class HomeController < ApplicationController
     setViewpoint(h)
     offset = (params[:page].to_i * MSG_COUNT) or 0
     if (session[:max_trust_distance] >= 0)
-      @latest = h.getlatestpackets( MSG_COUNT.to_s, offset.to_s, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s, session[:packet_type_filter] )
+      @latest = h.getlatestmsgs( MSG_COUNT.to_s, offset.to_s, @viewpointType, @viewpointValue, session[:max_trust_distance].to_s, session[:msg_type_filter] )
     else
-      @latest = h.getlatestpackets( MSG_COUNT.to_s, offset.to_s, "", "", "0", session[:packet_type_filter] )
+      @latest = h.getlatestmsgs( MSG_COUNT.to_s, offset.to_s, "", "", "0", session[:msg_type_filter] )
     end
     setGravatarsAndLinks(@latest)
     if current_user
@@ -30,7 +30,7 @@ class HomeController < ApplicationController
 
   def about
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    @packetCount = h.getpacketcount
+    @msgCount = h.getmsgcount
     @identifierCount = h.getidentifiercount
   end
   

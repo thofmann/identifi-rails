@@ -17,38 +17,38 @@
     </div>
     <div class="panel-body">
       <ul class="list-unstyled">
-      <% firstPacket = true %>
-      <% @trustpath.each do |packet| %>
-      <% signedData = packet["data"]["signedData"] %>
-          <% if firstPacket %>
+      <% firstMessage = true %>
+      <% @trustpath.each do |msg| %>
+      <% signedData = msg["data"]["signedData"] %>
+          <% if firstMessage %>
               <li>
                   <a data-id-type="<%= signedData["author"][0][0] %>" data-id-value="<%= signedData["author"][0][1] %>" class="id-link" href="/id/<%= signedData["author"][0][0] %>/<%= signedData["author"][0][1] %>">
-	              <% if packet["authorGravatar"] %>
-			      <img class="img-rounded mar-right5" src="https://www.gravatar.com/avatar/<%= packet["authorGravatar"] %>?d=retro&s=30">
+	              <% if msg["authorGravatar"] %>
+			      <img class="img-rounded mar-right5" src="https://www.gravatar.com/avatar/<%= msg["authorGravatar"] %>?d=retro&s=30">
                       <% end %>
-                      <%= if packet["authorName"].empty?
+                      <%= if msg["authorName"].empty?
                           signedData["author"][0][1]
                       else
-                          packet["authorName"]
+                          msg["authorName"]
                       end %>
                   </a>
               </li>
-          <% firstPacket = false %>
+          <% firstMessage = false %>
           <% end %>
           <li>
-              <a href="/message/<%= packet["hash"] %>" class="text-muted">
+              <a href="/message/<%= msg["hash"] %>" class="text-muted">
                   <span class="glyphicon glyphicon-arrow-down"></span>
               </a>
           </li>
           <li>
               <a data-id-type="<%= signedData["recipient"][0][0] %>" data-id-value="<%= signedData["recipient"][0][1] %>" class="id-link" href="/id/<%= signedData["recipient"][0][0] %>/<%= signedData["recipient"][0][1] %>">
-                  <% if packet["recipientGravatar"] %>
-                    <img class="img-rounded mar-right5" src="https://www.gravatar.com/avatar/<%= packet["recipientGravatar"] %>?d=retro&s=30">
+                  <% if msg["recipientGravatar"] %>
+                    <img class="img-rounded mar-right5" src="https://www.gravatar.com/avatar/<%= msg["recipientGravatar"] %>?d=retro&s=30">
                   <% end %>
-                  <%= if packet["recipientName"].empty?
+                  <%= if msg["recipientName"].empty?
                       signedData["recipient"][0][1]
                   else
-                      packet["recipientName"]
+                      msg["recipientName"]
                   end %>
               </a>
           </li>
