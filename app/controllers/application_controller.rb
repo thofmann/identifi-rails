@@ -24,11 +24,16 @@ class ApplicationController < ActionController::Base
     @viewpointName = nil if @viewpointName.empty?
   end
 
-  def setGravatarsAndLinks(messages)
+  def setGravatarsAndLinks(messages, gravatarForRecipient = false)
     messages.each do |m|
       authorEmail = m["authorEmail"] if (m["authorEmail"] and not m["authorEmail"].empty?)
       authorEmail = "#{m["data"]["signedData"]["author"][0][0]}:#{m["data"]["signedData"]["author"][0][1]}" unless authorEmail
       m["authorGravatar"] = getGravatarHash(authorEmail)
+      if gravatarForRecipient
+        recipientEmail = m["recipientEmail"] if (m["recipientEmail"] and not m["recipientEmail"].empty?)
+        recipientEmail = "#{m["data"]["signedData"]["recipient"][0][0]}:#{m["data"]["signedData"]["recipient"][0][1]}" unless authorEmail
+        m["recipientGravatar"] = getGravatarHash(recipientEmail)
+      end
       authors = m["data"]["signedData"]["author"]
       m["linkToAuthor"] = authors.find do |a|
 	IdentifiRails::Application.config.trustPathableTypes.include? a[0]

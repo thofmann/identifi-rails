@@ -23,6 +23,9 @@
           <% if firstPacket %>
               <li>
                   <a data-id-type="<%= signedData["author"][0][0] %>" data-id-value="<%= signedData["author"][0][1] %>" class="id-link" href="/id/<%= signedData["author"][0][0] %>/<%= signedData["author"][0][1] %>">
+	              <% if packet["authorGravatar"] %>
+			      <img src="https://www.gravatar.com/avatar/<%= packet["authorGravatar"] %>?d=retro&s=30">
+                      <% end %>
                       <%= if packet["authorName"].empty?
                           signedData["author"][0][1]
                       else
@@ -39,6 +42,9 @@
           </li>
           <li>
               <a data-id-type="<%= signedData["recipient"][0][0] %>" data-id-value="<%= signedData["recipient"][0][1] %>" class="id-link" href="/id/<%= signedData["recipient"][0][0] %>/<%= signedData["recipient"][0][1] %>">
+                  <% if packet["recipientGravatar"] %>
+                    <img src="https://www.gravatar.com/avatar/<%= packet["recipientGravatar"] %>?d=retro&s=30">
+                  <% end %>
                   <%= if packet["recipientName"].empty?
                       signedData["recipient"][0][1]
                   else

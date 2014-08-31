@@ -69,6 +69,7 @@ class IdentifierController < ApplicationController
     logger.debug "getconnections completed in #{(Time.now - t1) * 1000}ms"
 
     setGravatarHash(params)
+    setGravatarsAndLinks(@trustpath)
 
     t1 = Time.now
     @stats = h.overview(*overview_args(params, session))
