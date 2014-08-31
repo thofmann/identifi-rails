@@ -27,7 +27,7 @@ IdentifiRails::Application.routes.draw do
   post 'id/refute' => 'identifier#refute', :constraints => { :type => /[^\/]+/, :value => /.+/ }
 
 
-  get 'message(/:hash)' => 'msg#show'
+  get 'message(/:hash)' => 'message#show'
 
   match 'settings', to: 'sessions#settings', via: [:get, :post]
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]

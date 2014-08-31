@@ -1,0 +1,90 @@
+<% if @msg.nil? %>
+<h1>Message not found</h1>
+<p>Message with hash '<%= params[:hash] %>' was not found.</p>
+<% else %>
+
+<%
+  signedData = @msg["data"]["signedData"] 
+
+  panelStyle = "panel-default"
+  iconStyle = ""
+
+  if signedData["type"] == "connection"
+    iconStyle = "glyphicon-link"
+  end
+
+  if signedData["type"] == "rating"
+    rating = signedData["rating"]
+    neutralRating = (signedData["minRating"] + signedData["maxRating"]) / 2
+    if rating > neutralRating
+      panelStyle = "panel-success"
+      iconStyle = "glyphicon-thumbs-up"
+    elsif rating < neutralRating
+      panelStyle = "panel-danger"
+      iconStyle = "glyphicon-thumbs-down"
+    else
+      panelStyle = "panel-warning"
+      iconStyle = "glyphicon-question-sign"
+    end
+  end
+%>
+
+<h4><%= Time.at(@msg["data"]["signedData"]["timestamp"]).strftime("%-d-%-m-%Y %R") %></h4>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">From<%= ": #{@msg["authorName"]}" unless @msg["authorName"].empty? %></h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list list-unstyled">
+        <% signedData["author"].each do |a| %>
+          <li><%= a.first %>: <a data-id-type="<%= a.first %>" data-id-value="<%= a.last %>" class="id-link" href="/id/<%= a.first %>/<%= a.last %>"><%= a.last %></a></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6" style="overflow:hidden">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">To<%= ": #{@msg["recipientName"]}" unless @msg["recipientName"].empty? %></h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list list-unstyled">
+        <% signedData["recipient"].each do |r| %>
+          <li><%= r.first %>: <a data-id-type="<%= r.first %>" data-id-value="<%= r.last %>" class="id-link" href="/id/<%= r.first %>/<%= r.last %>"><%= r.last %></a></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="panel panel-default <%= panelStyle %>">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= signedData["type"].capitalize %></h3>
+  </div>
+  <div class="panel-body">
+    <p><strong>Score:</strong> <%= signedData["rating"] %>
+      <small>(<%= signedData["minRating"] %>...<%= signedData["maxRating"] %>)</small>
+    </p>
+    <p><strong>Comment:</strong> <%= auto_link(signedData["comment"], :link => :urls) %></p>
+  </div>
+</div>
+
+<% sig = @msg["signatureDetails"]
+signerName = sig["signerKeyID"]
+signerName = @msg["signerName"] unless @msg["signerName"].empty?
+%>
+<p>Message origin verified by: <a data-id-type="keyID" data-id-value="<%= sig["signerKeyID"] %>" class="id-link" href="/id/keyID/<%= sig["signerKeyID"] %>"><%= signerName %></a></p>
+
+<p><a data-toggle="collapse" class="text-muted" data-target="#rawdata" href="#">Show raw data</a></p>
+<pre id="rawdata" class="collapse">
+<%= JSON.pretty_generate(@msg) %>
+</pre>
+
+<% end %>
