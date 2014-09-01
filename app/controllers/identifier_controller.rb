@@ -151,7 +151,7 @@ class IdentifierController < ApplicationController
       publish = Rails.env.production?.to_s
       if confirm
         h.saveconnection(current_user.type, current_user.value, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish)
-        h.generatetrustmap(type, value, IdentifiRails::Application.config.identifiHost) if (current_user.type == type and current_user.value == value)
+        h.generatetrustmap(type, value, IdentifiRails::Application.config.generateTrustMapDepth.to_s) if (current_user.type == type and current_user.value == value)
       else
         h.refuteconnection(current_user.type, current_user.value, type, value, params[:linkedType].to_s, params[:linkedValue].to_s, publish)
       end
