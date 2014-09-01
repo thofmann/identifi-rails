@@ -25,9 +25,9 @@
             <input class="form-control linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>>
           </td>-->
           <td>
-            <button name="confirm" class="btn btn-default btn-confirm has-success <%= "disabled" unless current_user %>"><span class="form-control-feedback glyphicon glyphicon-ok"></span>
+            <button name="confirm" class="ladda-button btn btn-default btn-confirm has-success <%= "disabled" unless current_user %>" data-style="expand-right"><span class="form-control-feedback glyphicon glyphicon-ok"></span>
               <%= id["confirmations"] %></button>
-            <button name="refute" class="btn btn-default btn-refute has-error <%= "disabled" unless current_user %>"><span class="form-control-feedback glyphicon glyphicon-remove"></span>
+            <button name="refute" class="ladda-button btn btn-default btn-refute has-error <%= "disabled" unless current_user %>" data-style="expand-right"><span class="form-control-feedback glyphicon glyphicon-remove"></span>
               <%= id["refutations"] %></button>
           </td>
         </tr>
@@ -39,7 +39,7 @@
           <td colspan="2"><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" <%= "disabled" unless current_user %>></td>
           <td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type" <%= "disabled" unless current_user %>></td>
           <!--<td><input id="addComment" class="form-control" name="linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>></td> -->
-          <td><button id="addButton" class="btn btn-default <%= "disabled" unless current_user %>"><span class="glyphicon glyphicon-plus"></span> Add connection</button></td>
+          <td><button id="addButton" class="ladda-button btn btn-default <%= "disabled" unless current_user %>" data-style="expand-right"><span class="glyphicon glyphicon-plus"></span> Add connection</button></td>
         </tr>
       </table>
   </div>

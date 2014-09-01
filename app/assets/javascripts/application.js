@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui.min
 //= require jquery.infinitescroll.min
+//= require spin.min
 //= require_tree .
 //= require bootstrap
 
