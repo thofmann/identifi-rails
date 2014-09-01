@@ -28,13 +28,13 @@ ready = () ->
   $(".id-row").click (event) ->
     return if $(event.target).is("a,input,button")
     event.preventDefault()
-    row = $(event.target).parents("tr").next(".connectingpackets")
+    row = $(event.target).parents("tr").next(".connectingmsgs")
     row.toggle()
     type = $(event.target).parents("tr").data("type")
     value = $(event.target).parents("tr").data("value")
-    unless $.trim(row.children("td.connectingpackets").html())
-      $.post "/id/getconnectingpackets", {id1type:idType, id1value:idValue, id2type:type, id2value:value}, (data) ->
-        row.children("td.connectingpackets").html(data)
+    unless $.trim(row.children("td.connectingmsgs").html())
+      $.post "/id/getconnectingmsgs", {id1type:idType, id1value:idValue, id2type:type, id2value:value}, (data) ->
+        row.children("td.connectingmsgs").html(data)
   $(".linkedComment").keypress (event) ->
     if event.which == 13 
       $(event.target).parents(".id-row").find(".btn-confirm").click()
