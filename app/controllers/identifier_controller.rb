@@ -1,4 +1,4 @@
-  require 'identifi-rpc'
+require 'identifi-rpc'
 
 class IdentifierController < ApplicationController
   MSG_COUNT = 10

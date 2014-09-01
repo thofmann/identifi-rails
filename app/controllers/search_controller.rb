@@ -1,3 +1,5 @@
+require 'identifi-rpc'
+
 class SearchController < ApplicationController
   def index
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
