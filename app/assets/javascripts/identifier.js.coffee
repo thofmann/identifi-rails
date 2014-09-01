@@ -69,13 +69,14 @@ ready = () ->
     loading:
       msgText: ""
       finishedMsg: ""
+      img: ""
     state:
       currPage: 0
       isPaused: !$('#received').is(':visible')
     path: (page) ->
       "/id/received/?type=" + encodeURIComponent(idType) + "&value=" + encodeURIComponent(idValue) + "&page=" + page
     , (arrayOfNewElems) ->
-      setIdPopover();
+      setIdPopover()
 
   $('#sent-messages').infinitescroll
     navSelector: "#more-sent"    
@@ -84,13 +85,14 @@ ready = () ->
     loading:
       msgText: ""
       finishedMsg: ""
+      img: ""
     state:
       currPage: 0
       isPaused: !$('#sent').is(':visible')
     path: (page) ->
       "/id/sent/?type=" + encodeURIComponent(idType) + "&value=" + encodeURIComponent(idValue) + "&page=" + page
     , (arrayOfNewElems) ->
-      setIdPopover();
+      setIdPopover()
 
   Ladda.bind('#connections button')
 

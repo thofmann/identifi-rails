@@ -10,6 +10,7 @@ ready = () ->
     loading:
       msgText: ""
       finishedMsg: ""
+      img: ""
     state:
       currPage: 0
     path: (page) ->
