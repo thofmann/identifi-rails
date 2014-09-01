@@ -16,12 +16,14 @@ class ApplicationController < ActionController::Base
     if current_user
       @viewpointType = current_user.type
       @viewpointValue = current_user.value
+      @viewpointName = current_user.name if current_user.name
     else
       @viewpointType = @nodeID[0]
       @viewpointValue = @nodeID[1]
+      @viewpointName = @nodeName
     end
-    @viewpointName = identifiRPC.getname(@viewpointType, @viewpointValue)
-    @viewpointName = nil if @viewpointName.empty?
+    @viewpointName = identifiRPC.getname(@viewpointType, @viewpointValue) unless @viewpointName
+    @viewpointName = @viewpointValue if @viewpointName.empty?
   end
 
   def setGravatarsAndLinks(messages, gravatarForRecipient = false)
