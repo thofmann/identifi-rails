@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui.min
+//= require jquery-ui/autocomplete
 //= require jquery.infinitescroll.min
 //= require spin.min
 //= require_tree .
