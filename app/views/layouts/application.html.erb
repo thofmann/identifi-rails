@@ -47,7 +47,7 @@
           <li class="<%= 'active' if params[:controller] == 'home' && params[:action] == 'index' %>"><a href="/"><span class="glyphicon glyphicon-home"></span> <span class="hidden-sm hidden-md hidden-lg">Home</span></a></li>
           <li class="<%= 'active' if params[:controller] == 'home' && params[:action] == 'about' %>"><a href="/about"><span class="glyphicon glyphicon-info-sign"></span> <span class="hidden-sm hidden-md hidden-lg">About</span></a></li>
           <% if current_user %>
-            <li class=""><a href="/id/<%= "#{current_user.type}/#{current_user.value}" %>"><span class="glyphicon glyphicon-user"></span> <%= current_user.name %></a></li>
+            <li class="<%= 'active' if params[:type] == current_user.type && params[:value] == current_user.value %>"><a href="/id/<%= "#{current_user.type}/#{current_user.value}" %>"><span class="glyphicon glyphicon-user"></span> <%= current_user.name %></a></li>
             <li class=""><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> <span class="hidden-sm hidden-md hidden-lg">Log out</span></a></li>
             </li>
           <% else %>

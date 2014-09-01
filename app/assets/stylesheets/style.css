@@ -349,7 +349,7 @@ section.section {
 	background-color: rgba(0,0,0,0.3);
 	display: block;
 	vertical-align: middle;
-	text-align: center;
+//	text-align: center;
 	margin-bottom: 0;
 	padding-bottom:0;
 }
@@ -367,9 +367,9 @@ section.section {
 }
 
 .nav>li>a {
-	display: table-cell;
+//	display: table-cell;
 	height: 100%;
-	line-height: 100%;
+//	line-height: 100%;
 	vertical-align: middle;
 //	color: #fff;
 	font-weight: 700;
@@ -389,12 +389,14 @@ section.section {
 	padding-bottom:0;	
 }
 
+/*
 .navbar .navbar-nav > .active > a {
 	color: #fff;
 }
 .navbar .navbar-nav > .active > a {
 	padding-bottom: 22px;
 }
+*/
 
 .navbar-default h1 a.navbar-brand {
 	font-size: 24px;
@@ -421,9 +423,11 @@ section.section {
 	width: 80px;*/
 }
 
+/*
 .navbar-collapse.in {
 	margin-top: -5px !important;
 }
+*/
 
 
 
