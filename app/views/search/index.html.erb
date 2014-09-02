@@ -3,10 +3,13 @@
 <table class="table">
 <% unless @results.empty? %>
 <% @results.each do |r| %>
-<tr><td><%= r.first %></td><td><a href="/id/<%= r.first %>/<%= r.second %>"><%= r.second %></a></td><td></td></tr>
+  <tr>
+    <td><img alt="" src="https://www.gravatar.com/avatar/<%= r["gravatarHash"] %>?d=retro&s=30"></td>
+    <td><%= r["type"] %></td><td colspan="2"><a href="/id/<%= r["type"] %>/<%= r["value"] %>"><%= r["value"] %></a></td>
+  </tr>
 <% end %>
 <% else %>
-<tr><td>No results</td><td></td><td></td></tr>
+<tr><td>No results</td><td></td></tr>
 <% end %>
-<tr class="active"><td><input class="gotoType form-control" name="linkedType" type="text" placeholder="type (example: 'email')"></td><td><input class="gotoValue form-control" name="linkedValue" type="text" placeholder="value (example: 'user@example.com')" value="<%= params[:query] %>"></td><td><button class="createpage btn btn-primary"><span class="glyphicon glyphicon-arrow-right"></span> Create page</button></td></tr>
+<tr class="active"><td></td><td><input class="gotoType form-control" name="linkedType" type="text" placeholder="type (example: 'email')"></td><td><input class="gotoValue form-control" name="linkedValue" type="text" placeholder="value (example: 'user@example.com')" value="<%= params[:query] %>"></td><td><button class="createpage btn btn-primary"><span class="glyphicon glyphicon-arrow-right"></span> Create page</button></td></tr>
 </table>

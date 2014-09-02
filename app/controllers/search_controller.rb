@@ -9,6 +9,14 @@ class SearchController < ApplicationController
     else
       @results = h.search(params[:query], "", "5", "0", @nodeID[0], @nodeID[1]);
     end
+    @results.each do |r|
+      if r["email"].empty?
+        gravatar = "#{r["type"]}:#{r["value"]}"
+      else
+        gravatar = r["email"]
+      end
+      r["gravatarHash"] = getGravatarHash(gravatar)
+    end
     respond_to do |format|
       format.html
       format.json { render :json => @results }
