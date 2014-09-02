@@ -50,7 +50,7 @@
       <span class="<%= iconStyle %> pull-right form-control-feedback"></span>
       <% if showAuthor %>
       <strong>
-        <a href="/id/<%= author.first %>/<%= author.last %>" data-id-type="<%= author.first %>" data-id-value="<%= author.last %>" class="id-link">
+        <a href="/id/<%=u author.first %>/<%=u author.last %>" data-id-type="<%= author.first %>" data-id-value="<%= author.last %>" class="id-link">
           <img alt="" src="https://www.gravatar.com/avatar/<%= message["authorGravatar"] %>?d=retro&s=30" class="img-rounded mar-right5"> 
           <%= authorName %>
         </a>
@@ -58,18 +58,18 @@
       <% end %>
       <% if showRecipient %>
       <small><i class="glyphicon glyphicon-play"></i></small>
-      <a href="/id/<%= recipient.first %>/<%= recipient.last %>" data-id-type="<%= recipient.first %>" data-id-value="<%= recipient.last %>" class="id-link">
+      <a href="/id/<%=u recipient.first %>/<%=u recipient.last %>" data-id-type="<%= recipient.first %>" data-id-value="<%= recipient.last %>" class="id-link">
         <%= recipientName %>
       </a>
       <% end %>
-       - <a href="/message/<%= message["hash"] %>" class="text-muted small" style="display:inline-block;"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a>
+       - <a href="/message/<%=u message["hash"] %>" class="text-muted small" style="display:inline-block;"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a>
     </p>
 
     <% if ["connection", "confirm_connection", "refute_connection"].include?(signedData["type"]) %>
     <p class="small">
     <% signedData["recipient"].each_with_index do |r, i| %>
       <span class="text-muted"><%= r.first %></span>
-      <a href="<%= "/id/#{r.first}/#{r.second}" %>" data-id-type="<%= r.first %>" data-id-value="<%= r.last %>" class="id-link"><%= r.second %></a>
+      <a href="<%= "/id/#{u r.first}/#{u r.second}" %>" data-id-type="<%= r.first %>" data-id-value="<%= r.last %>" class="id-link"><%= r.second %></a>
       <% unless i + 1 == signedData["recipient"].size %>
         <span class="<%= iconStyle %>"></span> 
       <% end %>

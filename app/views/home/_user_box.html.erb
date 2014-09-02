@@ -2,7 +2,7 @@
 <div id="user-box" class="panel panel-default">
   <div class="panel-body">
     <h4>
-      <a href="<%= "/id/#{current_user.type}/#{current_user.value}"  %>">
+      <a href="<%= "/id/#{u current_user.type}/#{u current_user.value}"  %>">
         <% if @gravatarHash %>
         <img src="http://www.gravatar.com/avatar/<%= @gravatarHash %>?d=retro&s=70" class="img-thumbnail mar-right5" alt="Gravatar for <%= @gravatarEmail %>">
         <% end %>

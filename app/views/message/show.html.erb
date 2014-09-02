@@ -40,7 +40,7 @@
       <div class="panel-body">
         <ul class="list list-unstyled">
         <% signedData["author"].each do |a| %>
-          <li><%= a.first %>: <a data-id-type="<%= a.first %>" data-id-value="<%= a.last %>" class="id-link" href="/id/<%= a.first %>/<%= a.last %>"><%= a.last %></a></li>
+          <li><%= a.first %>: <a data-id-type="<%= a.first %>" data-id-value="<%= a.last %>" class="id-link" href="/id/<%=u a.first %>/<%=u a.last %>"><%= a.last %></a></li>
         <% end %>
         </ul>
       </div>
@@ -55,7 +55,7 @@
       <div class="panel-body">
         <ul class="list list-unstyled">
         <% signedData["recipient"].each do |r| %>
-          <li><%= r.first %>: <a data-id-type="<%= r.first %>" data-id-value="<%= r.last %>" class="id-link" href="/id/<%= r.first %>/<%= r.last %>"><%= r.last %></a></li>
+          <li><%= r.first %>: <a data-id-type="<%= r.first %>" data-id-value="<%= r.last %>" class="id-link" href="/id/<%=u r.first %>/<%=u r.last %>"><%= r.last %></a></li>
         <% end %>
         </ul>
       </div>
@@ -80,7 +80,7 @@
 signerName = sig["signerKeyID"]
 signerName = @msg["signerName"] unless @msg["signerName"].empty?
 %>
-<p>Message origin verified by: <a data-id-type="keyID" data-id-value="<%= sig["signerKeyID"] %>" class="id-link" href="/id/keyID/<%= sig["signerKeyID"] %>"><%= signerName %></a></p>
+<p>Message origin verified by: <a data-id-type="keyID" data-id-value="<%= sig["signerKeyID"] %>" class="id-link" href="/id/keyID/<%=u sig["signerKeyID"] %>"><%= signerName %></a></p>
 
 <p><a data-toggle="collapse" class="text-muted" data-target="#rawdata" href="#">Show raw data</a></p>
 <pre id="rawdata" class="collapse">
