@@ -117,7 +117,7 @@ function setUpSearchAutocomplete() {
   .each(function (i, val) {
     $(val).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
       email = item.email ? item.email : item.type + ":" + item.value;
-      img = "<img alt=\"\" class=\"img-rounded mar-right5\" src=\"" + "https://www.gravatar.com/avatar/" + md5(email) + "?d=retro&s=30\">";
+      img = "<img alt=\"\" class=\"mar-right5\" src=\"" + "https://www.gravatar.com/avatar/" + md5(email) + "?d=retro&s=30\">";
       return $( "<li>" )
       .append( img + "<a>" + item.value + "<br><small>" + item.type + "</small></a>" )
       .appendTo( ul );
