@@ -15,6 +15,7 @@
 //= require jquery-ui/autocomplete
 //= require jquery.infinitescroll.min
 //= require spin.min
+//= require md5
 //= require_tree .
 //= require bootstrap
 
@@ -80,7 +81,7 @@ function setUpSearchAutocomplete() {
       $.getJSON('/search/'+encodeURIComponent(request.term)+'?format=json', function(data) {
         $.each(data, function(key, val) {
           if (key > 2) return false;
-          output.push({type: val[0], value: val[1]});
+          output.push(val);
         });
         output.push({createPage: true, type: "", value: "Create page <i>" + request.term.replace(/(<([^>]+)>)/ig,"") + "</i>"});
         response(output);
@@ -115,8 +116,10 @@ function setUpSearchAutocomplete() {
   })
   .each(function (i, val) {
     $(val).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      email = item.email ? item.email : item.type + ":" + item.value;
+      img = "<img alt=\"\" class=\"img-rounded mar-right5\" src=\"" + "https://www.gravatar.com/avatar/" + md5(email) + "?d=retro&s=30\">";
       return $( "<li>" )
-      .append( "<a>" + item.value + "<br><small>" + item.type + "</small></a>" )
+      .append( img + "<a>" + item.value + "<br><small>" + item.type + "</small></a>" )
       .appendTo( ul );
     };
   });
