@@ -164,6 +164,7 @@ ready = function() {
   setIdPopover();
   setUpCreatePage();
   listenToSettingsChanges();
+  Ladda.bind('button.ladda-button')
 }
 
 $(document).ready(ready);

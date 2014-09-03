@@ -94,7 +94,5 @@ ready = () ->
     , (arrayOfNewElems) ->
       setIdPopover()
 
-  Ladda.bind('#connections button')
-
 $(document).ready(ready)
 $(document).on('page.load', ready)
