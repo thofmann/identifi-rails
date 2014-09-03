@@ -152,7 +152,10 @@ ready = function() {
   $(".dropdown-toggle").dropdown();
   $(".identifi-search").submit(function(event) {
     event.preventDefault();
-    window.location.assign("/search/" + encodeURIComponent($(event.target).find("input").val()));
+    var value = $(event.target).find("input:visible").val();
+    if (value.trim().length > 0) {
+      window.location.assign("/search/" + encodeURIComponent(value));
+    }
   });
 
   $('#email-login').click(function() {
