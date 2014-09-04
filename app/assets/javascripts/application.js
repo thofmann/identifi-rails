@@ -169,7 +169,7 @@ ready = function() {
   setIdPopover();
   setUpCreatePage();
   listenToSettingsChanges();
-  $('button.ladda-button').ladda()
+  $('.ladda-button').ladda('bind');
 }
 
 $(document).ready(ready);
