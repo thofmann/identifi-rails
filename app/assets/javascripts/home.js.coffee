@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = () ->
+  feedSpinner = $("#feed-spinner").ladda()
   $('#messages').infinitescroll
     navSelector: "#more"    
     nextSelector: "#more a:first"  
@@ -12,6 +13,11 @@ ready = () ->
       msgText: ""
       finishedMsg: ""
       img: ""
+      start: (opts) ->
+        feedSpinner.ladda('start')
+        $(this).data("infinitescroll").beginAjax(opts)
+      finished: ->
+        feedSpinner.ladda('stop')
     state:
       currPage: 0
     path: (page) ->

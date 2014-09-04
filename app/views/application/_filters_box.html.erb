@@ -18,11 +18,11 @@
     </p>
     <p>Max distance from viewpoint:</p>
     <div class="btn-group trust-distance-selector">
-      <button type="button" data-style="zoom-in" class="ladda-button btn btn-default<%= " active" if session[:max_trust_distance] == -1 %>" data-val="-1">&#x2715;</button>
-      <button type="button" data-style="zoom-in" class="ladda-button btn btn-default<%= " active" if session[:max_trust_distance] == 1 %>" data-val="1">1</button>
-      <button type="button" data-style="zoom-in" class="ladda-button btn btn-default<%= " active" if session[:max_trust_distance] == 2 %>" data-val="2">2</button>
-      <button type="button" data-style="zoom-in" class="ladda-button btn btn-default<%= " active" if session[:max_trust_distance] == 3 %>" data-val="3">3</button>
-      <button type="button" data-style="zoom-in" class="ladda-button btn btn-default<%= " active" if session[:max_trust_distance] == 0 %>" data-val="0">&#x221e;</button>
+      <button type="button" class="btn btn-default<%= " active" if session[:max_trust_distance] == -1 %>" data-val="-1">&#x2715;</button>
+      <button type="button" class="btn btn-default<%= " active" if session[:max_trust_distance] == 1 %>" data-val="1">1</button>
+      <button type="button" class="btn btn-default<%= " active" if session[:max_trust_distance] == 2 %>" data-val="2">2</button>
+      <button type="button" class="btn btn-default<%= " active" if session[:max_trust_distance] == 3 %>" data-val="3">3</button>
+      <button type="button" class="btn btn-default<%= " active" if session[:max_trust_distance] == 0 %>" data-val="0">&#x221e;</button>
     </div>
     </div>
   </div>

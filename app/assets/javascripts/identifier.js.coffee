@@ -66,6 +66,7 @@ ready = () ->
       state:
         isPaused: !$('#received').is(':visible')
 
+  receivedSpinner = $("#received-spinner").ladda()
   $('#received-messages').infinitescroll
     navSelector: "#more-received"    
     nextSelector: "#more-received a:first"  
@@ -75,6 +76,11 @@ ready = () ->
       msgText: ""
       finishedMsg: ""
       img: ""
+      start: (opts) ->
+        receivedSpinner.ladda('start')
+        $(this).data("infinitescroll").beginAjax(opts)
+      finished: ->
+        receivedSpinner.ladda('stop')
     state:
       currPage: 0
       isPaused: !$('#received').is(':visible')
@@ -83,6 +89,7 @@ ready = () ->
     , (arrayOfNewElems) ->
       setIdPopover()
 
+  sentSpinner = $("#sent-spinner").ladda()
   $('#sent-messages').infinitescroll
     navSelector: "#more-sent"    
     nextSelector: "#more-sent a:first"  
@@ -92,6 +99,13 @@ ready = () ->
       msgText: ""
       finishedMsg: ""
       img: ""
+      start: (opts) ->
+        sentSpinner.ladda('start')
+        $(this).data("infinitescroll").beginAjax(opts)
+      finished: ->
+        sentSpinner.ladda('stop')
+    errorCallback: ->
+      sentSpinner.ladda('stop')
     state:
       currPage: 0
       isPaused: !$('#sent').is(':visible')

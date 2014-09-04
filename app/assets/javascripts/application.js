@@ -132,6 +132,7 @@ function listenToSettingsChanges() {
     function(event) {
       event.preventDefault();
       var el = $(event.target);
+      $(".trust-distance-selector button").removeClass("active");
       el.toggleClass("active");
       $.post('/settings', {"max_trust_distance": el.data("val") }, function(data) {
         location.reload();
@@ -142,6 +143,7 @@ function listenToSettingsChanges() {
     function(event) {
       event.preventDefault();
       var el = $(event.target).parents("li");
+      $(".msg-type-filter li").removeClass("active");
       el.addClass("active");
       $.post('/settings', {"msg_type_filter": el.data("val") }, function(data) {
         location.reload();
@@ -169,7 +171,7 @@ ready = function() {
   setIdPopover();
   setUpCreatePage();
   listenToSettingsChanges();
-  $('.ladda-button').ladda('bind');
+  $('button.ladda-button').ladda('bind');
 }
 
 $(document).ready(ready);

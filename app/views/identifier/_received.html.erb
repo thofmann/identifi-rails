@@ -10,5 +10,6 @@
     <% else %>
       <%= render partial: "message", collection: @received, locals: {showRecipient: true, showAuthor: true } %>
       <div id="more-received"><a href="#"></a></div>
+      <div class="ladda-button" data-style="zoom-in" data-spinner-color="#000" id="received-spinner"></div>
     <% end %>
   </div>
