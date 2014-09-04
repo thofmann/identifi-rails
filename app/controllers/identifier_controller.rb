@@ -1,7 +1,7 @@
 require 'identifi-rpc'
 
 class IdentifierController < ApplicationController
-  MSG_COUNT = 10
+  MSG_COUNT = 15
   MSG_COUNT_S = MSG_COUNT.to_s
   IDENTIFI_PACKET = {
                       signedData:

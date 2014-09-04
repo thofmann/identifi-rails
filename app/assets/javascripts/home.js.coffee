@@ -7,6 +7,7 @@ ready = () ->
     navSelector: "#more"    
     nextSelector: "#more a:first"  
     itemSelector: ".message-panel"
+    bufferPx: 1000
     loading:
       msgText: ""
       finishedMsg: ""

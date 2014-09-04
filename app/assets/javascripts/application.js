@@ -15,6 +15,8 @@
 //= require jquery-ui/autocomplete
 //= require jquery.infinitescroll.min
 //= require spin.min
+//= require ladda.min
+//= require ladda.jquery.min
 //= require md5
 //= require_tree .
 //= require bootstrap
@@ -167,7 +169,7 @@ ready = function() {
   setIdPopover();
   setUpCreatePage();
   listenToSettingsChanges();
-  Ladda.bind('button.ladda-button')
+  $('button.ladda-button').ladda()
 }
 
 $(document).ready(ready);

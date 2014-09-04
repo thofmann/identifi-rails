@@ -32,9 +32,13 @@ ready = () ->
     row.toggle()
     type = $(event.target).parents("tr").data("type")
     value = $(event.target).parents("tr").data("value")
-    unless $.trim(row.children("td.connectingmsgs").html())
+    connecting = row.children("td.connectingmsgs")
+    unless $.trim(connecting.html())
+      l = connecting.ladda()
+      l.ladda('start')
       $.post "/id/getconnectingmsgs", {id1type:idType, id1value:idValue, id2type:type, id2value:value}, (data) ->
-        row.children("td.connectingmsgs").html(data)
+        connecting.html(data)
+        l.ladda('stop')
   $(".linkedComment").keypress (event) ->
     if event.which == 13 
       $(event.target).parents(".id-row").find(".btn-confirm").click()
@@ -66,6 +70,7 @@ ready = () ->
     navSelector: "#more-received"    
     nextSelector: "#more-received a:first"  
     itemSelector: ".message-panel"
+    bufferPx: 1000
     loading:
       msgText: ""
       finishedMsg: ""
@@ -82,6 +87,7 @@ ready = () ->
     navSelector: "#more-sent"    
     nextSelector: "#more-sent a:first"  
     itemSelector: ".message-panel"
+    bufferPx: 1000
     loading:
       msgText: ""
       finishedMsg: ""
