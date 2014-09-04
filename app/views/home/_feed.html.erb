@@ -5,7 +5,7 @@
   </div>
   <div class="col-md-8">
     <% if @latest.empty? %>
-    <div class="alert alert-info"><div class="panel-body"><p>No messages from your trust network. Extend your trust network by giving positive ratings to identifiers you trust.</p> 
+    <div class="alert alert-info animated fadeIn"><div class="panel-body"><p>No messages from your trust network. Extend your trust network by giving positive ratings to identifiers you trust.</p> 
     <% if current_user %>
     <p>Suggestion: <a href="<%= "/id/#{@nodeID[0]}/#{@nodeID[1]}" %>" class="id-link"><%= @nodeName %></a> (this node).</p>
     <p>You can also <a href="<%= "/id/#{current_user.type}/#{current_user.value}#connections" %>">get connected</a> to other identifiers that belong to you.</p></div>
