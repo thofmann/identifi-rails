@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if h.gettrustmapsize(current_user.type, current_user.value) < 50
         h.generatetrustmap(current_user.type, current_user.value)
     end
-    redirect_to root_url
+    redirect_to request.env['omniauth.origin'] || root_url
   end
 
   def destroy
