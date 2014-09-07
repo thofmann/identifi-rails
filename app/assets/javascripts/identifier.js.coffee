@@ -81,6 +81,8 @@ ready = () ->
         $(this).data("infinitescroll").beginAjax(opts)
       finished: ->
         receivedSpinner.ladda('stop')
+    errorCallback: ->
+      receivedSpinner.ladda('stop')
     state:
       currPage: 0
       isPaused: !$('#received').is(':visible')
