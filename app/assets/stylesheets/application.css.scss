@@ -15,7 +15,7 @@
  *= require jquery-ui/autocomplete
  *= require font-awesome.min
  *= require bootstrap-social
- *= require bootstrap-slider
+ *= require bootstrap-slider.min
  *= require_tree .
  *= require_self
  */
@@ -92,7 +92,8 @@ h1 {
 
 #write-msg-slider {
   .slider-track {
-    background-image: linear-gradient(to right,#f2dede 30%,#fcf8e3 50%,#dff0d8 70%);
+//    background-image: linear-gradient(to right,#f2dede 30%,#fcf8e3 50%,#dff0d8 70%);
+    background-image: linear-gradient(to right,#FFEAEA,#EDFFE6);
   }
   .slider-selection {
     background: none;
