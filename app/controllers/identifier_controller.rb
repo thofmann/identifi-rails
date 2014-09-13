@@ -37,6 +37,27 @@ class IdentifierController < ApplicationController
     @gravatarHash = Digest::MD5.hexdigest(@gravatarEmail)
   end
 
+  def setTrustpaths(tp, identifi)
+    @trustpaths = []
+    return if tp.empty?
+    tp = tp.select { |p| p.size == tp.first.size }
+    @trustpaths = Array.new(tp.first.size) {|i| Set.new }
+    tp.each do |p|
+      p.each_index { |i| @trustpaths[i] << p[i] }
+    end
+    if @trustpaths.size > 2
+      @trustpaths[1..-1].each do |idSet|
+        idSet.each do |id|
+          id[2] = identifi.getname(id[0], id[1])
+          id[2] = nil if id[2].empty?
+          email = identifi.getcachedemail(id[0], id[1])
+          email = "#{id[0]}:#{id[1]}" if email.empty?
+          id[3] = Digest::MD5.hexdigest(email)
+        end
+      end
+    end
+  end
+
   def fixUrlParams(params)
     # Rails messes these up in get requests. Maybe a better fix could be found.
     params[:value] = params[:value].sub(':/', '://')
@@ -61,15 +82,15 @@ class IdentifierController < ApplicationController
     setGravatarsAndLinks(@received)
 
     t1 = Time.now
-    @trustpath = h.getpath(*getpath_args(params, session))
-    logger.debug "getpath completed in #{(Time.now - t1) * 1000}ms"
+    trustpaths = h.getpaths(*getpaths_args(params, session))
+    logger.debug "getpaths completed in #{(Time.now - t1) * 1000}ms"
 
     t1 = Time.now
     @connections = h.getconnections(*getconnections_args(params, session))
     logger.debug "getconnections completed in #{(Time.now - t1) * 1000}ms"
 
     setGravatarHash(params)
-    setGravatarsAndLinks(@trustpath, true)
+    setTrustpaths(trustpaths, h)
 
     t1 = Time.now
     @stats = h.overview(*overview_args(params, session))
@@ -98,7 +119,7 @@ class IdentifierController < ApplicationController
       message[:signedData][:timestamp] = Time.now.to_i
       h.delete_cached("getmsgsbyrecipient", getmsgsbyrecipient_args(params, session, "0"))
       h.delete_cached("overview", overview_args(params, session))
-      h.delete_cached("getpath", getpath_args(params, session))
+      h.delete_cached("getpaths", getpaths_args(params, session))
       h.savemsgfromdata(message.to_json, publish.to_s)
       h.generatetrustmap(current_user.type, current_user.value, \
                          IdentifiRails::Application.config.generateTrustMapDepth.to_s) if rating > 0 
@@ -246,7 +267,7 @@ class IdentifierController < ApplicationController
     end
   end
 
-  def getpath_args(params, session)
+  def getpaths_args(params, session)
     searchDepth = IdentifiRails::Application.config.maxPathSearchDepth
     [@viewpointType, @viewpointValue, params[:type], params[:value], searchDepth.to_s]
   end

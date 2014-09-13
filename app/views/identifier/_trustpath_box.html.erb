@@ -1,6 +1,6 @@
 <% isViewpoint = params[:type] == @viewpointType and params[:value] == @viewpointValue %>
 <% if !(isViewpoint and current_user) %>
-  <% if @trustpath.empty? %>
+  <% if @trustpaths.empty? %>
   <div class="panel panel-info">
     <div class="panel-heading">
       <% if isViewpoint %>
@@ -12,47 +12,46 @@
   </div>
   <% else %>
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Trust path</h3>
-    </div>
     <div class="panel-body">
       <ul class="list-unstyled">
-      <% firstMessage = true %>
-      <% @trustpath.each do |msg| %>
-      <% signedData = msg["data"]["signedData"] %>
-          <% if firstMessage %>
-              <li>
-                  <a data-id-type="<%= signedData["author"][0][0] %>" data-id-value="<%= signedData["author"][0][1] %>" class="id-link" href="/id/<%= signedData["author"][0][0] %>/<%= signedData["author"][0][1] %>">
-	              <% if msg["authorGravatar"] %>
-			      <img class="img-rounded mar-right5" src="https://www.gravatar.com/avatar/<%= msg["authorGravatar"] %>?d=retro&s=30">
-                      <% end %>
-                      <%= if msg["authorName"].empty?
-                          signedData["author"][0][1]
-                      else
-                          msg["authorName"]
-                      end %>
-                  </a>
-              </li>
-          <% firstMessage = false %>
-          <% end %>
           <li>
-              <a href="/message/<%= msg["hash"] %>" class="text-muted">
-                  <span class="glyphicon glyphicon-arrow-down"></span>
-              </a>
+            <a data-id-type="<%= @viewpointType %>" data-id-value="<%= @viewpointValue %>" class="id-link" href="/id/<%= "#{u @viewpointType}/#{u @viewpointValue}" %>">
+              <img alt="" src="https://www.gravatar.com/avatar/<%= @viewpointGravatarHash %>?d=retro&s=30" class="img-rounded mar-right5"> 
+              <%= @viewpointName %>
+            </a>
           </li>
+           <li class="has-success">
+             <span class="mar-left5 glyphicon glyphicon-thumbs-up form-control-feedback"></span>
+           </li>
+        <% if @trustpaths.size > 2 %>
+          <% @trustpaths[1..-2].each do |p| %>
           <li>
-              <a data-id-type="<%= signedData["recipient"][0][0] %>" data-id-value="<%= signedData["recipient"][0][1] %>" class="id-link" href="/id/<%= signedData["recipient"][0][0] %>/<%= signedData["recipient"][0][1] %>">
-                  <% if msg["recipientGravatar"] %>
-                    <img class="img-rounded mar-right5" src="https://www.gravatar.com/avatar/<%= msg["recipientGravatar"] %>?d=retro&s=30">
-                  <% end %>
-                  <%= if msg["recipientName"].empty?
-                      signedData["recipient"][0][1]
-                  else
-                      msg["recipientName"]
-                  end %>
-              </a>
+            <% p.each do |id| %>
+            <a data-id-type="<%= id.first %>" data-id-value="<%= id.second %>" class="id-link" href="/id/<%= "#{u id.first}/#{u id.second}" %>">
+              <img alt="" src="https://www.gravatar.com/avatar/<%= id[3] %>?d=retro&s=30" class="img-rounded mar-bot5 mar-right5"> 
+              <%= id[2] or id[1] %>
+            </a><br>
+            <% end %>
           </li>
-      <% end %>
+           <li class="has-success">
+             <span class="mar-left5 glyphicon glyphicon-thumbs-up form-control-feedback"></span>
+           </li>
+           <% end %>
+         <% end %>
+          <li>
+            <% @trustpaths.last.each do |id| %>
+            <a data-id-type="<%= params[:type] %>" data-id-value="<%= params[:value] %>" class="id-link" href="/id/<%= "#{u params[:type]}/#{u params[:value]}" %>">
+              <img alt="" src="https://www.gravatar.com/avatar/<%= @gravatarHash %>?d=retro&s=30" class="img-rounded mar-right5"> 
+              <%= 
+                unless @stats["name"].empty?
+                  @stats["name"]
+                else
+                  id.second
+                end
+                %>
+            </a>
+            <% end %>
+          </li>
       </ul>
     </div>
   </div>

@@ -24,6 +24,9 @@ class ApplicationController < ActionController::Base
     end
     @viewpointName = identifiRPC.getname(@viewpointType, @viewpointValue) unless @viewpointName
     @viewpointName = @viewpointValue if @viewpointName.empty?
+    e = identifiRPC.getcachedemail(@viewpointType, @viewpointValue)
+    e = "#{@viewpointType}:#{@viewpointValue}" if e.empty?
+    @viewpointGravatarHash = Digest::MD5.hexdigest(e)
   end
 
   def setGravatarsAndLinks(messages, gravatarForRecipient = false)

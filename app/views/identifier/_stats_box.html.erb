@@ -6,14 +6,23 @@
     <% end %>
     
     <%= unless @stats["name"].empty?
-          @stats["name"]
+          name = @stats["name"]
         else
           if (current_user and current_user.type == params[:type] and current_user.value == params[:value])
-            current_user.name
+            name = current_user.name
           else
-            params[:value]
+            name = params[:value]
           end
         end %>
+      <%
+        nickname = @connections.find { |c| c["type"] == "nickname" }
+        if nickname
+          nickname = nickname["value"]
+          if nickname != name
+        %>
+        (<span class="text-muted"><%= nickname %></span>)
+      <% end %>
+      <% end %>
     </h4>
     <table class="table-condensed">
       <tr>
