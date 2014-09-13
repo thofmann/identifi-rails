@@ -13,12 +13,13 @@
 
       <div class="row">
         <div class="col-sm-10 col-xs-7">
-          <div class="btn-group" data-toggle="buttons-radio">
-            <button type="button" value="1" class="btn btn-default btn-success" id="btn-positive"><span class="glyphicon glyphicon-thumbs-up"></span><span class="hidden-xs"> positive</span></button>
-            <button type="button" value="0" class="btn btn-default" id="btn-neutral"><span class="glyphicon glyphicon-question-sign"></span><span class="hidden-xs"> neutral</span></button>
-            <button type="button" value="-1" class="btn btn-default" id="btn-negative"><span class="glyphicon glyphicon-thumbs-down"></span><span class="hidden-xs"> negative</span></button>
-          </div>
-          <input name="rating" type="hidden" id="buttonvalue" value="1" autocomplete="off">
+          <input class="slider" style="width:70%" data-slider-id="write-msg-slider" type="text" data-slider-min="-3" data-slider-max="3" data-slider-step="1" data-slider-value="1">
+          <input type="hidden" name="rating" id="buttonvalue" autocomplete="off" value="1">
+          <span id="write-msg-icons" class="has-success mar-left5">
+            <span class="write-msg-icon glyphicon glyphicon-thumbs-up mar-left5 form-control-feedback"></span>
+            <span class="write-msg-icon glyphicon glyphicon-thumbs-up mar-left5 form-control-feedback" style="display:none;"></span>
+            <span class="write-msg-icon glyphicon glyphicon-thumbs-up mar-left5 form-control-feedback" style="display:none;"></span>
+          </span>
         </div>
         <div class="col-sm-2" style="text-align:right">
           <button type="submit" class="ladda-button btn btn-primary" data-style="zoom-out">Publish</button>

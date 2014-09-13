@@ -15,6 +15,7 @@
  *= require jquery-ui/autocomplete
  *= require font-awesome.min
  *= require bootstrap-social
+ *= require bootstrap-slider
  *= require_tree .
  *= require_self
  */
@@ -82,6 +83,20 @@ h1 {
 
 .message-panel:hover a.text-muted, a.text-muted:hover {
   color: inherit;
+}
+
+.panel {
+  transition : border 500ms; 
+  -webkit-transition : border 500ms;
+}
+
+#write-msg-slider {
+  .slider-track {
+    background-image: linear-gradient(to right,#f2dede 30%,#fcf8e3 50%,#dff0d8 70%);
+  }
+  .slider-selection {
+    background: none;
+  }
 }
 
 a {

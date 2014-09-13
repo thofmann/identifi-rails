@@ -5,15 +5,6 @@
 ready = () ->
   idType = $("#id-type").html()
   idValue = $("#id-value").html()
-  $("#btn-positive, #btn-neutral, #btn-negative").click (event) ->
-    $("#btn-positive").toggleClass("btn-success", $(event.target).is("#btn-positive"))
-    $("#btn-neutral").toggleClass("btn-warning", $(event.target).is("#btn-neutral"))
-    $("#btn-negative").toggleClass("btn-danger", $(event.target).is("#btn-negative"))
-    $(event.target).parents(".panel").toggleClass("panel-success", $(event.target).is("#btn-positive"))
-    $(event.target).parents(".panel").toggleClass("panel-warning", $(event.target).is("#btn-neutral"))
-    $(event.target).parents(".panel").toggleClass("panel-danger", $(event.target).is("#btn-negative"))
-  $(".btn-group button").click ->
-    $("#buttonvalue").val($(this).val());
   $(".btn-confirm, .btn-refute").click (event) ->
     event.preventDefault()
     method = if $(event.target).hasClass('btn-refute') then "refute" else "confirm"
@@ -116,6 +107,29 @@ ready = () ->
     , (arrayOfNewElems) ->
       setIdPopover()
 
+  sliderEl = $('#write-feedback input.slider')
+  if sliderEl.length > 0
+    mySlider = sliderEl.slider
+      selection: 'after'
+      tooltip: 'hide'
+      step: 0.1
+    
+    mySlider.on 'slide', ->
+      val = parseInt($(this).val())
+      $("#buttonvalue").val(val);
+      $(".write-msg-icon").toggleClass('glyphicon-question-sign', val == 0)
+      $(".write-msg-icon").toggleClass('glyphicon-thumbs-up', val > 0)
+      $(".write-msg-icon").toggleClass('glyphicon-thumbs-down', val < 0)
+      $("#write-msg-icons").toggleClass('has-warning', val == 0)
+      $("#write-msg-icons").toggleClass('has-success', val > 0)
+      $("#write-msg-icons").toggleClass('has-error', val < 0)
+      writePanel = $('#write-feedback').parent()
+      writePanel.toggleClass('panel-warning', val == 0)
+      writePanel.toggleClass('panel-success', val > 0)
+      writePanel.toggleClass('panel-danger', val < 0)
+      if val != 0
+        $('.write-msg-icon').hide()
+        $('.write-msg-icon').slice(0, Math.abs(val)).show()
 
 $(document).ready(ready)
 $(document).on('page.load', ready)

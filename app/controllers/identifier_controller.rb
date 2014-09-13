@@ -10,8 +10,8 @@ class IdentifierController < ApplicationController
                           author: [],
                           recipient: [],
                           rating: 0,
-                          maxRating: 1,
-                          minRating: -1,
+                          maxRating: 3,
+                          minRating: -3,
                           comment: "",
                           type: "rating"
                         },

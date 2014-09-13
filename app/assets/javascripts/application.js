@@ -20,6 +20,7 @@
 //= require md5
 //= require_tree .
 //= require bootstrap
+//= require bootstrap-slider
 
 function loginViaEmail() {
   navigator.id.get(function(assertion) {
