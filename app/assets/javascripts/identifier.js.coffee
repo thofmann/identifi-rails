@@ -114,7 +114,7 @@ ready = () ->
       tooltip: 'hide'
       step: 0.1
     
-    mySlider.on 'slide', ->
+    sliderHandler = ->
       val = parseInt($(this).val())
       $("#buttonvalue").val(val);
       $(".write-msg-icon").toggleClass('glyphicon-question-sign', val == 0)
@@ -130,6 +130,9 @@ ready = () ->
       if val != 0
         $('.write-msg-icon').hide()
         $('.write-msg-icon').slice(0, Math.abs(val)).show()
+    
+    mySlider.on 'slide', sliderHandler
+    mySlider.on 'slideStop', sliderHandler
 
 $(document).ready(ready)
 $(document).on('page.load', ready)
