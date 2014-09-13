@@ -6,6 +6,7 @@
   iconStyle =""
   hasSuccess = ""
   bgColor = ""
+  iconCount = 1
 
   case signedData["type"]
   when "confirm_connection"
@@ -20,15 +21,19 @@
   when "rating"
     rating = signedData["rating"]
     neutralRating = (signedData["minRating"] + signedData["maxRating"]) / 2
+    maxRatingDiff = (signedData["maxRating"] - neutralRating)
+    minRatingDiff = (signedData["minRating"] - neutralRating)
     if rating > neutralRating
       panelStyle = "panel-success"
       iconStyle = "glyphicon glyphicon-thumbs-up"
-      alpha = (rating - neutralRating - 0.5) / (signedData["maxRating"] - neutralRating) / 1.25 + 0.2
+      iconCount = (3 * rating.to_f / maxRatingDiff).ceil unless maxRatingDiff < 2
+      alpha = (rating - neutralRating - 0.5) / maxRatingDiff / 1.25 + 0.2
       bgColor = "background-image:linear-gradient(rgba(223,240,216,#{alpha}) 0%, rgba(208,233,198,#{alpha}) 100%);background-color: rgba(223,240,216,#{alpha});"
     elsif rating < neutralRating
       panelStyle = "panel-danger"
       iconStyle = "glyphicon glyphicon-thumbs-down"
-      alpha = (rating - neutralRating + 0.5) / (signedData["minRating"] - neutralRating) / 1.25 + 0.2
+      iconCount = (3 * rating.to_f / minRatingDiff).ceil unless minRatingDiff > -2
+      alpha = (rating - neutralRating + 0.5) / minRatingDiff / 1.25 + 0.2
       bgColor = "background-image:linear-gradient(rgba(242,222,222,#{alpha}) 0%, rgba(235,204,204,#{alpha}) 100%);background-color: rgba(242,222,222,#{alpha});"
     else
       panelStyle = "panel-warning"
@@ -47,7 +52,9 @@
 <div class="panel animated fadeIn <%= panelStyle %> message-panel">
     <div class="panel-heading" style="<%= bgColor %>">
     <p class="<%= hasSuccess %>">
-      <span class="<%= iconStyle %> pull-right form-control-feedback"></span>
+      <% iconCount.times do %>
+        <span class="<%= iconStyle %> mar-left5 pull-right form-control-feedback"></span>
+      <% end %>
       <% if showAuthor %>
       <strong>
         <a href="/id/<%=u author.first %>/<%=u author.last %>" data-id-type="<%= author.first %>" data-id-value="<%= author.last %>" class="id-link">
