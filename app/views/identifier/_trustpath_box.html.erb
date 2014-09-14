@@ -24,13 +24,21 @@
              <span class="mar-left5 mar-bot10 glyphicon glyphicon-thumbs-up form-control-feedback"></span>
            </li>
         <% if @trustpaths.size > 2 %>
-          <% @trustpaths[1..-2].each do |p| %>
+          <% @trustpaths[1..-2].each_with_index do |p,i| %>
           <li>
+            <% n = 0 %>
             <% p.each do |id| %>
-            <a data-id-type="<%= id.first %>" data-id-value="<%= id.second %>" class="id-link" href="/id/<%= "#{u id.first}/#{u id.second}" %>">
-              <img alt="" src="https://www.gravatar.com/avatar/<%= id[3] %>?d=retro&s=30" class="img-rounded mar-bot5 mar-right5"> 
-              <%= id[2] or id[1] %>
-            </a><br>
+              <a data-id-type="<%= id.first %>" data-id-value="<%= id.second %>" class="id-link" href="/id/<%= "#{u id.first}/#{u id.second}" %>">
+                <img alt="" src="https://www.gravatar.com/avatar/<%= id[3] %>?d=retro&s=30" class="img-rounded mar-bot5 mar-right5"> 
+                <%= id[2] or id[1] %>
+              </a><br>
+              <% if n == 2 and p.size > 3 %>
+                <a data-toggle="collapse" href="#tp-more<%=i%>"><%= p.size - 3 %> more</a><br><span id="tp-more<%=i%>" class="collapse">
+              <% end %>
+              <% if p.size > 3 and n == p.size - 1 %>
+                </span>
+              <% end %>
+              <% n += 1 %>
             <% end %>
           </li>
            <li class="has-success">
