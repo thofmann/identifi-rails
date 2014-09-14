@@ -1,3 +1,4 @@
+<div class="col-md-8 col-md-offset-2">
 <% if @msg.nil? %>
 <h1>Message not found</h1>
 <p>Message with hash '<%= params[:hash] %>' was not found.</p>
@@ -32,10 +33,14 @@
 <h4><%= Time.at(@msg["data"]["signedData"]["timestamp"]).strftime("%-d-%-m-%Y %R") %></h4>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">From<%= ": #{@msg["authorName"]}" unless @msg["authorName"].empty? %></h3>
+        <h3 class="panel-title">
+          <img alt="" src="https://www.gravatar.com/avatar/<%= @msg["authorGravatar"] %>?d=retro&s=30" class="img-rounded mar-bot5 mar-right5"> 
+          <%= @msg["authorName"] unless @msg["authorName"].empty? %>
+          <span class="glyphicon glyphicon-play"></span>
+        </h3>
       </div>
       <div class="panel-body">
         <ul class="list list-unstyled">
@@ -47,10 +52,14 @@
     </div>
   </div>
 
-  <div class="col-md-6" style="overflow:hidden">
+  <div class="col-sm-6" style="overflow:hidden">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">To<%= ": #{@msg["recipientName"]}" unless @msg["recipientName"].empty? %></h3>
+        <h3 class="panel-title"> 
+          <img alt="" src="https://www.gravatar.com/avatar/<%= @msg["recipientGravatar"] %>?d=retro&s=30" class="img-rounded mar-bot5 mar-right5"> 
+          <span class="glyphicon glyphicon-play"></span>
+          <%= @msg["recipientName"] unless @msg["recipientName"].empty? %>
+        </h3>
       </div>
       <div class="panel-body">
         <ul class="list list-unstyled">
@@ -72,7 +81,9 @@
     <p><strong>Score:</strong> <%= signedData["rating"] %>
       <small>(<%= signedData["minRating"] %>...<%= signedData["maxRating"] %>)</small>
     </p>
-    <p><strong>Comment:</strong> <%= auto_link(signedData["comment"], :link => :urls) %></p>
+    <% if signedData["comment"] and not signedData["comment"].empty? %>
+      <p><strong>Comment:</strong> <%= auto_link(signedData["comment"], :link => :urls) %></p>
+    <% end %>
   </div>
 </div>
 
@@ -88,3 +99,4 @@ signerName = @msg["signerName"] unless @msg["signerName"].empty?
 </pre>
 
 <% end %>
+</div>
