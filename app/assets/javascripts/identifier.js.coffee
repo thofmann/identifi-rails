@@ -44,8 +44,9 @@ ready = () ->
     if event.which == 13
       $("#addButton").click()
 
-  activeTab = $('[href=' + location.hash + ']')
-  activeTab && activeTab.tab('show')
+  if $.inArray(location.hash, ["connections","sent","received"]) != -1
+    activeTab = $('[href=' + location.hash + ']')
+    activeTab && activeTab.tab('show')
 
   $('a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
     $('#sent-messages').infinitescroll 'bind'

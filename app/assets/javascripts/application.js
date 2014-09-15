@@ -154,6 +154,9 @@ function listenToSettingsChanges() {
 }
 
 ready = function() {
+  if (window.location.hash.search('_=_') >= 0) {
+    window.location.hash = '';
+  }
   $(".dropdown-toggle").dropdown();
   $(".identifi-search").submit(function(event) {
     event.preventDefault();
