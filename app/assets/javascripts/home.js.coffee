@@ -18,6 +18,8 @@ ready = () ->
         $(this).data("infinitescroll").beginAjax(opts)
       finished: ->
         feedSpinner.ladda('stop')
+    errorCallback: ->
+      feedSpinner.ladda('stop')
     state:
       currPage: 0
     path: (page) ->
