@@ -88,6 +88,7 @@ h1 {
 .panel {
   transition : border 500ms; 
   -webkit-transition : border 500ms;
+  word-wrap: break-word;
 }
 
 #write-msg-slider {
