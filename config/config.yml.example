@@ -8,6 +8,6 @@ twitterSecret: ''
 googleClientID: ''
 googleClientSecret: ''
 maxPathSearchDepth: 3
-generateTrustMapDepth: 3
+generateTrustMapDepth: 4
 rpcCacheTime: 10
 trustPathableTypes: ['email', 'url', 'keyID', 'bitcoin_address', 'account']

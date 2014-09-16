@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.from_omniauth(request.env["omniauth.auth"])
     session[:user_id] = user.id
     h = IdentifiRPC.new(IdentifiRails::Application.config.identifiHost)
-    h.generatetrustmap(current_user.type, current_user.value)
+    h.generatetrustmap(current_user.type, current_user.value, IdentifiRails::Application.config.generateTrustMapDepth.to_s)
     redirect_to request.env['omniauth.origin'] || root_url
   end
 
