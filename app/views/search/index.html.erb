@@ -1,15 +1,23 @@
-<h3>All results</h3>
+<div class="mar-top60-xs"></div>
 
-<table class="table">
-<% unless @results.empty? %>
+<% unless current_user || params[:query] %>
+  <%=	render 'landing_page' %>
+<% end %>
+
+<table id="search-results" class="table table-hover">
 <% @results.each do |r| %>
-  <tr>
+  <tr class="search-result-row">
     <td><img alt="" src="https://www.gravatar.com/avatar/<%= r["gravatarHash"] %>?d=retro&s=30"></td>
-    <td><%= r["type"] %></td><td colspan="2"><a href="/id/<%= r["type"] %>/<%= r["value"] %>"><%= r["value"] %></a></td>
+    <td><a href="/id/<%= r["type"] %>/<%= r["value"] %>"><%= unless r["name"].empty?
+                                                              r["name"]
+                                                             else 
+                                                               r["value"] 
+                                                             end %></a><br>
+                                                           <small><%= r["type"] %><%= ": #{r["value"]}" unless r["name"].empty? %></small>
+    </td>
   </tr>
 <% end %>
-<% else %>
+<% if @results.empty? %>
 <tr><td>No results</td><td></td></tr>
 <% end %>
-<tr class="active"><td></td><td><input class="gotoType form-control" name="linkedType" type="text" placeholder="type (example: 'email')"></td><td><input class="gotoValue form-control" name="linkedValue" type="text" placeholder="value (example: 'user@example.com')" value="<%= params[:query] %>"></td><td><button class="createpage btn btn-primary"><span class="glyphicon glyphicon-arrow-right"></span> Create page</button></td></tr>
 </table>

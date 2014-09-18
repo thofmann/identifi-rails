@@ -26,11 +26,11 @@
     </h4>
     <table class="table-condensed">
       <tr>
-        <td>Received</td>
+        <td><a href="#received" data-toggle="tab">Received</a></td>
         <td><span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["receivedPositive"] %></span> <span class="neutral"><span class="glyphicon glyphicon-question-sign"></span> <%= @stats["receivedNeutral"] %></span> <span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["receivedNegative"] %></span></td>
       </tr>
       <tr>
-        <td>Sent</td> 
+        <td><a href="#sent" data-toggle="tab">Sent</a></td> 
         <td><span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["authoredPositive"] %></span> <span clasS="neutral"><span class="glyphicon glyphicon-question-sign"></span> <%= @stats["authoredNeutral"] %></span> <span class="negative"> <span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["authoredNegative"] %></span></td>
       </tr>
   <!--    <tr>

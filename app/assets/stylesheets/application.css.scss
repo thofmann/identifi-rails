@@ -152,12 +152,21 @@ a {
 }
 
 @media (max-width: 767px) {
+  .mar-top60-xs {
+    margin-top: 60px;
+  }
   .jumbotron {
     h1 { margin-top: 0; margin-bottom: 20px; font-size: 1.5em; }
     p { font-size: 1em; } 
     .identifi-search { margin-top: 0 }
   }
-  .table {
+  .navbar-header {
+    float: left;
+  }
+  .identifi-search {
+    clear: both;
+  }
+  #connections .table {
     &table, thead, tbody, th, td, tr { 
       display: block;
     }

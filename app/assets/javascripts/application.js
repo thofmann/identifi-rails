@@ -120,9 +120,11 @@ function setUpSearchAutocomplete() {
   .each(function (i, val) {
     $(val).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
       email = item.email ? item.email : item.type + ":" + item.value;
+      name = item.name ? item.name : item.value;
+      desc = item.name ? item.type + ": " + item.value : item.type;
       img = "<img alt=\"\" class=\"mar-right5\" src=\"" + "https://www.gravatar.com/avatar/" + md5(email) + "?d=retro&s=30\">";
       return $( "<li>" )
-      .append( img + "<a>" + item.value + "<br><small>" + item.type + "</small></a>" )
+      .append( img + "<a>" + name + "<br><small>" + desc + "</small></a>" )
       .appendTo( ul );
     };
   });

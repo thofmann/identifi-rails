@@ -389,6 +389,14 @@ section.section {
 	padding-bottom:0;	
 }
 
+.navbar-nav li {
+  float: left;
+}
+
+.login-menu li {
+  float: none;
+}
+
 /*
 .navbar .navbar-nav > .active > a {
 	color: #fff;
@@ -1073,14 +1081,11 @@ Media queries
 		background-color:rgba(0,0,0,1);
 	}
 	.navbar .navbar-collapse ul.nav {
-//		background-color: #444;
 		width: 100%;
-		float: none;
 		margin:0;
 		padding:0;
 	}
 	.navbar .navbar-collapse ul.nav li {
-		border-bottom: 1px solid #666;
 	}
 	section.featured {
 		padding-top: 80px;

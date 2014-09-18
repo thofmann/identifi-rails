@@ -1,15 +1,15 @@
 IdentifiRails::Application.routes.draw do
   get "search/index"
   get "send/index"
-  get "home/index"
+  get "feed/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  root 'search#index'
 
-  get 'feed' => 'home#feed'
-  get 'about' => 'home#about'
+  get 'feed' => 'feed#feed'
+  get 'about' => 'feed#about'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -23,7 +23,7 @@ ready = () ->
     state:
       currPage: 0
     path: (page) ->
-      "/?page=" + page
+      "/feed?page=" + page
     , (arrayOfNewElems) ->
       setIdPopover();
 
