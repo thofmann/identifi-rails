@@ -45,9 +45,9 @@
           </li>
         <% end %>
       </ul>
-      <form class="navbar-form navbar-left <%= "identifi-search" unless params[:controller] == 'search' %> <%= 'hidden-xs hidden-sm' if params[:controller] != 'search' %>" id="nav-search" role="search">
+      <form class="navbar-form navbar-left <%= 'hidden-xs hidden-sm identifi-search' if params[:controller] != 'search' %>" id="nav-search" role="search">
         <div class="input-group">
-          <input type="text" name="query" value="<%= params[:query] %>" id="nav-search-field" class="form-control" placeholder="Search">
+          <input type="text" name="query" value="<%= params[:query] %>" id="nav-search-field" class="<%= "search-search" if params[:controller] == 'search' %> form-control" placeholder="Search">
           <span class="input-group-btn"><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></span>
         </div>
       </form>

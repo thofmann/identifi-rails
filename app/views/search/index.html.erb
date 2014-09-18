@@ -1,5 +1,4 @@
-<div class="mar-top60-xs"></div>
-
+<div id="search-page" class="mar-top60-xs">
 <% unless current_user || params[:query] %>
   <%=	render 'landing_page' %>
 <% end %>
@@ -21,3 +20,5 @@
 <tr><td>No results</td><td></td></tr>
 <% end %>
 </table>
+</div>
+
