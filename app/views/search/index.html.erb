@@ -14,11 +14,6 @@
                                                              end %></a><br>
                                                            <small><%= r["type"] %><%= ": #{r["value"]}" unless r["name"].empty? %></small>
     </td>
-    <td class="contact-link">
-      <% unless r["email"].empty? %>
-        <a href="mailto:<%= r["email"] %>"><span class="glyphicon glyphicon-envelope"></span></a>
-      <% end %>
-    </td>
   </tr>
 <% end %>
 <% if @results.empty? %>
