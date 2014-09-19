@@ -2,10 +2,20 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+setSearchResultHandlers = ->
+  $(".search-result-row").first().addClass("active")
+  $(".search-result-row").click (e) ->
+    unless $(e.target).is("a")
+      $(e.target).closest("tr").find("a")[0].click()
+
+  $(".search-result-row").hover (e) ->
+    $(".search-result-row").removeClass("active")
+    $(e.target).closest("tr").addClass("active")
+
 scrollTo = (el) ->
   if el.position()
-    if el.position().top < $(window).scrollTop()
-      $('html,body').animate({scrollTop:el.position().top - 80}, 100)
+    if el.position().top - $(".navbar").height() < $(window).scrollTop()
+      $('html,body').animate({scrollTop:el.position().top - $(".navbar").height()}, 100)
     else if(el.position().top + el.height() > $(window).scrollTop() + (window.innerHeight || document.documentElement.clientHeight))
       $('html,body').animate({scrollTop:el.position().top - (window.innerHeight || document.documentElement.clientHeight) + el.height() + 15}, 100)
   
@@ -14,13 +24,11 @@ search = ->
     query: "" + $(".search-search").val() + ""
   , (data) ->
       $("#search-page").html $(data).find("#search-page").html()
-      $(".search-result-row").first().addClass("active")
+      setSearchResultHandlers()
 
 $(document).ready ->
   $(".search-search").focus()
-  $(".search-result-row").click (e) ->
-    unless $(e.target).is("a")
-      $(e.target).closest("tr").find("a")[0].click()
+  setSearchResultHandlers()
 
   $(".search-search").keydown (e) ->
     switch e.which
