@@ -103,6 +103,12 @@ h1 {
 
 .search-result-row {
   cursor: pointer;
+  .contact-link {
+    font-size: 1.6em;
+  }
+  td {
+    vertical-align: middle !important;
+  }
 }
 
 a {

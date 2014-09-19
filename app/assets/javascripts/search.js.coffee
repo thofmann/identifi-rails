@@ -10,7 +10,8 @@ search = ->
 
 $(document).ready ->
   $(".search-result-row").click (e) ->
-    $(e.target).closest("tr").find("a")[0].click()
+    if !$(e.target).is("a")
+      $(e.target).closest("tr").find("a")[0].click()
 
   $(".search-search").keyup ->
     clearTimeout $.data(this, "timer")
