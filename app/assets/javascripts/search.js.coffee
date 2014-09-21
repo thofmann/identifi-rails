@@ -25,6 +25,7 @@ search = ->
   , (data) ->
       $("#search-page").html $(data).find("#search-page").html()
       setSearchResultHandlers()
+      scrollTo $(".search-result-row").first()
 
 $(document).ready ->
   $(".search-search").focus()
