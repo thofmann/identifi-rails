@@ -8,7 +8,7 @@
     <% when "email" %>
       <a class="btn btn-lg btn-social-icon btn-success" href="mailto:<%= c["value"] %>"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</a> 
     <% when "url" %>
-      <% if c["value"].include? "://www.facebook.com/" %>
+      <% if c["value"].include? "facebook.com/" %>
         <a class="btn btn-lg btn-social-icon btn-facebook" href="<%= c["value"] %>"><span class="fa fa-facebook"></span></a> 
       <% elsif c["value"].include? "://twitter.com/" %>
         <a class="btn btn-lg btn-social-icon btn-twitter" href="<%= c["value"] %>"><span class="fa fa-twitter"></span>&nbsp;</a> 

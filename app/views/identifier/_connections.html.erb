@@ -24,7 +24,7 @@
             <% when "email" %>
               <a class="btn btn-lg btn-social-icon btn-success" href="mailto:<%= id["value"] %>"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</a> 
             <% when "url" %>
-              <% if id["value"].include? "://www.facebook.com/" %>
+              <% if id["value"].include? "facebook.com/" %>
                 <a class="btn btn-lg btn-social-icon btn-facebook" href="<%= id["value"] %>"><span class="fa fa-facebook"></span></a> 
               <% elsif id["value"].include? "://twitter.com/" %>
                 <a class="btn btn-lg btn-social-icon btn-twitter" href="<%= id["value"] %>"><span class="fa fa-twitter"></span>&nbsp;</a> 
@@ -47,6 +47,8 @@
               <span class="btn btn-lg btn-social-icon"><span class="glyphicon glyphicon-font"></span></span>
             <% when "account" %>
               <span class="btn btn-lg btn-social-icon"><span>&#64;</span></span>
+            <% when "gpg_keyid", "pgp_keyid", "gpg_fingerprint", "pgp_fingerprint" %>
+              <a class="btn btn-lg btn-social-icon btn-default" href="https://pgp.mit.edu/pks/lookup?op=get&search=0x<%=u id["value"] %>"><span class="fa fa-key"></span></a>
             <% end %>
           </td>
           <td colspan="3"><a href="<%= "/id/#{u id["type"]}/#{u id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a><span class="visible-xs"> <%= id["type"] %></span><br>
