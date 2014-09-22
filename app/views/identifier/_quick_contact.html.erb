@@ -1,23 +1,33 @@
 <div class="panel quick-contact">
   <% quickcontacts = @connections.clone
-     quickcontacts.insert(0, { "type" => params[:type], "value" => params[:value] })
+  quickcontacts.insert(0, { "type" => params[:type], "value" => params[:value], "refutations" => 0, "confirmations" => 1 })
   %>
 <% quickcontacts.each do |c| %>
-  <% case c["type"] %>
-  <% when "email" %>
-    <a class="btn btn-lg btn-social-icon btn-success" href="mailto:<%= c["value"] %>"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</a> 
-  <% when "url" %>
-    <% if c["value"].include? "://www.facebook.com/" %>
-      <a class="btn btn-lg btn-social-icon btn-facebook" href="<%= c["value"] %>"><span class="fa fa-facebook"></span></a> 
+  <% if c["refutations"] * 2  < c["confirmations"] %>
+    <% case c["type"] %>
+    <% when "email" %>
+      <a class="btn btn-lg btn-social-icon btn-success" href="mailto:<%= c["value"] %>"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</a> 
+    <% when "url" %>
+      <% if c["value"].include? "://www.facebook.com/" %>
+        <a class="btn btn-lg btn-social-icon btn-facebook" href="<%= c["value"] %>"><span class="fa fa-facebook"></span></a> 
+      <% end %>
+      <% if c["value"].include? "://twitter.com/" %>
+        <a class="btn btn-lg btn-social-icon btn-twitter" href="<%= c["value"] %>"><span class="fa fa-twitter"></span>&nbsp;</a> 
+      <% end %>
+      <% if c["value"].include? "://plus.google.com/" %>
+        <a class="btn btn-lg btn-social-icon btn-google-plus" href="<%= c["value"] %>"><span class="fa fa-google-plus"></span></a> 
+      <% end %>
+      <% if c["value"].include? ".linkedin.com/" %>
+        <a class="btn btn-lg btn-social-icon btn-linkedin" href="<%= c["value"] %>"><span class="fa fa-linkedin"></span></a> 
+      <% end %>
+      <% if c["value"].include? "instagram.com/" %>
+        <a class="btn btn-lg btn-social-icon btn-instagram" href="<%= c["value"] %>"><span class="fa fa-instagram"></span></a> 
+      <% end %>
+    <% when "phone" %>
+      <a class="btn btn-lg btn-social-icon btn-success" href="tel:<%= c["value"] %>"><span class="glyphicon glyphicon-earphone"></span></a>
+    <% when "bitcoin_address" %>
+      <a class="btn btn-lg btn-social-icon btn-primary" href="https://blockchain.info/address/<%=u c["value"] %>"><span>&#3647;</span></a>
     <% end %>
-    <% if c["value"].include? "://twitter.com/" %>
-      <a class="btn btn-lg btn-social-icon btn-twitter" href="<%= c["value"] %>"><span class="fa fa-twitter"></span>&nbsp;</a> 
-    <% end %>
-    <% if c["value"].include? "://plus.google.com/" %>
-      <a class="btn btn-lg btn-social-icon btn-google-plus" href="<%= c["value"] %>"><span class="fa fa-google-plus"></span></a> 
-    <% end %>
-  <% when "phone" %>
-    <a class="btn btn-lg btn-social-icon btn-success" href="tel:<%= c["value"] %>"><span class="glyphicon glyphicon-earphone"></span></a>
   <% end %>
 <% end %>
 </div>
