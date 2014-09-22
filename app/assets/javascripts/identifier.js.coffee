@@ -17,12 +17,13 @@ ready = () ->
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
   $(".id-row").click (event) ->
-    return if $(event.target).parents("a,input,button").length > 0
+    el = $(event.target)
+    return if (el.is("a,input,button") or el.parents("a,input,button").length > 0)
     event.preventDefault()
-    row = $(event.target).parents("tr").next(".connectingmsgs")
+    row = el.parents("tr").next(".connectingmsgs")
     row.toggle()
-    type = $(event.target).parents("tr").data("type")
-    value = $(event.target).parents("tr").data("value")
+    type = el.parents("tr").data("type")
+    value = el.parents("tr").data("value")
     connecting = row.children("td.connectingmsgs")
     unless $.trim(connecting.html())
       l = connecting.ladda()
