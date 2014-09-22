@@ -41,8 +41,12 @@
               <% end %>
             <% when "phone" %>
               <a class="btn btn-lg btn-social-icon btn-success" href="tel:<%= id["value"] %>"><span class="glyphicon glyphicon-earphone"></span></a>
-            <% when "bitcoin_address" %>
-              <a class="btn btn-lg btn-social-icon btn-primary" href="https://blockchain.info/address/<%=u id["value"] %>"><span>&#3647;</span></a>
+            <% when "bitcoin", "bitcoin_address" %>
+              <a class="btn btn-lg btn-social-icon btn-primary" href="https://blockchain.info/address/<%=u id["value"] %>"><span class="fa fa-bitcoin"></span></a>
+            <% when "name", "nickname" %>
+              <span class="btn btn-lg btn-social-icon"><span class="glyphicon glyphicon-font"></span></span>
+            <% when "account" %>
+              <span class="btn btn-lg btn-social-icon"><span>&#64;</span></span>
             <% end %>
           </td>
           <td colspan="3"><a href="<%= "/id/#{u id["type"]}/#{u id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a><span class="visible-xs"> <%= id["type"] %></span><br>
