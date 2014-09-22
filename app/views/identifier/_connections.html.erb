@@ -58,11 +58,11 @@
           </td>
         </tr>
         <tr style="display:none" class="active connectingmsgs">
-          <td class="connectingmsgs ladda-button" data-style="zoom-in" data-spinner-color="#000" colspan="4"></td>
+          <td class="connectingmsgs ladda-button" data-style="zoom-in" data-spinner-color="#000" colspan="5"></td>
         </tr>
       <% end %>
         <tr class="active add-row">
-          <td colspan="2"><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" <%= "disabled" unless current_user %>></td>
+          <td colspan="3"><input id="addValue" class="form-control" name="linkedValue" type="text" placeholder="value" <%= "disabled" unless current_user %>></td>
           <td><input id="addType" class="form-control" name="linkedType" type="text" placeholder="type" <%= "disabled" unless current_user %>></td>
           <!--<td><input id="addComment" class="form-control" name="linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>></td> -->
           <td><button autocomplete="off" id="addButton" class="ladda-button btn btn-default <%= "disabled" unless current_user %>" data-style="zoom-out"><span class="glyphicon glyphicon-plus"></span> Add connection</button></td>
