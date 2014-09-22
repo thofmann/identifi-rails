@@ -1,0 +1,23 @@
+<div class="panel quick-contact">
+  <% quickcontacts = @connections.clone
+     quickcontacts.insert(0, { "type" => params[:type], "value" => params[:value] })
+  %>
+<% quickcontacts.each do |c| %>
+  <% case c["type"] %>
+  <% when "email" %>
+    <a class="btn btn-lg btn-social-icon btn-success" href="mailto:<%= c["value"] %>"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</a> 
+  <% when "url" %>
+    <% if c["value"].include? "://www.facebook.com/" %>
+      <a class="btn btn-lg btn-social-icon btn-facebook" href="<%= c["value"] %>"><span class="fa fa-facebook"></span></a> 
+    <% end %>
+    <% if c["value"].include? "://twitter.com/" %>
+      <a class="btn btn-lg btn-social-icon btn-twitter" href="<%= c["value"] %>"><span class="fa fa-twitter"></span>&nbsp;</a> 
+    <% end %>
+    <% if c["value"].include? "://plus.google.com/" %>
+      <a class="btn btn-lg btn-social-icon btn-google-plus" href="<%= c["value"] %>"><span class="fa fa-google-plus"></span></a> 
+    <% end %>
+  <% when "phone" %>
+    <a class="btn btn-lg btn-social-icon btn-success" href="tel:<%= c["value"] %>"><span class="glyphicon glyphicon-earphone"></span></a>
+  <% end %>
+<% end %>
+</div>
