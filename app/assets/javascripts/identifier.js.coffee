@@ -17,7 +17,7 @@ ready = () ->
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
   $(".id-row").click (event) ->
-    return if $(event.target).is("a,input,button")
+    return if $(event.target).parents("a,input,button").length > 0
     event.preventDefault()
     row = $(event.target).parents("tr").next(".connectingmsgs")
     row.toggle()
