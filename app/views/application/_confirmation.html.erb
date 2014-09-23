@@ -1,0 +1,40 @@
+<%= cache("confirmation-#{confirmation["hash"]}", :expires_in => 10.minutes) do %>
+<%
+  signedData = confirmation["data"]["signedData"] 
+
+  iconStyle = ""
+  hasSuccess = ""
+
+  case signedData["type"]
+  when "confirm_connection"
+    iconStyle = "glyphicon glyphicon-ok"
+    hasSuccess = "has-success"
+  when "connection"
+    iconStyle = "glyphicon glyphicon-ok"
+    hasSuccess = "has-success"
+  when "refute_connection"
+    iconStyle = "glyphicon glyphicon-remove"
+    hasSuccess = "has-error"
+  end
+
+  author = confirmation["linkToAuthor"]
+  authorName = confirmation["authorName"]
+  authorName = author.second if authorName.nil? or authorName.empty?
+%>
+
+<div class="animated fadeIn confirmation-panel">
+    <div class="panel-heading">
+    <p class="<%= hasSuccess %>">
+      <span class="<%= iconStyle %> mar-left5 pull-right form-control-feedback"></span>
+      <strong>
+        <a href="/id/<%=u author.first %>/<%=u author.last %>" data-id-type="<%= author.first %>" data-id-value="<%= author.last %>" class="id-link">
+          <img alt="" src="https://www.gravatar.com/avatar/<%= confirmation["authorGravatar"] %>?d=retro&s=30" class="img-rounded mar-right5"> 
+          <%= authorName %>
+        </a>
+      </strong>
+       - <a href="/message/<%=u confirmation["hash"] %>" class="text-muted small" style="display:inline-block;"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a>
+       <% if (signedData["comment"] and not signedData["comment"].empty?) %> - <%= auto_link(signedData["comment"], :link => :urls) %><% end %>
+    </p>
+  </div>
+</div>
+<% end %>

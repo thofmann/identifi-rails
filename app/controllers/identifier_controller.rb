@@ -238,7 +238,7 @@ class IdentifierController < ApplicationController
       @messages = h.getconnectingmsgs(params[:id1type], params[:id1value], params[:id2type], params[:id2value])
     end
     setGravatarsAndLinks(@messages)
-    render :partial => "messages"
+    render partial: "confirmation", collection: @messages
   end
 
   private
