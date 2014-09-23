@@ -37,13 +37,19 @@
           <li class=""><a href="/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
           </li>
         <% else %>
-          <li class="dropdown <%= 'active' if params[:controller] == 'login' %>">
+          <li class="hidden-xs dropdown <%= 'active' if params[:controller] == 'login' %>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Log in <b class="caret"></b></a>
             <ul class="dropdown-menu login-menu">
               <%= render 'login_menu' %>
             </ul>
           </li>
+          <li class="visible-xs <%= 'active' if params[:controller] == 'login' %>">
+            <a href="#" data-toggle="collapse" data-target="#login-menu-xs"><span class="glyphicon glyphicon-log-in"></span> Log in <b class="caret"></b></a>
+          </li>
         <% end %>
+      </ul>
+      <ul class="collapse hidden-sm hidden-md hidden-lg dropdown-menu login-menu" id="login-menu-xs" aria-labelledby="login-xs">
+        <%= render 'login_menu' %>
       </ul>
       <form class="navbar-form navbar-left <%= 'hidden-xs hidden-sm identifi-search' if params[:controller] != 'search' %>" id="nav-search" role="search">
         <div class="input-group">

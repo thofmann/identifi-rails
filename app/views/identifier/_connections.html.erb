@@ -51,7 +51,7 @@
               <a class="btn btn-lg btn-social-icon btn-default" href="https://pgp.mit.edu/pks/lookup?op=get&search=0x<%=u id["value"] %>"><span class="fa fa-key"></span></a>
             <% end %>
           </td>
-          <td colspan="3"><a href="<%= "/id/#{u id["type"]}/#{u id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a><span class="visible-xs"> <%= id["type"] %></span><br>
+          <td colspan="3"><a href="<%= "/id/#{u id["type"]}/#{u id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a><br>
           <small><%= id["type"] %></small></td>
           <!--<td>
             <input class="form-control linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>>

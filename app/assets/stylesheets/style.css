@@ -1077,6 +1077,14 @@ Media queries
 }
 @media (max-width: 767px) {
 
+  .navbar-nav {
+    margin-top: 0;
+  }
+
+  .navbar-nav li a {
+    padding: 15px;
+  }
+
 	.navbar.navbar-fixed-top {
 		background-color:rgba(0,0,0,1);
 	}
