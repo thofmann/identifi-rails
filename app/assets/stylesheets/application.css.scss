@@ -159,6 +159,12 @@ a {
   background-image: none;
 }
 
+.stats-box {
+  word-wrap: break-word;
+  table-layout: fixed;
+  h4 { display: inline; }
+}
+
 @media (min-width: 768px) { 
   #nav-search-field { width: 320px; }
   .navbar-form { width: 360px; }
