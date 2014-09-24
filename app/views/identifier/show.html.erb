@@ -26,7 +26,10 @@
 <div class="row">
   <div class="col-md-4">
     <%= render "stats_box" %>
-    <%= render "quick_contact" %>
+    <% quick_contact = render "quick_contact" %>
+    <% unless quick_contact.empty? %>
+      <div class="panel quick-contact"><%= quick_contact %></div>
+    <% end %>
     <%= render "trustpath_box" %>
     <%= render "filters_box" %>
   </div>

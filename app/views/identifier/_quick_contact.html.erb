@@ -1,4 +1,3 @@
-<div class="panel quick-contact">
   <% quickcontacts = @connections.clone
   quickcontacts.insert(0, { "type" => params[:type], "value" => params[:value], "refutations" => 0, "confirmations" => 1 })
   %>
@@ -26,4 +25,3 @@
     <% end %>
   <% end %>
 <% end %>
-</div>
