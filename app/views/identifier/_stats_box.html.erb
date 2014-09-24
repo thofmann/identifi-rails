@@ -1,30 +1,35 @@
 <div class="panel panel-default">
   <div class="panel-body">
-   <h4>
-    <% if @gravatarHash %>
-    <a href="http://www.gravatar.com/<%= @gravatarHash %>" data-toggle="tooltip" data-placement="right" title="Gravatar for <%= @gravatarEmail %>"><img src="http://www.gravatar.com/avatar/<%= @gravatarHash %>?d=retro&s=70" class="img-thumbnail mar-right5" alt="Gravatar for <%= @gravatarEmail %>"></a>
-    <% end %>
-    
-    <%= unless @stats["name"].empty?
-          name = @stats["name"]
-        else
-          if (current_user and current_user.type == params[:type] and current_user.value == params[:value])
-            name = current_user.name
-          else
-            name = params[:value]
-          end
-        end %>
-      <%
-        nickname = @connections.find { |c| c["type"] == "nickname" }
-        if nickname
-          nickname = nickname["value"]
-          if nickname != name
-        %>
-        (<span class="text-muted"><%= nickname %></span>)
-      <% end %>
-      <% end %>
-    </h4>
     <table class="table-condensed">
+      <tr>
+        <td>
+          <% if @gravatarHash %>
+          <a href="http://www.gravatar.com/<%= @gravatarHash %>" data-toggle="tooltip" data-placement="right" title="Gravatar for <%= @gravatarEmail %>"><img src="http://www.gravatar.com/avatar/<%= @gravatarHash %>?d=retro&s=70" class="img-thumbnail mar-right5" alt="Gravatar for <%= @gravatarEmail %>"></a>
+          <% end %>
+        </td>
+        <td>
+          <h4>
+            <%= unless @stats["name"].empty?
+                  name = @stats["name"]
+                else
+                  if (current_user and current_user.type == params[:type] and current_user.value == params[:value])
+                    name = current_user.name
+                  else
+                    name = params[:value]
+                  end
+                end %>
+              <%
+                nickname = @connections.find { |c| c["type"] == "nickname" }
+                if nickname
+                  nickname = nickname["value"]
+                  if nickname != name
+                %>
+                (<span class="text-muted"><%= nickname %></span>)
+              <% end %>
+            <% end %>
+          </h4>
+        </td>
+      </tr>
       <tr>
         <td>Received</td>
         <td><span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["receivedPositive"] %></span> <span class="neutral"><span class="glyphicon glyphicon-question-sign"></span> <%= @stats["receivedNeutral"] %></span> <span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["receivedNegative"] %></span></td>
