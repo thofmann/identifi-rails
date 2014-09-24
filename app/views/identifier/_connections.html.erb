@@ -19,24 +19,25 @@
             end 
          %>
         <tr class="id-row <%= "#{rowClass}" if rowClass %>" data-type="<%= id["type"] %>" data-value="<%= id["value"] %>">
-          <td class="hidden-xs">
+          <td>
             <%= render "id_icon", id: id %>
+            <span class="visible-xs pull-right">
+              <button autocomplete="off" name="confirm" class="ladda-button btn btn-default btn-confirm has-success <%= "disabled" unless current_user %>" data-style="zoom-out"><span class="form-control-feedback glyphicon glyphicon-ok"></span>
+                <%= id["confirmations"] %></button>
+              <button autocomplete="off" name="refute" class="ladda-button btn btn-default btn-refute has-error <%= "disabled" unless current_user %>" data-style="zoom-out"><span class="form-control-feedback glyphicon glyphicon-remove"></span>
+                <%= id["refutations"] %></button>
+            </span>
           </td>
           <td colspan="3"><a href="<%= "/id/#{u id["type"]}/#{u id["value"]}" %>" data-id-type="<%= id["type"] %>" data-id-value="<%= id["value"] %>" class="id-link"><%= id["value"] %></a><br>
           <small><%= id["type"] %></small></td>
           <!--<td>
             <input class="form-control linkedComment" type="text" placeholder="comment" <%= "disabled" unless current_user %>>
           </td>-->
-          <td>
-            <span class="visible-xs">
-              <%= render "id_icon", id: id %>
-            </span>
-            <span class="conf-refute">
-              <button autocomplete="off" name="confirm" class="ladda-button btn btn-default btn-confirm has-success <%= "disabled" unless current_user %>" data-style="zoom-out"><span class="form-control-feedback glyphicon glyphicon-ok"></span>
-                <%= id["confirmations"] %></button>
-              <button autocomplete="off" name="refute" class="ladda-button btn btn-default btn-refute has-error <%= "disabled" unless current_user %>" data-style="zoom-out"><span class="form-control-feedback glyphicon glyphicon-remove"></span>
-                <%= id["refutations"] %></button>
-            </span>
+          <td class="hidden-xs">
+            <button autocomplete="off" name="confirm" class="ladda-button btn btn-default btn-confirm has-success <%= "disabled" unless current_user %>" data-style="zoom-out"><span class="form-control-feedback glyphicon glyphicon-ok"></span>
+              <%= id["confirmations"] %></button>
+            <button autocomplete="off" name="refute" class="ladda-button btn btn-default btn-refute has-error <%= "disabled" unless current_user %>" data-style="zoom-out"><span class="form-control-feedback glyphicon glyphicon-remove"></span>
+              <%= id["refutations"] %></button>
           </td>
         </tr>
         <tr style="display:none" class="active connectingmsgs">
