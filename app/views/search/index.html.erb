@@ -6,8 +6,8 @@
 <table id="search-results" class="table table-hover">
 <% @results.each do |r| %>
   <tr class="search-result-row">
-    <td class="col-xs-1"><img alt="" src="https://www.gravatar.com/avatar/<%= r["gravatarHash"] %>?d=retro&s=30"></td>
-    <td><a href="/id/<%=u r["type"] %>/<%=u r["value"] %>"><%= unless r["name"].empty?
+    <td class="col-xs-2"><img alt="" src="https://www.gravatar.com/avatar/<%= r["gravatarHash"] %>?d=retro&s=30"></td>
+    <td class="col-xs-10"><a href="/id/<%=u r["type"] %>/<%=u r["value"] %>"><%= unless r["name"].empty?
                                                               r["name"]
                                                              else 
                                                                r["value"] 

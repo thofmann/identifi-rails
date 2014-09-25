@@ -163,9 +163,13 @@ a {
   background-image: none;
 }
 
-.stats-box {
+.stats-box, #search-results {
+  width: 100%;
   word-wrap: break-word;
   table-layout: fixed;
+}
+
+.stats-box {
   h4 { display: inline; }
 }
 
