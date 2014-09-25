@@ -136,6 +136,10 @@ a {
   }
 }
 
+.gravatar-col {
+  width: 70px;
+}
+
 .quick-contact {
   background-color: inherit;
   box-shadow: none;
@@ -206,6 +210,9 @@ a {
   }
   .navbar-header {
     float: left;
+  }
+  .gravatar-col {
+    width: 60px;
   }
   #nav-search {
     clear: both;
