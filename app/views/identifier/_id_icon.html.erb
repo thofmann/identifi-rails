@@ -1,30 +1,30 @@
             <% case id["type"] %>
             <% when "email" %>
-              <a class="btn btn-lg btn-social-icon btn-success" href="mailto:<%= id["value"] %>"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</a> 
+              <a class="pull-left btn btn-lg btn-social-icon btn-success" href="mailto:<%= id["value"] %>"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</a> 
             <% when "url" %>
               <% if id["value"].include? "facebook.com/" %>
-                <a class="btn btn-lg btn-social-icon btn-facebook" href="<%= id["value"] %>"><span class="fa fa-facebook"></span></a> 
+                <a class="pull-left btn btn-lg btn-social-icon btn-facebook" href="<%= id["value"] %>"><span class="fa fa-facebook"></span></a> 
               <% elsif id["value"].include? "://twitter.com/" %>
-                <a class="btn btn-lg btn-social-icon btn-twitter" href="<%= id["value"] %>"><span class="fa fa-twitter"></span>&nbsp;</a> 
+                <a class="pull-left btn btn-lg btn-social-icon btn-twitter" href="<%= id["value"] %>"><span class="fa fa-twitter"></span>&nbsp;</a> 
               <% elsif id["value"].include? "://plus.google.com/" %>
-                <a class="btn btn-lg btn-social-icon btn-google-plus" href="<%= id["value"] %>"><span class="fa fa-google-plus"></span></a> 
+                <a class="pull-left btn btn-lg btn-social-icon btn-google-plus" href="<%= id["value"] %>"><span class="fa fa-google-plus"></span></a> 
               <% elsif id["value"].include? ".linkedin.com/" %>
-                <a class="btn btn-lg btn-social-icon btn-linkedin" href="<%= id["value"] %>"><span class="fa fa-linkedin"></span></a> 
+                <a class="pull-left btn btn-lg btn-social-icon btn-linkedin" href="<%= id["value"] %>"><span class="fa fa-linkedin"></span></a> 
               <% elsif id["value"].include? "instagram.com/" %>
-                <a class="btn btn-lg btn-social-icon btn-instagram" href="<%= id["value"] %>"><span class="fa fa-instagram"></span></a> 
+                <a class="pull-left btn btn-lg btn-social-icon btn-instagram" href="<%= id["value"] %>"><span class="fa fa-instagram"></span></a> 
               <% elsif id["value"].include? "://github.com/" %>
-                <a class="btn btn-lg btn-social-icon btn-github" href="<%= id["value"] %>"><span class="fa fa-github"></span></a> 
+                <a class="pull-left btn btn-lg btn-social-icon btn-github" href="<%= id["value"] %>"><span class="fa fa-github"></span></a> 
               <% else %>
-                <a class="btn btn-lg btn-social-icon btn-default" href="<%= id["value"] %>"><span class="glyphicon glyphicon-link"></span></a> 
+                <a class="pull-left btn btn-lg btn-social-icon btn-default" href="<%= id["value"] %>"><span class="glyphicon glyphicon-link"></span></a> 
               <% end %>
             <% when "phone" %>
-              <a class="btn btn-lg btn-social-icon btn-success" href="tel:<%= id["value"] %>"><span class="glyphicon glyphicon-earphone"></span></a>
+              <a class="pull-left btn btn-lg btn-social-icon btn-success" href="tel:<%= id["value"] %>"><span class="glyphicon glyphicon-earphone"></span></a>
             <% when "bitcoin", "bitcoin_address" %>
-              <a class="btn btn-lg btn-social-icon btn-primary" href="https://blockchain.info/address/<%=u id["value"] %>"><span class="fa fa-bitcoin"></span></a>
+              <a class="pull-left btn btn-lg btn-social-icon btn-primary" href="https://blockchain.info/address/<%=u id["value"] %>"><span class="fa fa-bitcoin"></span></a>
             <% when "name", "nickname" %>
-              <span class="btn btn-lg btn-social-icon"><span class="glyphicon glyphicon-font"></span></span>
+              <span class="pull-left btn btn-lg btn-social-icon"><span class="glyphicon glyphicon-font"></span></span>
             <% when "account" %>
-              <span class="btn btn-lg btn-social-icon"><span>&#64;</span></span>
+              <span class="pull-left btn btn-lg btn-social-icon"><span>&#64;</span></span>
             <% when "gpg_keyid", "pgp_keyid", "gpg_fingerprint", "pgp_fingerprint" %>
-              <a class="btn btn-lg btn-social-icon btn-default" href="https://pgp.mit.edu/pks/lookup?op=get&search=0x<%=u id["value"] %>"><span class="fa fa-key"></span></a>
+              <a class="pull-left btn btn-lg btn-social-icon btn-default" href="https://pgp.mit.edu/pks/lookup?op=get&search=0x<%=u id["value"] %>"><span class="fa fa-key"></span></a>
             <% end %>
