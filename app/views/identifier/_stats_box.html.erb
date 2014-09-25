@@ -2,7 +2,7 @@
   <div class="panel-body">
     <table class="stats-box table-condensed">
       <tr>
-        <td class="col-xs-4">
+        <td style="width:100px">
           <% if @gravatarHash %>
           <a href="http://www.gravatar.com/<%= @gravatarHash %>" data-toggle="tooltip" data-placement="right" title="Gravatar for <%= @gravatarEmail %>"><img src="http://www.gravatar.com/avatar/<%= @gravatarHash %>?d=retro&s=70" class="img-thumbnail mar-right5" alt="Gravatar for <%= @gravatarEmail %>"></a>
           <% end %>
