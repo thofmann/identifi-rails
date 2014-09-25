@@ -12,17 +12,22 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-10 col-xs-7">
-          <input class="slider" style="width:70%" data-slider-id="write-msg-slider" type="text" data-slider-min="-3" data-slider-max="3" data-slider-step="1" data-slider-value="1">
+        <div class="col-sm-10 col-xs-12 rating-slider">
+          <input class="slider" data-slider-id="write-msg-slider" type="text" data-slider-min="-3" data-slider-max="3" data-slider-step="1" data-slider-value="1">
           <input type="hidden" name="rating" id="buttonvalue" autocomplete="off" value="1">
-          <span id="write-msg-icons" class="has-success mar-left5">
+          <span class="hidden-xs write-msg-icons has-success mar-left5">
             <span class="write-msg-icon glyphicon glyphicon-thumbs-up mar-left5 form-control-feedback"></span>
             <span class="write-msg-icon glyphicon glyphicon-thumbs-up mar-left5 form-control-feedback" style="display:none;"></span>
             <span class="write-msg-icon glyphicon glyphicon-thumbs-up mar-left5 form-control-feedback" style="display:none;"></span>
           </span>
         </div>
-        <div class="col-sm-2" style="text-align:right">
-          <button type="submit" class="ladda-button btn btn-primary" data-style="zoom-out">Publish</button>
+        <div class="col-sm-2 col-xs-12" style="text-align:right">
+          <span class="visible-xs pull-left write-msg-icons has-success">
+            <span class="write-msg-icon glyphicon glyphicon-thumbs-up mar-left5 form-control-feedback"></span>
+            <span class="write-msg-icon glyphicon glyphicon-thumbs-up mar-left5 form-control-feedback" style="display:none;"></span>
+            <span class="write-msg-icon glyphicon glyphicon-thumbs-up mar-left5 form-control-feedback" style="display:none;"></span>
+          </span>
+          <button type="submit" class="pull-right ladda-button btn btn-primary" data-style="zoom-out">Publish</button>
         </div>
       </div>
     </form>

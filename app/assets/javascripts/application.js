@@ -173,6 +173,10 @@ ready = function() {
     return false;
   });
 
+  $('.panel-heading').click(function(e) {
+    $(e.target).children('a').click();
+  });
+
   setUpSearchAutocomplete();
   setIdPopover();
   setUpCreatePage();

@@ -122,9 +122,9 @@ ready = () ->
       $(".write-msg-icon").toggleClass('glyphicon-question-sign', val == 0)
       $(".write-msg-icon").toggleClass('glyphicon-thumbs-up', val > 0)
       $(".write-msg-icon").toggleClass('glyphicon-thumbs-down', val < 0)
-      $("#write-msg-icons").toggleClass('has-warning', val == 0)
-      $("#write-msg-icons").toggleClass('has-success', val > 0)
-      $("#write-msg-icons").toggleClass('has-error', val < 0)
+      $(".write-msg-icons").toggleClass('has-warning', val == 0)
+      $(".write-msg-icons").toggleClass('has-success', val > 0)
+      $(".write-msg-icons").toggleClass('has-error', val < 0)
       writePanel = $('#write-feedback').parent()
       writePanel.toggleClass('panel-warning', val == 0)
       writePanel.toggleClass('panel-success', val > 0)
@@ -132,6 +132,7 @@ ready = () ->
       if val != 0
         $('.write-msg-icon').hide()
         $('.write-msg-icon').slice(0, Math.abs(val)).show()
+        $('.write-msg-icon').slice(3, 3 + Math.abs(val)).show()
     
     mySlider.on 'slide', sliderHandler
     mySlider.on 'slideStop', sliderHandler
