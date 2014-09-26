@@ -24,6 +24,7 @@
 
 <div class="animated fadeIn confirmation-panel">
   <span class="<%= hasSuccess %>">
+    <span class="<%= iconStyle %> hidden-xs mar-left5 pull-right form-control-feedback"></span>
     <span class="<%= iconStyle %> visible-xs mar-right10 form-control-feedback"></span>
     <strong>
       <a href="/id/<%=u author.first %>/<%=u author.last %>" data-id-type="<%= author.first %>" data-id-value="<%= author.last %>" class="id-link">
@@ -33,7 +34,6 @@
     </strong>
      - <a href="/message/<%=u confirmation["hash"] %>" class="text-muted small" style="display:inline-block;"><%= Time.at(signedData["timestamp"]).strftime("%-d-%-m-%Y %R") %></a>
      <% if (signedData["comment"] and not signedData["comment"].empty?) %> - <%= auto_link(signedData["comment"], :link => :urls) %><% end %>
-    <span class="<%= iconStyle %> hidden-xs mar-left5 pull-right form-control-feedback"></span>
   </span>
 </div>
 <% end %>
