@@ -12,7 +12,7 @@ ready = () ->
     value = $(event.target).parents("tr").data("value")
     comment = $(event.target).siblings(".linkedComment").val()
     $.post "/id/"+method, {type:idType, value:idValue, linkedType:type, linkedValue:value, linkedComment:comment}, (data) ->
-      location.hash or location.hash = "connections"
+      location.hash or location.hash = "#connections"
       location.reload()
       $(event.target).addClass("disabled")
       $(event.target).addClass("btn-success")
@@ -45,9 +45,10 @@ ready = () ->
     if event.which == 13
       $("#addButton").click()
 
-  if $.inArray(location.hash, ["connections","sent","received"]) != -1
+  if $.inArray(location.hash, ["#connections","#sent","#received"]) != -1
     activeTab = $('[href=' + location.hash + ']')
     activeTab && activeTab.tab('show')
+    $('body').scrollTop()
 
   $('a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
     $('#sent-messages').infinitescroll 'bind'
