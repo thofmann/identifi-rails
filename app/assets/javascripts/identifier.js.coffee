@@ -7,7 +7,7 @@ ready = () ->
   idValue = $("#id-value").html()
   $(".btn-confirm, .btn-refute").click (event) ->
     event.preventDefault()
-    method = if $(event.target).hasClass('btn-refute') then "refute" else "confirm"
+    method = if $(event.target).closest("button").hasClass('btn-refute') then "refute" else "confirm"
     type = $(event.target).parents("tr").data("type")
     value = $(event.target).parents("tr").data("value")
     comment = $(event.target).siblings(".linkedComment").val()
