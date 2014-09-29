@@ -1,17 +1,7 @@
 <div class="row"><div class="col-lg-12">
 <h3 class="hidden-xs"><span id="id-value"><%= params[:value] %></span>
   <small class="text-muted">
-    <% if ["bitcoin", "bitcoin_address"].include? params[:type] %>
-      <a href="http://blockchain.info/address/<%= params[:value] %>">
-        <span id="id-type"><%= params[:type] %></span>
-      </a>
-    <% elsif params[:type] == "url" %>
-      <a href="<%= params[:value] %>">
-        <span id="id-type"><%= params[:type] %></span>
-      </a>
-    <% else %>
-      <span id="id-type"><%= params[:type] %></span>
-    <% end %>
+    <span id="id-type"><%= params[:type] %></span>
   </small>
 </h3>
 </div></div>
