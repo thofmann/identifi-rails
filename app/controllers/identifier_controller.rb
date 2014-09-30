@@ -69,7 +69,6 @@ class IdentifierController < ApplicationController
     fixUrlParams(params)
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     @googlePlusUrl = params[:value] if (params[:type] == "url" and /https:\/\/plus.google.com/.match(params[:value]))
-    @pageTitle = params[:value]
     @isTrustPathable = IdentifiRails::Application.config.trustPathableTypes.include? params[:type]
     
     if @isTrustPathable 
@@ -99,6 +98,8 @@ class IdentifierController < ApplicationController
     t1 = Time.now
     @stats = h.overview(*overview_args(params, session))
     logger.debug "overview completed in #{(Time.now - t1) * 1000}ms"
+
+    @pageTitle = @stats["name"] || params[:value]
   end
 
   def write
