@@ -2,14 +2,16 @@
   <div class="panel-body">
     <table class="stats-box table-condensed">
       <tr>
+        <% if @isTrustPathable %>
         <td style="width:120px">
           <% if @gravatarHash %>
           <a href="http://www.gravatar.com/<%= @gravatarHash %>" data-toggle="tooltip" data-placement="right" title="Gravatar for <%= @gravatarEmail %>"><img src="http://www.gravatar.com/avatar/<%= @gravatarHash %>?d=retro&s=100" class="img-thumbnail mar-right5" alt="Gravatar for <%= @gravatarEmail %>"></a>
           <% end %>
         </td>
+        <% end %>
         <td>
           <h4>
-            <%= unless @stats["name"].empty?
+            <%= if (@isTrustPathable and not @stats["name"].empty?)
                   name = @stats["name"]
                 else
                   if (current_user and current_user.type == params[:type] and current_user.value == params[:value])
@@ -20,7 +22,7 @@
                 end %>
               <%
                 nickname = @connections.find { |c| c["type"] == "nickname" }
-                if nickname
+                if (@isTrustPathable and nickname)
                   nickname = nickname["value"]
                   if nickname != name
                 %>
@@ -30,6 +32,7 @@
           </h4>
         </td>
       </tr>
+      <% if @isTrustPathable %>
       <tr>
         <td>Received</td>
         <td><span class="positive"><span class="glyphicon glyphicon-thumbs-up"></span> <%= @stats["receivedPositive"] %></span> <span class="neutral"><span class="glyphicon glyphicon-question-sign"></span> <%= @stats["receivedNeutral"] %></span> <span class="negative"><span class="glyphicon glyphicon-thumbs-down"></span> <%= @stats["receivedNegative"] %></span></td>
@@ -59,6 +62,7 @@
         <td>Trust map size</td>
         <td><%= @stats["trustMapSize"] %></td>
       </tr> -->
+      <% end %>
     </table>
   </div>
 </div>

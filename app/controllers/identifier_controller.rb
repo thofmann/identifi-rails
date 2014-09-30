@@ -70,27 +70,31 @@ class IdentifierController < ApplicationController
     offset = (params[:page].to_i * MSG_COUNT).to_s or "0"
     @googlePlusUrl = params[:value] if (params[:type] == "url" and /https:\/\/plus.google.com/.match(params[:value]))
     @pageTitle = params[:value]
+    @isTrustPathable = IdentifiRails::Application.config.trustPathableTypes.include? params[:type]
     
-    t1 = Time.now
-    @authored = h.getmsgsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:msg_type_filter] )
-    logger.debug "getmsgsbyauthor completed in #{(Time.now - t1) * 1000}ms"
-    setGravatarsAndLinks(@authored)
-    
-    t1 = Time.now
-    @received = h.getmsgsbyrecipient(*getmsgsbyrecipient_args(params, session, offset))
-    logger.debug "getmsgsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
-    setGravatarsAndLinks(@received)
+    if @isTrustPathable 
+      t1 = Time.now
+      @authored = h.getmsgsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:msg_type_filter] )
+      logger.debug "getmsgsbyauthor completed in #{(Time.now - t1) * 1000}ms"
+      setGravatarsAndLinks(@authored)
+      
+      t1 = Time.now
+      @received = h.getmsgsbyrecipient(*getmsgsbyrecipient_args(params, session, offset))
+      logger.debug "getmsgsbyrecipient completed in #{(Time.now - t1) * 1000}ms"
+      setGravatarsAndLinks(@received)
 
-    t1 = Time.now
-    trustpaths = h.getpaths(*getpaths_args(params, session))
-    logger.debug "getpaths completed in #{(Time.now - t1) * 1000}ms"
+      t1 = Time.now
+      trustpaths = h.getpaths(*getpaths_args(params, session))
+      logger.debug "getpaths completed in #{(Time.now - t1) * 1000}ms"
+      
+      setTrustpaths(trustpaths, h)
+    end
 
     t1 = Time.now
     @connections = h.getconnections(*getconnections_args(params, session))
     logger.debug "getconnections completed in #{(Time.now - t1) * 1000}ms"
 
     setGravatarHash(params)
-    setTrustpaths(trustpaths, h)
 
     t1 = Time.now
     @stats = h.overview(*overview_args(params, session))
