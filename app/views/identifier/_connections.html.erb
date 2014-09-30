@@ -1,6 +1,7 @@
   <div id="connections">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
     <table class="table truncated-table table-hover animated fadeIn">
+      <% firstDegree = true %>
       <% @connections.each do |id| %>
          <% 
             next if (id["confirmations"] == 0 and id["refutations"] > 0)
@@ -18,6 +19,10 @@
               percentage = 0
             end 
          %>
+        <% if firstDegree and id["distance"] > 1 %>
+          <% firstDegree = false %>
+          <tr><th colspan="5">Indirect connections:</th></tr>
+        <% end %>
         <tr class="id-row <%= "#{rowClass}" if rowClass %>" data-type="<%= id["type"] %>" data-value="<%= id["value"] %>">
           <td>
             <%= render "id_icon", id: id %>
