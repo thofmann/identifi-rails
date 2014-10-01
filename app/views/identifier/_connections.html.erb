@@ -21,7 +21,7 @@
          %>
         <% if firstDegree and id["distance"] > 1 %>
           <% firstDegree = false %>
-          <tr><th colspan="5">Indirect connections:</th></tr>
+          <tr><th colspan="5">Indirectly connected:</th></tr>
         <% end %>
         <tr class="id-row <%= "#{rowClass}" if rowClass %>" data-type="<%= id["type"] %>" data-value="<%= id["value"] %>">
           <td>

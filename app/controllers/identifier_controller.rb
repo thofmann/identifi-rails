@@ -99,7 +99,11 @@ class IdentifierController < ApplicationController
     @stats = h.overview(*overview_args(params, session))
     logger.debug "overview completed in #{(Time.now - t1) * 1000}ms"
 
-    @pageTitle = @stats["name"] || params[:value]
+    if (@stats["name"].nil? or @stats["name"].empty?)
+      @pageTitle = params[:value]
+    else
+      @pageTitle = @stats["name"]
+    end
   end
 
   def write
