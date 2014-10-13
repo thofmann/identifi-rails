@@ -71,6 +71,10 @@ class IdentifierController < ApplicationController
     @googlePlusUrl = params[:value] if (params[:type] == "url" and /https:\/\/plus.google.com/.match(params[:value]))
     @isTrustPathable = IdentifiRails::Application.config.trustPathableTypes.include? params[:type]
     
+    t1 = Time.now
+    @connections = h.getconnections(*getconnections_args(params, session))
+    logger.debug "getconnections completed in #{(Time.now - t1) * 1000}ms"
+
     if @isTrustPathable 
       t1 = Time.now
       @authored = h.getmsgsbyauthor( params[:type], params[:value], MSG_COUNT_S, offset, "", "", "0", session[:msg_type_filter] )
@@ -88,10 +92,6 @@ class IdentifierController < ApplicationController
       
       setTrustpaths(trustpaths, h)
     end
-
-    t1 = Time.now
-    @connections = h.getconnections(*getconnections_args(params, session))
-    logger.debug "getconnections completed in #{(Time.now - t1) * 1000}ms"
 
     setGravatarHash(params)
 
