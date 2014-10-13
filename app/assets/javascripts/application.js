@@ -177,6 +177,12 @@ ready = function() {
     $(e.target).children('a').click();
   });
 
+  $('.login-alert-info').click(function(e) {
+    e.preventDefault();
+    $(window).scrollTop(0);
+    setTimeout(function(){$('.login-button:visible').click();},0);
+  });
+
   setUpSearchAutocomplete();
   setIdPopover();
   setUpCreatePage();

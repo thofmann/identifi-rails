@@ -14,8 +14,6 @@ IdentifiRails::Application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
-  get 'login' => 'login#index'
-
   get 'search(/:query)' => 'search#index', :constraints => { :query => /[^\/]+/ }
   get 'id/:type/:value' => 'identifier#show', :constraints => { :type => /[^\/]+/, :value => /.+/ }
   get 'id/sent' => 'identifier#sent', :constraints => { :type => /[^\/]+/, :value => /.+/ }
