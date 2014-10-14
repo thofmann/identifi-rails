@@ -9,7 +9,11 @@
   <div class="col-md-4">
     <h4><span id="id-value"><%= params[:value] %></span>
       <small class="text-muted">
-        <span id="id-type"><%= params[:type] %></span>
+        <% if params[:type] == "url" %>
+          <a href="<%= params[:value] %>"><span id="id-type"><%= params[:type] %></span></a>
+        <% else %>
+          <span id="id-type"><%= params[:type] %></span>
+        <% end %>
       </small>
     </h4>
     <%= render "stats_box" %>
