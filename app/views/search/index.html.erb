@@ -16,7 +16,7 @@
                                                              <small><%= r["type"] %><%= ": #{r["value"]}" unless r["name"].empty? %></small>
                                                            <% end %>
         <span class="pull-right">
-          <% if r["email"] %>
+          <% unless r["email"].empty? %>
             <a class="btn btn-xs btn-social-icon btn-success" href="mailto:<%= r["email"] %>"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</a> 
           <% end %>
           <% if r["facebook"] %>
