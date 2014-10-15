@@ -12,7 +12,23 @@
                                                              else 
                                                                r["value"] 
                                                              end %></a><br>
-                                                           <small><%= r["type"] %><%= ": #{r["value"]}" unless r["name"].empty? %></small>
+                                                           <% if r["name"].empty? %>
+                                                             <small><%= r["type"] %><%= ": #{r["value"]}" unless r["name"].empty? %></small>
+                                                           <% end %>
+        <span class="pull-right">
+          <% if r["email"] %>
+            <a class="btn btn-xs btn-social-icon btn-success" href="mailto:<%= r["email"] %>"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</a> 
+          <% end %>
+          <% if r["facebook"] %>
+            <a class="btn btn-xs btn-social-icon btn-facebook" href="<%= r["facebook"] %>"><span class="fa fa-facebook"></span></a> 
+          <% end %>
+          <% if r["twitter"] %>
+            <a class="btn btn-xs btn-social-icon btn-twitter" href="<%= r["twitter"] %>"><span class="fa fa-twitter"></span></a> 
+          <% end %>
+          <% if r["google_plus"] %>
+            <a class="btn btn-xs btn-social-icon btn-google-plus" href="<%= r["google_plus"] %>"><span class="fa fa-google-plus"></span></a> 
+          <% end %>
+        </span>
     </td>
   </tr>
 <% end %>
