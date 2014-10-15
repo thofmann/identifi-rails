@@ -16,8 +16,10 @@ class SearchController < ApplicationController
       result = {"type" => "", "value" => "", "email" => "", "name" => ""}
       r.each do |id|
           case id[0]
-          when "name" || "nickname"
+          when "name"
             result["name"] = id[1]
+          when "nickname"
+            result["name"] = id[1] if result["name"].empty?
           when "email"
             result["email"] = id[1]
           when "url"
