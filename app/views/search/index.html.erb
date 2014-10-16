@@ -28,6 +28,9 @@
           <% if r["google_plus"] %>
             <a class="btn btn-xs btn-social-icon btn-google-plus" href="<%= r["google_plus"] %>"><span class="fa fa-google-plus"></span></a> 
           <% end %>
+          <% if r["bitcoin"] %>
+            <a class="btn btn-xs btn-social-icon btn-primary" href="https://blockchain.info/address/<%=u r["bitcoin"] %>"><span class="fa fa-bitcoin"></span></a>
+          <% end %>
         </span>
     </td>
   </tr>
