@@ -17,7 +17,7 @@ class SearchController < ApplicationController
       r.each do |id|
           case id[0]
           when "name"
-            result["name"] = id[1]
+            result["name"] = id[1] if result["name"].empty?
           when "nickname"
             result["nickname"] = id[1]
             result["name"] = id[1] if result["name"].empty?
