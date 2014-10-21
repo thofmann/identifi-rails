@@ -44,7 +44,7 @@
                   <span class="fa fa-google-plus"></span> <%= r["google_plus"] %> 
                 </span>
               <% end %> 
-              <% if r["bitcoin"] %>
+              <% unless r["bitcoin"].empty? %>
                 <span class="mar-right10">
                   <span class="fa fa-bitcoin"></span> <%=u r["bitcoin"] %>
                 </span>

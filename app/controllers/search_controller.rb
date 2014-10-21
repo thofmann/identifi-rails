@@ -13,20 +13,20 @@ class SearchController < ApplicationController
       @rawResults = h.search(params[:query] || "", "", RESULT_COUNT.to_s, offset.to_s, @nodeID[0], @nodeID[1]);
     end
     @rawResults.each do |r|
-      result = {"type" => r[0][0], "value" => r[0][1], "email" => "", "name" => "", "nickname" => ""}
+      result = {"type" => r[0][0], "value" => r[0][1], "email" => "", "name" => "", "nickname" => "", "bitcoin" => ""}
       r.each do |id|
           case id[0]
           when "name"
             result["name"] = id[1] if result["name"].empty?
           when "nickname"
-            result["nickname"] = id[1]
+            result["nickname"] = id[1] if result["nickname"].empty?
             result["name"] = id[1] if result["name"].empty?
           when "email"
             if ["name","nickname"].include? result["type"]
               result["type"] = id[0]
               result["value"] = id[1]
             end
-            result["email"] = id[1]
+            result["email"] = id[1] if result["email"].empty?
           when "url"
             if ["name","nickname"].include? result["type"]
               result["type"] = id[0]
@@ -40,7 +40,7 @@ class SearchController < ApplicationController
               result["google_plus"] = id[1].split("plus.google.com/").last
             end
           when "bitcoin", "bitcoin_address"
-            result["bitcoin"] = id[1]
+            result["bitcoin"] = id[1] if result["bitcoin"].empty?
           end
       end
       if ["name","nickname"].include? result["type"]
