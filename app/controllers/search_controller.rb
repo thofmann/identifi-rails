@@ -28,6 +28,10 @@ class SearchController < ApplicationController
             end
             result["email"] = id[1]
           when "url"
+            if ["name","nickname"].include? result["type"]
+              result["type"] = id[0]
+              result["value"] = id[1]
+            end
             result["facebook"] = id[1].split("facebook.com/").last if id[1].include? "facebook.com/"
             result["twitter"] = id[1].split("twitter.com/").last if id[1].include? "twitter.com/"
             if id[1].include? "plus.google.com/+"

@@ -17,28 +17,40 @@
                                                              <small><%= r["type"] %><%= ": #{r["value"]}" unless r["name"].empty? %></small>
                                                            <% end %>
                                                            <br>
-        <span class="">
-          <small>
-          <% if !r["nickname"].empty? && r["nickname"] != r["name"] %>
-             <%= r["nickname"] %>
-          <% end %> 
-          <% unless r["email"].empty? %>
-            <span class="glyphicon glyphicon-envelope"></span> <%= r["email"] %> 
-          <% end %>
-          <% if r["facebook"] %>
-            <span class="fa fa-facebook"></span> <%= r["facebook"] %> 
-          <% end %> 
-          <% if r["twitter"] %>
-            <span class="fa fa-twitter"></span> <%= r["twitter"] %>
-          <% end %> 
-          <% if r["google_plus"] %>
-            <span class="fa fa-google-plus"></span> <%= r["google_plus"] %> 
-          <% end %> 
-          <% if r["bitcoin"] %>
-            <span class="fa fa-bitcoin"></span> <%=u r["bitcoin"] %>
-          <% end %>
-        </small>
-        </span>
+        <% if r.length > 1 %>
+            <small>
+              <% if !r["nickname"].empty? && r["nickname"] != r["name"] %>
+                <span class="mar-right10">
+                   <%= r["nickname"] %>
+                </span>
+              <% end %>
+              <% unless r["email"].empty? %>
+                <span class="mar-right10">
+                  <span class="glyphicon glyphicon-envelope"></span> <%= r["email"] %> 
+                </span>
+              <% end %>
+              <% if r["facebook"] %>
+                <span class="mar-right10"> 
+                  <span class="fa fa-facebook"></span> <%= r["facebook"] %> 
+                </span>
+              <% end %> 
+              <% if r["twitter"] %>
+                <span class="mar-right10">
+                  <span class="fa fa-twitter"></span> <%= r["twitter"] %>
+                </span>
+              <% end %> 
+              <% if r["google_plus"] %>
+                <span class="mar-right10">
+                  <span class="fa fa-google-plus"></span> <%= r["google_plus"] %> 
+                </span>
+              <% end %> 
+              <% if r["bitcoin"] %>
+                <span class="mar-right10">
+                  <span class="fa fa-bitcoin"></span> <%=u r["bitcoin"] %>
+                </span>
+              <% end %>
+            </small>
+        <% end %>
     </td>
   </tr>
 <% end %>
