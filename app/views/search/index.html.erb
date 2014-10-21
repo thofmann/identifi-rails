@@ -11,26 +11,33 @@
                                                               r["name"]
                                                              else 
                                                                r["value"] 
-                                                             end %></a><br>
+                                                             end %> 
+                                                         </a>
                                                            <% if r["name"].empty? %>
                                                              <small><%= r["type"] %><%= ": #{r["value"]}" unless r["name"].empty? %></small>
                                                            <% end %>
-        <span class="pull-right">
+                                                           <br>
+        <span class="">
+          <small>
+          <% if !r["nickname"].empty? && r["nickname"] != r["name"] %>
+             <%= r["nickname"] %>
+          <% end %> 
           <% unless r["email"].empty? %>
-            <a class="btn btn-xs btn-social-icon btn-success" href="mailto:<%= r["email"] %>"><span class="glyphicon glyphicon-envelope"></span>&nbsp;</a> 
+            <span class="glyphicon glyphicon-envelope"></span> <%= r["email"] %> 
           <% end %>
           <% if r["facebook"] %>
-            <a class="btn btn-xs btn-social-icon btn-facebook" href="<%= r["facebook"] %>"><span class="fa fa-facebook"></span></a> 
-          <% end %>
+            <span class="fa fa-facebook"></span> <%= r["facebook"] %> 
+          <% end %> 
           <% if r["twitter"] %>
-            <a class="btn btn-xs btn-social-icon btn-twitter" href="<%= r["twitter"] %>"><span class="fa fa-twitter"></span></a> 
-          <% end %>
+            <span class="fa fa-twitter"></span> <%= r["twitter"] %>
+          <% end %> 
           <% if r["google_plus"] %>
-            <a class="btn btn-xs btn-social-icon btn-google-plus" href="<%= r["google_plus"] %>"><span class="fa fa-google-plus"></span></a> 
-          <% end %>
+            <span class="fa fa-google-plus"></span> <%= r["google_plus"] %> 
+          <% end %> 
           <% if r["bitcoin"] %>
-            <a class="btn btn-xs btn-social-icon btn-primary" href="https://blockchain.info/address/<%=u r["bitcoin"] %>"><span class="fa fa-bitcoin"></span></a>
+            <span class="fa fa-bitcoin"></span> <%=u r["bitcoin"] %>
           <% end %>
+        </small>
         </span>
     </td>
   </tr>
