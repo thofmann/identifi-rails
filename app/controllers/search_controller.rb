@@ -20,7 +20,6 @@ class SearchController < ApplicationController
             result["name"] = id[1] if result["name"].empty?
           when "nickname"
             result["nickname"] = id[1] if result["nickname"].empty?
-            result["name"] = id[1] if result["name"].empty?
           when "email"
             if ["name","nickname"].include? result["type"]
               result["type"] = id[0]

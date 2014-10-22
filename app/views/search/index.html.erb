@@ -7,11 +7,13 @@
 <% @results.each do |r| %>
   <tr class="search-result-row">
     <td class="gravatar-col"><img alt="" src="https://www.gravatar.com/avatar/<%= r["gravatarHash"] %>?d=retro&s=45"></td>
-    <td><a href="/id/<%=u r["type"] %>/<%=u r["value"] %>"><%= unless r["name"].empty?
-                                                              r["name"]
-                                                             else 
-                                                               r["value"] 
-                                                             end %> 
+    <td><a href="/id/<%=u r["type"] %>/<%=u r["value"] %>"><%= if !r["name"].empty?
+                                                                 r["name"]
+                                                               elsif !r["nickname"].empty?
+                                                                 r["nickname"]
+                                                               else
+                                                                 r["value"] 
+                                                               end %> 
                                                          </a>
                                                            <% if r["name"].empty? %>
                                                              <small><%= r["type"] %><%= ": #{r["value"]}" unless r["name"].empty? %></small>
