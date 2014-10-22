@@ -15,13 +15,13 @@
                                                                  r["value"] 
                                                                end %> 
                                                          </a>
-                                                           <% if r["name"].empty? %>
+                                                           <% if (["name","nickname"].include? r["type"] or (r["name"].empty? and r["nickname"].empty?)) %>
                                                              <small><%= r["type"] %><%= ": #{r["value"]}" unless r["name"].empty? %></small>
                                                            <% end %>
                                                            <br>
         <% if r.length > 1 %>
             <small>
-              <% if !r["nickname"].empty? && r["nickname"] != r["name"] %>
+              <% if (!r["nickname"].empty? and !r["name"].empty?) %>
                 <span class="mar-right10">
                    <%= r["nickname"] %>
                 </span>
