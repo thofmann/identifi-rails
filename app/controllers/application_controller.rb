@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   def setSessionDefaults
     session[:max_trust_distance] = 0 unless session[:max_trust_distance]
     session[:msg_type_filter] = "rating" unless session[:msg_type_filter]
+    @googleAnalyticsTrackingID = IdentifiRails::Application.config.googleAnalyticsTrackingID if (IdentifiRails::Application.config.googleAnalyticsTrackingID != '')
   end
 
   def setViewpoint(identifiRPC)
